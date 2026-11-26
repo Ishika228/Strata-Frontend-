@@ -1,0 +1,636 @@
+openapi: 3.1.0
+info:
+  title: Vertex Platform API (Strata + FM) — POC
+  version: 1.0.0-poc
+  description: |
+    INDEPENDENT POC API (PROPOSED). Not an Urbanise API; Urbanise endpoints are UNKNOWN.
+    Core subset; the full operation list is in API_CATALOG.md. Conventions: ERROR_MODEL.md,
+    PAGINATION.md, FILTERING.md, IDEMPOTENCY.md, VERSIONING.md.
+servers:
+  - url: http://localhost:3000/api/v1
+security:
+  - bearerAuth: []
+tags:
+  - {name: Platform}
+  - {name: Strata}
+  - {name: Portal}
+  - {name: FM}
+  - {name: Common}
+  - {name: AI}
+  - {name: Integrations}
+
+paths:
+  /me:
+    get:
+      tags: [Platform]
+      summary: Current user, active tenant, role assignments
+      responses:
+        '200': {description: OK, content: {application/json: {schema: {$ref: '#/components/schemas/Me'}}}}
+        '401': {$ref: '#/components/responses/Unauthorized'}
+
+  /documents:
+    post:
+      tags: [Platform]
+      summary: Initiate document upload (returns presigned PUT URL)
+      x-permission: document.write
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [title, kind, mime, sizeBytes, sha256]
+              properties:
+                title: {type: string, maxLength: 200}
+                kind: {type: string, enum: [agenda, minutes, by_law, insurance, report, invoice, notice, photo, certificate, plan, other]}
+                mime: {type: string, enum: [application/pdf, image/png, image/jpeg, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, text/csv]}
+                sizeBytes: {type: integer, maximum: 26214400}
+                sha256: {type: string, pattern: '^[a-f0-9]{64}$'}
+                visibility: {type: string, enum: [staff, committee, owners, lot_owner, contractor, client]}
+                links: {type: array, items: {$ref: '#/components/schemas/EntityRef'}}
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  document: {$ref: '#/components/schemas/Document'}
+                  uploadUrl: {type: string, format: uri}
+                  expiresAt: {type: string, format: date-time}
+        '422': {$ref: '#/components/responses/ValidationError'}
+  /documents/{id}/download:
+    get:
+      tags: [Platform]
+      summary: Authorize and get a 5-minute signed download URL
+      x-permission: document.read
+      parameters: [{$ref: '#/components/parameters/Id'}]
+      responses:
+        '200': {description: OK, content: {application/json: {schema: {type: object, properties: {url: {type: string, format: uri}, expiresAt: {type: string, format: date-time}}}}}}
+        '404': {$ref: '#/components/responses/NotFound'}
+        '409': {description: Document not yet scanned clean, content: {application/problem+json: {schema: {$ref: '#/components/schemas/Problem'}}}}
+
+  /audit-events:
+    get:
+      tags: [Platform]
+      x-permission: platform.audit.read
+      parameters:
+        - {name: entityType, in: query, required: true, schema: {type: string}}
+        - {name: entityId, in: query, required: true, schema: {type: string, format: uuid}}
+        - $ref: '#/components/parameters/Cursor'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200': {description: OK, content: {application/json: {schema: {$ref: '#/components/schemas/AuditEventPage'}}}}
+
+  /search:
+    get:
+      tags: [Platform]
+      parameters:
+        - {name: q, in: query, required: true, schema: {type: string, minLength: 2, maxLength: 100}}
+        - {name: types, in: query, schema: {type: string, description: 'comma list e.g. scheme,lot,contact,asset,work_order,document'}}
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data: {type: array, items: {type: object, properties: {entityType: {type: string}, entityId: {type: string, format: uuid}, title: {type: string}, subtitle: {type: string}, href: {type: string}}}}
+
+  /imports:
+    post:
+      tags: [Platform]
+      x-permission: platform.import.run
+      requestBody:
+        content:
+          application/json:
+            schema: {type: object, required: [type, documentId], properties: {type: {type: string, enum: [schemes, buildings, lots, contacts_ownerships, insurance_policies, levy_settings, opening_balances, suppliers, regions, properties, locations, assets]}, documentId: {type: string, format: uuid}}}
+      responses:
+        '201': {description: Created, content: {application/json: {schema: {$ref: '#/components/schemas/ImportJob'}}}}
+  /imports/{id}/commit:
+    post:
+      tags: [Platform]
+      x-permission: platform.import.run
+      parameters: [{$ref: '#/components/parameters/Id'}]
+      responses:
+        '200': {description: Committed, content: {application/json: {schema: {$ref: '#/components/schemas/ImportJob'}}}}
+        '409': {description: Not validated or file hash changed}
+
+  /strata/schemes:
+    get:
+      tags: [Strata]
+      x-permission: strata.scheme.read
+      parameters:
+        - $ref: '#/components/parameters/Cursor'
+        - $ref: '#/components/parameters/Limit'
+        - {name: q, in: query, schema: {type: string}}
+        - {name: status, in: query, schema: {type: string, enum: [active, inactive]}}
+      responses:
+        '200': {description: OK, content: {application/json: {schema: {allOf: [{$ref: '#/components/schemas/PageMeta'}, {type: object, properties: {data: {type: array, items: {$ref: '#/components/schemas/Scheme'}}}}]}}}}
+    post:
+      tags: [Strata]
+      x-permission: strata.scheme.manage
+      requestBody: {required: true, content: {application/json: {schema: {$ref: '#/components/schemas/SchemeCreate'}}}}
+      responses:
+        '201': {description: Created (funds, chart of accounts, trust account and portal provisioned), content: {application/json: {schema: {$ref: '#/components/schemas/Scheme'}}}}
+        '409': {description: Duplicate registration number}
+        '422': {$ref: '#/components/responses/ValidationError'}
+  /strata/schemes/{id}/lots:
+    get:
+      tags: [Strata]
+      x-permission: strata.lot.read
+      parameters: [{$ref: '#/components/parameters/Id'}, {$ref: '#/components/parameters/Cursor'}, {$ref: '#/components/parameters/Limit'}]
+      responses:
+        '200': {description: OK, content: {application/json: {schema: {type: object, properties: {data: {type: array, items: {$ref: '#/components/schemas/Lot'}}, nextCursor: {type: [string, 'null']}}}}}}
+    post:
+      tags: [Strata]
+      x-permission: strata.scheme.manage
+      parameters: [{$ref: '#/components/parameters/Id'}]
+      requestBody: {required: true, content: {application/json: {schema: {$ref: '#/components/schemas/LotCreate'}}}}
+      responses:
+        '201': {description: Created, content: {application/json: {schema: {$ref: '#/components/schemas/Lot'}}}}
+  /strata/lots/{id}/ownerships:
+    post:
+      tags: [Strata]
+      x-permission: strata.contact.manage
+      parameters: [{$ref: '#/components/parameters/Id'}]
+      requestBody:
+        content:
+          application/json:
+            schema: {type: object, required: [contactId, validFrom], properties: {contactId: {type: string, format: uuid}, validFrom: {type: string, format: date}, sharePct: {type: number, minimum: 0.01, maximum: 100}, ownershipType: {type: string, enum: [owner_occupier, investor, company]}, endCurrentOwnership: {type: boolean, default: true}}}
+      responses:
+        '201': {description: Created}
+  /strata/budgets/{id}/approve:
+    post:
+      tags: [Strata]
+      x-permission: strata.budget.approve
+      parameters: [{$ref: '#/components/parameters/Id'}]
+      requestBody: {content: {application/json: {schema: {type: object, properties: {meetingMotionId: {type: string, format: uuid}}}}}}
+      responses:
+        '200': {description: Approved; levy schedule generated, content: {application/json: {schema: {$ref: '#/components/schemas/Budget'}}}}
+        '409': {$ref: '#/components/responses/InvalidState'}
+  /strata/budgets/{id}/levy-preview:
+    get:
+      tags: [Strata]
+      x-permission: strata.budget.edit
+      parameters: [{$ref: '#/components/parameters/Id'}]
+      responses:
+        '200':
+          description: Per-lot per-instalment amounts per fund
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  instalments: {type: integer}
+                  rows: {type: array, items: {type: object, properties: {lotId: {type: string, format: uuid}, lotNumber: {type: string}, fundType: {type: string}, instalment: {type: integer}, dueDate: {type: string, format: date}, amount: {$ref: '#/components/schemas/Money'}}}}
+                  totals: {type: object, additionalProperties: {$ref: '#/components/schemas/Money'}}
+  /strata/schemes/{id}/levy-runs:
+    post:
+      tags: [Strata]
+      x-permission: strata.levy.issue
+      parameters: [{$ref: '#/components/parameters/Id'}, {$ref: '#/components/parameters/IdempotencyKey'}]
+      requestBody: {content: {application/json: {schema: {type: object, required: [periodDueDate], properties: {periodDueDate: {type: string, format: date}}}}}}
+      responses:
+        '202': {description: Accepted (job), content: {application/json: {schema: {$ref: '#/components/schemas/LevyRun'}}}}
+        '409': {description: Run already exists for period}
+  /strata/lots/{id}/ledger:
+    get:
+      tags: [Strata]
+      x-permission: strata.ledger.read
+      parameters:
+        - $ref: '#/components/parameters/Id'
+        - {name: from, in: query, schema: {type: string, format: date}}
+        - {name: to, in: query, schema: {type: string, format: date}}
+      responses:
+        '200': {description: OK, content: {application/json: {schema: {$ref: '#/components/schemas/LotLedger'}}}}
+        '404': {$ref: '#/components/responses/NotFound'}
+  /strata/payments:
+    post:
+      tags: [Strata]
+      summary: Manual receipt (quick transaction entry)
+      x-permission: strata.payment.create
+      parameters: [{$ref: '#/components/parameters/IdempotencyKey'}]
+      requestBody:
+        content:
+          application/json:
+            schema: {type: object, required: [schemeId, lotId, amount, method, receivedAt], properties: {schemeId: {type: string, format: uuid}, lotId: {type: string, format: uuid}, amount: {$ref: '#/components/schemas/Money'}, method: {type: string, enum: [bank_transfer, manual, bpay_like]}, reference: {type: string}, receivedAt: {type: string, format: date-time}}}
+      responses:
+        '201': {description: Created and allocated, content: {application/json: {schema: {$ref: '#/components/schemas/Payment'}}}}
+        '422': {$ref: '#/components/responses/ValidationError'}
+  /strata/bank-accounts/{id}/statements:
+    post:
+      tags: [Strata]
+      x-permission: strata.bank.reconcile
+      parameters: [{$ref: '#/components/parameters/Id'}]
+      requestBody: {content: {application/json: {schema: {type: object, required: [documentId, format], properties: {documentId: {type: string, format: uuid}, format: {type: string, enum: [csv_generic, camt053]}}}}}}
+      responses:
+        '202': {description: Import + auto-match job started}
+  /strata/bank-transactions/{id}/match:
+    post:
+      tags: [Strata]
+      x-permission: strata.bank.reconcile
+      parameters: [{$ref: '#/components/parameters/Id'}]
+      requestBody: {content: {application/json: {schema: {type: object, required: [targetType, targetId], properties: {targetType: {type: string, enum: [payment, payment_batch_item, journal_entry, new_receipt]}, targetId: {type: string, format: uuid}, lotId: {type: string, format: uuid}}}}}}
+      responses:
+        '200': {description: Matched}
+        '409': {$ref: '#/components/responses/InvalidState'}
+  /strata/arrears:
+    get:
+      tags: [Strata]
+      x-permission: strata.arrears.manage
+      parameters:
+        - {name: schemeId, in: query, schema: {type: string, format: uuid}}
+        - {name: level, in: query, schema: {type: integer, minimum: 0, maximum: 3}}
+        - $ref: '#/components/parameters/Cursor'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200': {description: OK, content: {application/json: {schema: {type: object, properties: {data: {type: array, items: {$ref: '#/components/schemas/ArrearsCase'}}, nextCursor: {type: [string, 'null']}}}}}}
+  /strata/arrears/{id}/referrals:
+    post:
+      tags: [Strata]
+      x-permission: strata.arrears.refer
+      parameters: [{$ref: '#/components/parameters/Id'}, {$ref: '#/components/parameters/IdempotencyKey'}]
+      requestBody: {content: {application/json: {schema: {type: object, required: [provider], properties: {provider: {type: string, example: mock-collections}, note: {type: string}}}}}}
+      responses:
+        '201': {description: Referral created}
+        '409': {description: Case not at referral-eligible level}
+  /strata/supplier-invoices:
+    post:
+      tags: [Strata]
+      x-permission: strata.invoice.code
+      requestBody: {content: {application/json: {schema: {$ref: '#/components/schemas/SupplierInvoiceCreate'}}}}
+      responses:
+        '201': {description: Created, content: {application/json: {schema: {$ref: '#/components/schemas/SupplierInvoice'}}}}
+        '409': {description: DUPLICATE_INVOICE}
+  /strata/payment-batches:
+    post:
+      tags: [Strata]
+      x-permission: strata.payment_batch.submit
+      parameters: [{$ref: '#/components/parameters/IdempotencyKey'}]
+      requestBody: {content: {application/json: {schema: {type: object, required: [invoiceIds], properties: {invoiceIds: {type: array, minItems: 1, maxItems: 500, items: {type: string, format: uuid}}}}}}}
+      responses:
+        '201': {description: Draft batch}
+        '422': {description: Includes non-approved invoice or non-compliant supplier}
+  /strata/motions/{id}/votes:
+    post:
+      tags: [Strata, Portal]
+      x-permission: strata.vote.cast
+      parameters: [{$ref: '#/components/parameters/Id'}, {$ref: '#/components/parameters/IdempotencyKey'}]
+      requestBody: {content: {application/json: {schema: {type: object, required: [lotId, choice], properties: {lotId: {type: string, format: uuid}, choice: {type: string, enum: [for, against, abstain]}, proxyId: {type: string, format: uuid}}}}}}
+      responses:
+        '201': {description: Vote recorded (replaces earlier vote for lot while open)}
+        '403': {description: NOT_ELIGIBLE}
+        '409': {description: Motion not open}
+  /strata/campaigns/{id}/send:
+    post:
+      tags: [Strata]
+      x-permission: strata.campaign.send
+      parameters: [{$ref: '#/components/parameters/Id'}]
+      responses:
+        '202': {description: Sending}
+        '409': {description: TEST_SEND_REQUIRED}
+  /strata/reports/{key}:
+    get:
+      tags: [Strata]
+      x-permission: strata.report.run
+      parameters:
+        - {name: key, in: path, required: true, schema: {type: string, enum: [aged-debtors, levy-register, trial-balance, income-expenditure, balance-sheet, owner-statement, creditors-aged, bank-reconciliation, strata-roll, budget-vs-actual]}}
+        - {name: schemeId, in: query, required: true, schema: {type: string, format: uuid}}
+        - {name: asAt, in: query, schema: {type: string, format: date}}
+        - {name: excludeUnpresented, in: query, schema: {type: boolean, default: true}}
+        - {name: format, in: query, schema: {type: string, enum: [json, pdf, csv], default: json}}
+      responses:
+        '200': {description: Report}
+
+  /portal/schemes/{id}/summary:
+    get:
+      tags: [Portal]
+      x-permission: committee_member (scheme)
+      parameters: [{$ref: '#/components/parameters/Id'}]
+      responses:
+        '200':
+          description: Fund summary tiles (EV-038)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  adminCash: {$ref: '#/components/schemas/Money'}
+                  capitalWorksCash: {$ref: '#/components/schemas/Money'}
+                  bankBalance: {$ref: '#/components/schemas/Money'}
+                  investments: {$ref: '#/components/schemas/Money'}
+                  schemeArrears: {$ref: '#/components/schemas/Money'}
+                  asAt: {type: string, format: date-time}
+  /portal/payments/intent:
+    post:
+      tags: [Portal]
+      x-permission: owner (own lot)
+      parameters: [{$ref: '#/components/parameters/IdempotencyKey'}]
+      requestBody: {content: {application/json: {schema: {type: object, required: [chargeIds], properties: {chargeIds: {type: array, items: {type: string, format: uuid}, minItems: 1}}}}}}
+      responses:
+        '201': {description: Redirect URL to payment provider, content: {application/json: {schema: {type: object, properties: {checkoutUrl: {type: string, format: uri}, amount: {$ref: '#/components/schemas/Money'}}}}}}
+
+  /approvals/{id}/decision:
+    post:
+      tags: [Common]
+      parameters: [{$ref: '#/components/parameters/Id'}]
+      requestBody: {content: {application/json: {schema: {type: object, required: [decision], properties: {decision: {type: string, enum: [approve, reject]}, comment: {type: string, maxLength: 1000}}}}}}
+      responses:
+        '200': {description: Decided, content: {application/json: {schema: {$ref: '#/components/schemas/ApprovalRequest'}}}}
+        '403': {description: APPROVAL_LIMIT_EXCEEDED}
+        '409': {$ref: '#/components/responses/InvalidState'}
+  /suppliers/{id}/compliance-records:
+    post:
+      tags: [Common]
+      x-permission: supplier.compliance.upload
+      parameters: [{$ref: '#/components/parameters/Id'}]
+      requestBody: {content: {application/json: {schema: {type: object, required: [typeCode, documentId], properties: {typeCode: {type: string}, number: {type: string}, issuer: {type: string}, cover: {$ref: '#/components/schemas/Money'}, issueDate: {type: string, format: date}, expiryDate: {type: string, format: date}, documentId: {type: string, format: uuid}}}}}}
+      responses:
+        '201': {description: Pending review}
+
+  /fm/assets:
+    get:
+      tags: [FM]
+      x-permission: fm.asset.read
+      parameters:
+        - {name: propertyId, in: query, schema: {type: string, format: uuid}}
+        - {name: assetTypeId, in: query, schema: {type: string, format: uuid}}
+        - {name: warranty, in: query, schema: {type: string, enum: [active, expired]}}
+        - $ref: '#/components/parameters/Cursor'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200': {description: OK, content: {application/json: {schema: {type: object, properties: {data: {type: array, items: {$ref: '#/components/schemas/Asset'}}, nextCursor: {type: [string, 'null']}}}}}}
+    post:
+      tags: [FM]
+      x-permission: fm.asset.manage
+      requestBody: {content: {application/json: {schema: {$ref: '#/components/schemas/AssetCreate'}}}}
+      responses:
+        '201': {description: Created, content: {application/json: {schema: {$ref: '#/components/schemas/Asset'}}}}
+  /fm/planner:
+    get:
+      tags: [FM]
+      x-permission: fm.workorder.read
+      parameters:
+        - {name: from, in: query, schema: {type: string, format: date}}
+        - {name: weeks, in: query, schema: {type: integer, default: 52, maximum: 52}}
+        - {name: propertyId, in: query, schema: {type: string, format: uuid}}
+        - {name: trade, in: query, schema: {type: string}}
+      responses:
+        '200': {description: Weekly buckets with occurrences and workload minutes}
+  /fm/service-requests:
+    post:
+      tags: [FM]
+      x-permission: fm.request.create
+      requestBody: {content: {application/json: {schema: {$ref: '#/components/schemas/ServiceRequestCreate'}}}}
+      responses:
+        '201': {description: Created, content: {application/json: {schema: {$ref: '#/components/schemas/ServiceRequest'}}}}
+  /fm/service-requests/{id}/triage:
+    post:
+      tags: [FM]
+      x-permission: fm.request.triage
+      parameters: [{$ref: '#/components/parameters/Id'}]
+      requestBody: {content: {application/json: {schema: {type: object, required: [priority, category], properties: {priority: {$ref: '#/components/schemas/Priority'}, category: {type: string}, assetId: {type: string, format: uuid}, convert: {type: boolean, default: true}, nte: {$ref: '#/components/schemas/Money'}}}}}}
+      responses:
+        '200': {description: Triaged (and WorkOrder created when convert=true), content: {application/json: {schema: {$ref: '#/components/schemas/WorkOrder'}}}}
+  /fm/work-orders:
+    get:
+      tags: [FM]
+      x-permission: fm.workorder.read
+      parameters:
+        - {name: status, in: query, schema: {type: string}}
+        - {name: priority, in: query, schema: {$ref: '#/components/schemas/Priority'}}
+        - {name: propertyId, in: query, schema: {type: string, format: uuid}}
+        - {name: slaState, in: query, schema: {type: string, enum: [ok, at_risk, breached, met]}}
+        - {name: sort, in: query, schema: {type: string, example: '-createdAt'}}
+        - $ref: '#/components/parameters/Cursor'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200': {description: OK, content: {application/json: {schema: {type: object, properties: {data: {type: array, items: {$ref: '#/components/schemas/WorkOrder'}}, nextCursor: {type: [string, 'null']}}}}}}
+  /fm/work-orders/{id}/assign:
+    post:
+      tags: [FM]
+      x-permission: fm.workorder.assign
+      parameters: [{$ref: '#/components/parameters/Id'}]
+      requestBody: {content: {application/json: {schema: {type: object, properties: {technicianId: {type: string, format: uuid}, supplierId: {type: string, format: uuid}, scheduledStart: {type: string, format: date-time}, scheduledEnd: {type: string, format: date-time}}, oneOf: [{required: [technicianId]}, {required: [supplierId]}]}}}}
+      responses:
+        '200': {description: Assigned, content: {application/json: {schema: {$ref: '#/components/schemas/WorkOrder'}}}}
+        '422': {description: SUPPLIER_NON_COMPLIANT (BR-FM-07)}
+  /fm/work-orders/{id}/transitions:
+    post:
+      tags: [FM]
+      parameters: [{$ref: '#/components/parameters/Id'}]
+      requestBody: {content: {application/json: {schema: {type: object, required: [to, clientEventId], properties: {to: {type: string, enum: [accepted, declined, in_progress, on_hold, completed, verified, closed, cancelled]}, reason: {type: string}, geo: {type: object, properties: {lat: {type: number}, lng: {type: number}, accuracyM: {type: number}}}, clientEventId: {type: string, format: uuid}, occurredAt: {type: string, format: date-time}}}}}}
+      responses:
+        '200': {description: Transitioned, content: {application/json: {schema: {$ref: '#/components/schemas/WorkOrder'}}}}
+        '409': {$ref: '#/components/responses/InvalidState'}
+        '422': {description: EVIDENCE_REQUIRED / CHECKLIST_INCOMPLETE}
+  /fm/me/sync:
+    post:
+      tags: [FM]
+      summary: Batch-apply offline technician events (idempotent per clientEventId)
+      parameters: [{$ref: '#/components/parameters/IdempotencyKey'}]
+      requestBody: {content: {application/json: {schema: {type: object, properties: {events: {type: array, maxItems: 200, items: {type: object}}}}}}}
+      responses:
+        '200': {description: Per-event results}
+  /fm/ops-centre:
+    get:
+      tags: [FM]
+      x-permission: fm.workorder.read
+      responses:
+        '200': {description: Aggregates for widgets}
+
+  /ai/conversations/{id}/messages:
+    post:
+      tags: [AI]
+      x-permission: ai.assistant.use
+      parameters: [{$ref: '#/components/parameters/Id'}]
+      requestBody: {content: {application/json: {schema: {type: object, required: [content], properties: {content: {type: string, maxLength: 4000}, context: {type: object, properties: {schemeId: {type: string, format: uuid}, propertyId: {type: string, format: uuid}}}}}}}}
+      responses:
+        '200':
+          description: Server-sent events stream (text/event-stream) of tokens, tool_call, citation, action_proposal, done
+          content: {text/event-stream: {schema: {type: string}}}
+        '429': {description: AI_BUDGET_EXCEEDED or rate limit}
+  /ai/action-proposals/{id}/confirm:
+    post:
+      tags: [AI]
+      parameters: [{$ref: '#/components/parameters/Id'}]
+      responses:
+        '200': {description: Executed via service layer with caller permissions}
+        '403': {description: Caller lacks target permission}
+        '410': {description: Proposal expired}
+  /ai/drafts:
+    post:
+      tags: [AI]
+      x-permission: ai.draft.create
+      requestBody: {content: {application/json: {schema: {type: object, required: [sourceEmail], properties: {sourceEmail: {type: object, properties: {from: {type: string, format: email}, subject: {type: string}, body: {type: string, maxLength: 20000}}}, contactId: {type: string, format: uuid}}}}}}
+      responses:
+        '201': {description: Draft (never sent automatically)}
+
+  /integrations/resident-apps/{provider}/requests:
+    post:
+      tags: [Integrations]
+      security: [{clientCredentials: [fm.requests:write]}]
+      parameters:
+        - {name: provider, in: path, required: true, schema: {type: string}}
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody: {content: {application/json: {schema: {type: object, required: [externalId, propertyRef, description], properties: {externalId: {type: string}, propertyRef: {type: string}, unitRef: {type: string}, category: {type: string}, description: {type: string, maxLength: 4000}, photos: {type: array, items: {type: string, format: uri}, maxItems: 5}, accessConsent: {type: object, properties: {granted: {type: boolean}, window: {type: string}}}, requester: {type: object, properties: {name: {type: string}, email: {type: string}, phone: {type: string}}}}}}}}
+      responses:
+        '201': {description: Created}
+        '200': {description: Existing (idempotent replay)}
+  /integrations/payments/{provider}/webhook:
+    post:
+      tags: [Integrations]
+      security: []
+      parameters:
+        - {name: provider, in: path, required: true, schema: {type: string}}
+        - {name: X-Signature, in: header, required: true, schema: {type: string}}
+        - {name: X-Timestamp, in: header, required: true, schema: {type: integer}}
+      requestBody: {content: {application/json: {schema: {type: object}}}}
+      responses:
+        '204': {description: Accepted}
+        '401': {description: Bad signature}
+
+components:
+  securitySchemes:
+    bearerAuth: {type: http, scheme: bearer, bearerFormat: JWT}
+    clientCredentials:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: http://localhost:8080/realms/vertex/protocol/openid-connect/token
+          scopes: {fm.requests:write: create service requests, strata.read: read strata data, strata.voting:write: post ballot results}
+  parameters:
+    Id: {name: id, in: path, required: true, schema: {type: string, format: uuid}}
+    Cursor: {name: cursor, in: query, schema: {type: string}}
+    Limit: {name: limit, in: query, schema: {type: integer, minimum: 1, maximum: 100, default: 25}}
+    IdempotencyKey: {name: Idempotency-Key, in: header, required: true, schema: {type: string, minLength: 8, maxLength: 128}}
+  responses:
+    Unauthorized: {description: Unauthorized, content: {application/problem+json: {schema: {$ref: '#/components/schemas/Problem'}}}}
+    NotFound: {description: Not found (or out of scope), content: {application/problem+json: {schema: {$ref: '#/components/schemas/Problem'}}}}
+    ValidationError: {description: Validation failed, content: {application/problem+json: {schema: {$ref: '#/components/schemas/Problem'}}}}
+    InvalidState: {description: INVALID_STATE_TRANSITION, content: {application/problem+json: {schema: {$ref: '#/components/schemas/Problem'}}}}
+  schemas:
+    Problem:
+      type: object
+      required: [type, title, status, code]
+      properties:
+        type: {type: string, format: uri}
+        title: {type: string}
+        status: {type: integer}
+        code: {type: string}
+        detail: {type: string}
+        instance: {type: string}
+        traceId: {type: string}
+        errors: {type: array, items: {type: object, properties: {path: {type: string}, code: {type: string}, message: {type: string}}}}
+    Money:
+      type: object
+      required: [amountCents, currency]
+      properties: {amountCents: {type: integer, format: int64}, currency: {type: string, pattern: '^[A-Z]{3}$'}}
+    PageMeta: {type: object, properties: {nextCursor: {type: [string, 'null']}}}
+    EntityRef: {type: object, required: [entityType, entityId], properties: {entityType: {type: string}, entityId: {type: string, format: uuid}}}
+    Priority: {type: string, enum: [P1, P2, P3, P4]}
+    Me:
+      type: object
+      properties:
+        user: {type: object, properties: {id: {type: string, format: uuid}, name: {type: string}, email: {type: string}}}
+        tenant: {type: object, properties: {id: {type: string, format: uuid}, name: {type: string}, products: {type: array, items: {type: string}}}}
+        roles: {type: array, items: {type: object, properties: {role: {type: string}, scopeType: {type: string}, scopeId: {type: [string, 'null']}}}}
+        permissions: {type: array, items: {type: string}}
+    Document:
+      type: object
+      properties: {id: {type: string, format: uuid}, title: {type: string}, kind: {type: string}, mime: {type: string}, sizeBytes: {type: integer}, visibility: {type: string}, scanStatus: {type: string}, createdAt: {type: string, format: date-time}}
+    AuditEvent:
+      type: object
+      properties: {id: {type: string}, occurredAt: {type: string, format: date-time}, actorType: {type: string}, actorId: {type: string}, action: {type: string}, entityType: {type: string}, entityId: {type: string}, before: {type: object}, after: {type: object}}
+    AuditEventPage: {type: object, properties: {data: {type: array, items: {$ref: '#/components/schemas/AuditEvent'}}, nextCursor: {type: [string, 'null']}}}
+    ImportJob:
+      type: object
+      properties: {id: {type: string, format: uuid}, type: {type: string}, status: {type: string, enum: [uploaded, validating, validated, failed, committing, committed, rolled_back]}, dryRunReport: {type: object, properties: {rows: {type: integer}, errors: {type: array, items: {type: object, properties: {row: {type: integer}, column: {type: string}, code: {type: string}, message: {type: string}}}}}}}
+    SchemeCreate:
+      type: object
+      required: [name, registrationNo, jurisdiction, address, levyFrequency, firstDueDate]
+      properties:
+        name: {type: string, maxLength: 200}
+        registrationNo: {type: string, maxLength: 50}
+        jurisdiction: {type: string, example: AU-QLD}
+        address: {$ref: '#/components/schemas/Address'}
+        fyStartMonth: {type: integer, minimum: 1, maximum: 12}
+        levyFrequency: {type: string, enum: [monthly, quarterly, half_yearly, annual]}
+        firstDueDate: {type: string, format: date}
+        gstRegistered: {type: boolean}
+    Scheme:
+      allOf:
+        - $ref: '#/components/schemas/SchemeCreate'
+        - type: object
+          properties: {id: {type: string, format: uuid}, status: {type: string}, lotCount: {type: integer}, totalEntitlement: {type: integer}, portalUrl: {type: string}}
+    Address: {type: object, properties: {line1: {type: string}, line2: {type: string}, suburb: {type: string}, state: {type: string}, postcode: {type: string}, country: {type: string}}}
+    LotCreate:
+      type: object
+      required: [lotNumber, entitlement]
+      properties: {lotNumber: {type: string}, unitLabel: {type: string}, floorLabel: {type: string}, buildingId: {type: string, format: uuid}, entitlement: {type: integer, minimum: 1}, lotType: {type: string, enum: [residential, commercial, parking, storage]}}
+    Lot:
+      allOf:
+        - $ref: '#/components/schemas/LotCreate'
+        - type: object
+          properties: {id: {type: string, format: uuid}, crn: {type: string}, owners: {type: array, items: {type: object, properties: {contactId: {type: string}, name: {type: string}, sharePct: {type: number}}}}, balance: {$ref: '#/components/schemas/Money'}, arrearsLevel: {type: integer}}
+    Budget: {type: object, properties: {id: {type: string, format: uuid}, schemeId: {type: string}, fiscalYear: {type: integer}, version: {type: integer}, status: {type: string}, totals: {type: object, additionalProperties: {$ref: '#/components/schemas/Money'}}}}
+    LevyRun: {type: object, properties: {id: {type: string, format: uuid}, periodDueDate: {type: string, format: date}, status: {type: string}, stats: {type: object, properties: {notices: {type: integer}, total: {$ref: '#/components/schemas/Money'}}}}}
+    LotLedger:
+      type: object
+      properties:
+        lotId: {type: string}
+        openingBalance: {$ref: '#/components/schemas/Money'}
+        closingBalance: {$ref: '#/components/schemas/Money'}
+        lines: {type: array, items: {type: object, properties: {date: {type: string, format: date}, type: {type: string, enum: [levy, sundry, penalty, fee, discount, receipt, reversal]}, fund: {type: string}, description: {type: string}, debit: {$ref: '#/components/schemas/Money'}, credit: {$ref: '#/components/schemas/Money'}, runningBalance: {$ref: '#/components/schemas/Money'}}}}
+    Payment: {type: object, properties: {id: {type: string, format: uuid}, amount: {$ref: '#/components/schemas/Money'}, status: {type: string}, allocations: {type: array, items: {type: object, properties: {chargeId: {type: string}, amount: {$ref: '#/components/schemas/Money'}}}}, creditRemaining: {$ref: '#/components/schemas/Money'}}}
+    ArrearsCase: {type: object, properties: {id: {type: string}, lotId: {type: string}, lotLabel: {type: string}, debtorName: {type: string}, level: {type: integer}, status: {type: string}, buckets: {type: object, properties: {d1_30: {$ref: '#/components/schemas/Money'}, d31_60: {$ref: '#/components/schemas/Money'}, d61_90: {$ref: '#/components/schemas/Money'}, d91_plus: {$ref: '#/components/schemas/Money'}, total: {$ref: '#/components/schemas/Money'}}}}}
+    SupplierInvoiceCreate:
+      type: object
+      required: [schemeId, supplierId, invoiceNo, invoiceDate, amount]
+      properties: {schemeId: {type: string, format: uuid}, supplierId: {type: string, format: uuid}, invoiceNo: {type: string, maxLength: 50}, invoiceDate: {type: string, format: date}, dueDate: {type: string, format: date}, amount: {$ref: '#/components/schemas/Money'}, gst: {$ref: '#/components/schemas/Money'}, fundId: {type: string, format: uuid}, accountId: {type: string, format: uuid}, workOrderId: {type: string, format: uuid}, documentId: {type: string, format: uuid}}
+    SupplierInvoice:
+      allOf:
+        - $ref: '#/components/schemas/SupplierInvoiceCreate'
+        - type: object
+          properties: {id: {type: string, format: uuid}, status: {type: string}, approvalRequestId: {type: [string, 'null']}, budgetRemaining: {$ref: '#/components/schemas/Money'}}
+    ApprovalRequest: {type: object, properties: {id: {type: string}, subjectType: {type: string}, subjectId: {type: string}, amount: {$ref: '#/components/schemas/Money'}, status: {type: string}, decidedBy: {type: [string, 'null']}, decidedAt: {type: [string, 'null'], format: date-time}}}
+    AssetCreate:
+      type: object
+      required: [propertyId, assetTypeId, code, name]
+      properties: {propertyId: {type: string, format: uuid}, locationId: {type: string, format: uuid}, assetTypeId: {type: string, format: uuid}, code: {type: string}, name: {type: string}, make: {type: string}, model: {type: string}, serial: {type: string}, installDate: {type: string, format: date}, warrantyExpiry: {type: string, format: date}, condition: {type: integer, minimum: 1, maximum: 5}, criticality: {type: integer, minimum: 1, maximum: 5}, replacementCost: {$ref: '#/components/schemas/Money'}, geo: {type: object, properties: {lat: {type: number}, lng: {type: number}, accuracyM: {type: number}}}}
+    Asset:
+      allOf:
+        - $ref: '#/components/schemas/AssetCreate'
+        - type: object
+          properties: {id: {type: string, format: uuid}, status: {type: string}, underWarranty: {type: boolean}, remainingLifeYears: {type: integer}}
+    ServiceRequestCreate:
+      type: object
+      required: [propertyId, category, description]
+      properties: {propertyId: {type: string, format: uuid}, locationId: {type: string, format: uuid}, category: {type: string}, description: {type: string, maxLength: 4000}, photoDocumentIds: {type: array, maxItems: 5, items: {type: string, format: uuid}}, accessConsent: {type: object, properties: {granted: {type: boolean}, window: {type: string}}}}
+    ServiceRequest:
+      allOf:
+        - $ref: '#/components/schemas/ServiceRequestCreate'
+        - type: object
+          properties: {id: {type: string, format: uuid}, number: {type: string}, status: {type: string}, workOrderId: {type: [string, 'null']}}
+    WorkOrder:
+      type: object
+      properties:
+        id: {type: string, format: uuid}
+        number: {type: string, example: WO-000123}
+        type: {type: string, enum: [reactive, planned, inspection, project]}
+        status: {type: string}
+        priority: {$ref: '#/components/schemas/Priority'}
+        propertyId: {type: string}
+        assetId: {type: [string, 'null']}
+        description: {type: string}
+        responseDueAt: {type: string, format: date-time}
+        completeDueAt: {type: string, format: date-time}
+        slaState: {type: string, enum: [ok, at_risk, breached, met]}
+        underWarranty: {type: boolean}
+        nte: {$ref: '#/components/schemas/Money'}
+        assignment: {type: [object, 'null'], properties: {assigneeType: {type: string}, assigneeName: {type: string}, scheduledStart: {type: string, format: date-time}}}
+        version: {type: integer}

@@ -1,0 +1,624 @@
+{
+ "project_id": "f6b4afcf-8b40-45d9-9dc6-48eca14406c9",
+ "modules": {
+  "M01": "74753eda-d2ab-4566-96cf-3dbc98c506c8",
+  "M02": "44f6eeb9-3fa2-401a-b76e-fe21660b9ffd",
+  "M03": "4b3fcbd8-c21e-463b-a2fa-aa7368b29690",
+  "M04": "5ac65e57-36c1-4c06-a066-c93fb1c0705e",
+  "M05": "2981b533-b940-4fe6-b1ba-36c4be34ee2c",
+  "M06": "afb4ef49-3309-4abb-a47a-5304bdc38a90",
+  "M07": "0a86d70e-f116-4ed0-8965-40e57165d48b",
+  "M08": "1b3392ac-3b44-4a01-ba44-ca136e2faa28",
+  "M09": "0af1bfe3-4944-4e49-a963-14badacfae3d",
+  "M10": "4bd23f63-b5fa-4249-a7fa-f34d4bac7f24",
+  "M11": "bc252d0c-b82f-4014-af66-4058dbe19c32",
+  "M12": "ae7c333c-9d1f-4b5e-8e4d-78bd6a4ef58c"
+ },
+ "cycles": {
+  "D1": "272231f9-d79e-4a01-9e4a-9689f800cf7c",
+  "D2": "9164dc44-2cdc-4e59-8518-3d115414f9d3",
+  "D3": "c5ee2dc0-dbe6-4d90-9e7f-324022527412",
+  "D4": "16a39353-a0c1-4b7a-95ec-620583c82e20",
+  "D5": "04beecb2-f143-422e-bed9-46d17e539b1d"
+ },
+ "labels": {
+  "STRATA": "e8816492-5114-4cb8-8e2f-55594189d491",
+  "FM": "748dfa8c-d640-47cc-b1b9-02d7c2de1f54",
+  "PLATFORM": "1c6885bd-3e9b-49de-9e7d-a531fd550d53",
+  "AI": "b743b4f0-52a3-4044-8202-6c0931b145c2",
+  "FRONTEND": "9d8815a5-ac79-4780-9e5e-08538563525f",
+  "INTEGRATION": "0c745660-59e1-4686-b9d2-49e9192851e9",
+  "REPORTING": "55935748-3db6-49c0-afa3-8bf751cd92e6",
+  "DEVOPS": "b53a81b9-f660-42fd-82a8-518eb3592dd5",
+  "SECURITY": "45b43fc1-9631-47cd-84b1-9096354af812",
+  "QA": "a6c7685c-5d9a-4929-b678-9e4f023bbc2a",
+  "P0": "9be59e40-9ed2-401f-a700-b1a692b18de6",
+  "P1": "86e0226e-4c8e-4d23-b1b7-07380a75dda9",
+  "P2": "a1ecd860-ac54-498c-aa24-89b01e47147c",
+  "P3": "a436cdfc-2784-463e-ae95-3ebc33996b10",
+  "FEATURE": "2a210966-c5b7-43d3-9c28-d356c13c953d",
+  "TECHNICAL": "6aa6ca5f-7d83-4ab1-a22f-49df5d10d8d5",
+  "TEST": "6f94d5e4-e112-44d4-9361-860b9e53bf3c",
+  "DOCUMENTATION": "ba135c06-c3ca-4070-9a70-286ceed908a6",
+  "DECISION": "624af57c-d01b-4ff6-9d3a-9a5cdfd6e16e",
+  "BUG": "e76a2520-ea44-4c3e-8f1a-c571fed996eb",
+  "BLOCKED / UNKNOWN": "498cefd6-1c06-473b-aa2f-5009014a0c9d",
+  "CONFIRMED": "5ea3cbad-d6a1-4a1c-a600-757af90498d1",
+  "OBSERVED": "7991b0bf-6f5c-4dd8-a748-057741250450",
+  "INFERRED": "490af60a-524f-46f6-b7ae-155d722f4436",
+  "PROPOSED": "3ee673f0-4b03-4c52-bf97-dd8469b1e211",
+  "UNKNOWN": "88ce5428-d804-43d9-9efa-d2e0f1ceef02",
+  "POST-DAY-5": "69ee29f8-38b3-4f01-8168-c3f93e2969d4",
+  "DEV1": "99ee89e0-bb83-4092-a6c4-c88dee717b9c",
+  "DEV2": "0244dc52-c4ee-4a78-88e2-8a0c3183081f",
+  "DEV3": "cc98ceb0-3417-4104-91cf-3ea77c9be296",
+  "DEV4": "d3aafd4c-14a6-4696-8182-a3c8176ea9a5",
+  "EPIC": "4986041f-6124-4766-a82f-112dbf1da902"
+ },
+ "pages": {
+  "01": "2878c177-a7b2-41aa-9b7b-5a549ceb6e8e",
+  "02": "d83e5d54-f196-4e65-8f59-c200059c083d",
+  "03": "57d25ed5-4311-4918-9a98-6933566df6d5",
+  "04": "420a1eae-0ce1-47dc-860b-42be446f1f04",
+  "05": "c6fbed10-7fab-49a5-b993-4cb301c474be",
+  "06": "4d1cb239-c9ef-4dc8-8d27-3f2874447644",
+  "07": "7794548e-92d7-4244-8ca0-6dc6be36ab50"
+ },
+ "work_items": {
+  "EP-01": {
+   "sequence_id": 8,
+   "id": "beed88b6-c0e3-489f-bea4-d1eacdb90d94",
+   "title": "EPIC: Platform Foundation"
+  },
+  "EP-02": {
+   "sequence_id": 9,
+   "id": "29060771-2802-4b39-a0a6-c06db5085068",
+   "title": "EPIC: Identity, Tenancy & RBAC"
+  },
+  "EP-03": {
+   "sequence_id": 10,
+   "id": "900c2450-2677-448e-b550-38077a5dafb0",
+   "title": "EPIC: Strata — Scheme Register & Provisioning"
+  },
+  "EP-04": {
+   "sequence_id": 11,
+   "id": "98d98df3-1775-48f9-acf6-365b6afc9d1b",
+   "title": "EPIC: Strata — Trust Ledger, Budgets & Levies"
+  },
+  "EP-05": {
+   "sequence_id": 12,
+   "id": "a62771ae-fdc2-460b-b55c-acf23343de8e",
+   "title": "EPIC: Strata — Payments & Bank Reconciliation"
+  },
+  "EP-06": {
+   "sequence_id": 13,
+   "id": "49c3a2fc-23d3-476b-a62b-498b5bb5c00a",
+   "title": "EPIC: Strata — Arrears & Debt Recovery"
+  },
+  "EP-07": {
+   "sequence_id": 14,
+   "id": "f3a5300f-d2ad-43d4-a211-876106752992",
+   "title": "EPIC: Strata — Supplier Invoices, Procurement & Approvals"
+  },
+  "EP-08": {
+   "sequence_id": 15,
+   "id": "7cb2a2b2-3d90-4377-b745-041d46f1f69b",
+   "title": "EPIC: Strata — Meetings, Voting, Comms, Wall & Insurance"
+  },
+  "EP-09": {
+   "sequence_id": 16,
+   "id": "071b0e59-de39-4c52-b92c-39fc438e99e0",
+   "title": "EPIC: Strata — Owner Portal (PWA)"
+  },
+  "EP-10": {
+   "sequence_id": 17,
+   "id": "5364fa63-4051-4199-acb9-a1fd309a4860",
+   "title": "EPIC: FM — Properties, Assets & Lifecycle"
+  },
+  "EP-11": {
+   "sequence_id": 18,
+   "id": "4509d92c-8185-495d-8257-90ca417a92d1",
+   "title": "EPIC: FM — Planned Maintenance & 52-week Planner"
+  },
+  "EP-12": {
+   "sequence_id": 19,
+   "id": "0b52d2a9-3309-4c22-9e38-f5e92afa0ed4",
+   "title": "EPIC: FM — Service Requests, Work Orders & SLA"
+  },
+  "EP-13": {
+   "sequence_id": 20,
+   "id": "359826b9-a37a-495c-ad3c-f3e20bd45735",
+   "title": "EPIC: FM — Workforce & Technician Mobile"
+  },
+  "EP-14": {
+   "sequence_id": 21,
+   "id": "09de4176-0a68-4a3d-b883-4ad2c7a91335",
+   "title": "EPIC: Suppliers & Contractor Compliance (shared)"
+  },
+  "EP-15": {
+   "sequence_id": 22,
+   "id": "2fd48051-8ece-4b7a-922e-5b1acc2d676f",
+   "title": "EPIC: Shared Workflow — Documents, Notifications, Approvals, Tasks, Search"
+  },
+  "EP-16": {
+   "sequence_id": 23,
+   "id": "85850a17-5ed3-4395-a412-ba13f817ca82",
+   "title": "EPIC: AI Assistant & RAG"
+  },
+  "EP-17": {
+   "sequence_id": 24,
+   "id": "8c969240-9062-4ba1-8d2a-80f90fc73f1c",
+   "title": "EPIC: Integrations & Mock Providers"
+  },
+  "EP-18": {
+   "sequence_id": 25,
+   "id": "9dd72c70-a579-46c5-be9f-37f5cde40498",
+   "title": "EPIC: Reporting & Dashboards"
+  },
+  "EP-19": {
+   "sequence_id": 26,
+   "id": "2ab8515d-baf2-45b1-9105-34dba9c8a5b9",
+   "title": "EPIC: Frontend Shell & Staff UX"
+  },
+  "EP-20": {
+   "sequence_id": 27,
+   "id": "260a1a96-8a77-4cc3-9e3a-d287f185281c",
+   "title": "EPIC: Security Hardening & Verification"
+  },
+  "EP-21": {
+   "sequence_id": 28,
+   "id": "0bf01a7e-e02f-4009-9f5d-53a62fa38c1a",
+   "title": "EPIC: Testing & Quality"
+  },
+  "EP-22": {
+   "sequence_id": 29,
+   "id": "057e8cbd-d433-4b33-b64f-249023ba7e9f",
+   "title": "EPIC: DevOps & Environments"
+  },
+  "EP-23": {
+   "sequence_id": 30,
+   "id": "3ba8ddc0-b0fc-4dae-b27f-140a8ab0b0dd",
+   "title": "EPIC: Day 5 Validation, Demo & Release Gate"
+  },
+  "EP-24": {
+   "sequence_id": 31,
+   "id": "6d1b580a-adc2-41b0-aad2-4ffdad468614",
+   "title": "EPIC: Decisions Required & Unknowns"
+  },
+  "VX-001": {
+   "sequence_id": 32,
+   "id": "f0dd7737-97df-4f56-9864-b07587cab6c1",
+   "title": "Bootstrap monorepo, docker-compose stack and CI baseline"
+  },
+  "VX-002": {
+   "sequence_id": 33,
+   "id": "a07e11cc-0d3a-4b38-b637-af9aabbcb314",
+   "title": "Apply reference schema baseline with RLS, ledger triggers and grants"
+  },
+  "VX-003": {
+   "sequence_id": 34,
+   "id": "3b5c342c-b030-4130-b4f2-105e19248593",
+   "title": "Implement API core: tenant context, Problem errors, cursor pagination, idempotency, request logging"
+  },
+  "VX-004": {
+   "sequence_id": 35,
+   "id": "3d908e59-7c5c-45f4-9979-b734bd2431c6",
+   "title": "Implement authentication: Keycloak realm, JWT guard, server-side role resolution, /me"
+  },
+  "VX-005": {
+   "sequence_id": 36,
+   "id": "18c9ba38-4532-46da-af9c-e04cf7528a79",
+   "title": "Implement RBAC permission catalog, @Permission guard and route-coverage test"
+  },
+  "VX-006": {
+   "sequence_id": 37,
+   "id": "993756ce-4bcc-4af3-b9b4-bd90e605e5ef",
+   "title": "Implement audit writer (hash chain), transactional outbox, BullMQ relay and Clock-based scheduler"
+  },
+  "VX-020": {
+   "sequence_id": 38,
+   "id": "3ab93c24-9dc1-49a8-b7f1-81eae3eaa3fc",
+   "title": "Build Strata money & calculation library with property tests (apportionment, CRN, ageing, allocation, penalty)"
+  },
+  "VX-040": {
+   "sequence_id": 39,
+   "id": "71ab4301-d4e2-4872-a197-02eafeeb3efd",
+   "title": "Build FM calculation library: business-time SLA, RRULE occurrences, lifecycle formula, WO state table"
+  },
+  "VX-060": {
+   "sequence_id": 40,
+   "id": "4241479d-5ea4-430f-9490-3aaee8654b80",
+   "title": "Implement web app shell with OIDC login, role-aware navigation and generated API client"
+  },
+  "VX-007": {
+   "sequence_id": 41,
+   "id": "d33eef46-8884-4870-b5b6-e55315e30521",
+   "title": "Implement RBAC scope predicates and tenant-isolation / RBAC negative test suites"
+  },
+  "VX-008": {
+   "sequence_id": 42,
+   "id": "9a8e0c4a-9fc5-45e1-b05f-30992ba69ccb",
+   "title": "Implement document service: presigned upload, AV scan, type validation, visibility/ACL, signed download"
+  },
+  "VX-021": {
+   "sequence_id": 43,
+   "id": "c26f7aca-7772-46cc-9a74-42ce088a8ee2",
+   "title": "Implement Strata scheme register and provisioning (schemes, buildings, lots, contacts, ownerships)"
+  },
+  "VX-022": {
+   "sequence_id": 44,
+   "id": "386afd45-fafc-428d-b393-f164bf112854",
+   "title": "Implement trust ledger posting service, period close and trial balance"
+  },
+  "VX-041": {
+   "sequence_id": 45,
+   "id": "7eb83a66-024a-42c6-9034-3666ef68e03e",
+   "title": "Implement FM properties, location tree, asset types and asset register with demo seed"
+  },
+  "VX-042": {
+   "sequence_id": 46,
+   "id": "8e7ec1a8-b555-4f26-a375-fab8c913f0fc",
+   "title": "Implement shared suppliers, compliance records, status computation and assignment gate"
+  },
+  "VX-061": {
+   "sequence_id": 47,
+   "id": "95d041b7-0a05-4483-b938-f3f280f772fc",
+   "title": "Build UI kit: DataTable, FilterBar, forms, money components, status badges, UX states"
+  },
+  "VX-062": {
+   "sequence_id": 48,
+   "id": "0e371da9-a6dd-4a84-8426-7b82ce0ba400",
+   "title": "Build mock providers: payments, bank, collections, resident app, SMS, LLM; wire Mailpit"
+  },
+  "VX-009": {
+   "sequence_id": 49,
+   "id": "e311fe39-813b-4a60-abf7-cf8037e6c6c5",
+   "title": "Implement notification dispatcher (email, in-app SSE, SMS mock) with templates, contact preferences and minimal task API"
+  },
+  "VX-010": {
+   "sequence_id": 50,
+   "id": "b7d34e12-6a94-489d-9c6c-4a0813229230",
+   "title": "Implement shared approvals engine (requests, routing by amount/scope, decisions, expiry)"
+  },
+  "VX-066": {
+   "sequence_id": 51,
+   "id": "db936c72-9a3e-4dd0-9926-5c835a5caf2a",
+   "title": "Implement AI gateway with Strata & FM read tools, action proposals and audit"
+  },
+  "VX-023": {
+   "sequence_id": 52,
+   "id": "be879f7d-2275-4989-94f4-b477a87c9b6e",
+   "title": "Implement budgets, levy schedule generation and automatic levy runs with notices and pay links"
+  },
+  "VX-024": {
+   "sequence_id": 53,
+   "id": "2ceec2ab-a5ab-47b3-969f-22e62a021871",
+   "title": "Implement payments (pay-now webhook, manual receipt, allocation) and bank statement import with auto-match and reconciliation lock"
+  },
+  "VX-043": {
+   "sequence_id": 54,
+   "id": "7fc705d0-872a-480b-bc29-847095ab8180",
+   "title": "Implement service requests, triage and FM work order lifecycle with assignment, evidence and SLA engine"
+  },
+  "VX-044": {
+   "sequence_id": 55,
+   "id": "0e0abd5d-bb17-46b9-8402-8f78022fee95",
+   "title": "Implement PPM maintenance plans, occurrence generation and 52-week planner API"
+  },
+  "VX-063": {
+   "sequence_id": 56,
+   "id": "32aa114a-ff1d-4bd3-bef8-d9f5de53639a",
+   "title": "Build Strata staff screens for the demo path (dashboard, schemes, lot ledger, budget/levies, receipts, bank rec, arrears, invoices)"
+  },
+  "VX-064": {
+   "sequence_id": 57,
+   "id": "eee93600-e330-4624-996b-5fd05bec86fe",
+   "title": "Build FM staff screens and technician PWA for the demo path (Ops Centre, triage, WO detail, planner, job execution offline)"
+  },
+  "VX-011": {
+   "sequence_id": 58,
+   "id": "0f22973c-79f2-4fa5-a49a-a1690ddcaf1e",
+   "title": "Implement global search index and /search endpoint (scope-filtered)"
+  },
+  "VX-068": {
+   "sequence_id": 59,
+   "id": "7236b77d-fc93-4693-94d5-5204e6c799e1",
+   "title": "Implement document RAG: chunking, embeddings, scope-filtered hybrid retrieval and citation validator"
+  },
+  "VX-012": {
+   "sequence_id": 60,
+   "id": "30bf551b-e771-4dab-af21-fdf83d6d567e",
+   "title": "Apply security hardening: headers/CSP, rate limits, CI SAST & dependency scans, audit verifier and invariants job"
+  },
+  "VX-025": {
+   "sequence_id": 61,
+   "id": "8f2ef472-e4d5-4a60-98c7-d69739b441e5",
+   "title": "Implement arrears engine: levels L1–L3, notices, penalties, hold, debt referral to mock collections"
+  },
+  "VX-026": {
+   "sequence_id": 62,
+   "id": "0fffc376-d95d-4a35-beef-38d66fe810fd",
+   "title": "Implement supplier invoices with approval routing (staff/committee) and payment batches to mock bank"
+  },
+  "VX-070": {
+   "sequence_id": 63,
+   "id": "b4ddd8ee-0563-4385-a8f7-eba51e60769e",
+   "title": "Implement Aged Debtors report (JSON/PDF) and Strata dashboard KPIs"
+  },
+  "VX-045": {
+   "sequence_id": 64,
+   "id": "8cb61533-c50e-491c-9c25-1d6f1bd72527",
+   "title": "Implement client variation approvals (NTE) and FM customer portal request tracking"
+  },
+  "VX-046": {
+   "sequence_id": 65,
+   "id": "48bec342-932d-46fe-b62e-a44ba5950fa3",
+   "title": "Implement Ops Centre aggregates and basic FM analytics (cost by property, SLA %, supplier performance)"
+  },
+  "VX-047": {
+   "sequence_id": 66,
+   "id": "57a5ade0-2d0d-4639-835e-e10085d0b556",
+   "title": "Implement 10-year asset lifecycle plan generation and CAPEX export"
+  },
+  "VX-065": {
+   "sequence_id": 67,
+   "id": "96606c9c-74f6-478a-ae6a-0fc41bc073a1",
+   "title": "Build owner portal PWA (home tiles, ledger & pay, requests, documents, committee approvals)"
+  },
+  "VX-069": {
+   "sequence_id": 68,
+   "id": "01724819-d099-4248-a26c-9480bf7dc043",
+   "title": "Build AI assistant panel UI (streaming, citations, action proposal confirm)"
+  },
+  "VX-067": {
+   "sequence_id": 69,
+   "id": "8f9caabd-e042-4804-9a68-f56311ddaf5f",
+   "title": "Build cross-module Playwright E2E suite for the Demo Lite path and seed reset"
+  },
+  "VX-071": {
+   "sequence_id": 70,
+   "id": "29a03d2b-bc61-4ce6-a818-4ecec71819ff",
+   "title": "Deploy demo environment (compose on single VM) with seed reset and smoke check"
+  },
+  "VX-090": {
+   "sequence_id": 71,
+   "id": "6c14e05a-d279-4635-b9c5-0ccae544c9c0",
+   "title": "Day 5: Full system smoke and Demo Lite critical-workflow run"
+  },
+  "VX-091": {
+   "sequence_id": 72,
+   "id": "ea357a3b-58fc-4769-b2f0-77bfd8c3927f",
+   "title": "Day 5: Security validation run (auth, RBAC negatives, tenant isolation, document access, AI authz/injection)"
+  },
+  "VX-092": {
+   "sequence_id": 73,
+   "id": "6ddab679-0e98-4171-9845-fb601523c785",
+   "title": "Day 5: Strata financial integrity validation (FIN tests, invariants, report totals)"
+  },
+  "VX-093": {
+   "sequence_id": 74,
+   "id": "b6897ca7-9af4-4825-9b1d-aaca9cc6167e",
+   "title": "Day 5: FM workflow validation (SLA clock, compliance gate, offline sync, resident-app round trip)"
+  },
+  "VX-094": {
+   "sequence_id": 75,
+   "id": "764cdbd9-ea43-4580-a615-3cb008ddf938",
+   "title": "Day 5: AI evaluation subset run and AI demo rehearsal"
+  },
+  "VX-095": {
+   "sequence_id": 76,
+   "id": "b0e5ec76-434f-438f-87a9-6536dbf7923e",
+   "title": "Day 5: Regression and gap-closure buffer (P0/P1 bug fixing)"
+  },
+  "VX-096": {
+   "sequence_id": 77,
+   "id": "acadc88a-c7c8-44b8-97e9-f42c056664f1",
+   "title": "Day 5: Traceability and documentation verification (update matrix with Plane IDs and test results)"
+  },
+  "VX-097": {
+   "sequence_id": 78,
+   "id": "58b40afb-35bb-4dcc-9e0a-607a49902276",
+   "title": "Day 5: Known-gap review and post-Day-5 backlog grooming"
+  },
+  "VX-098": {
+   "sequence_id": 79,
+   "id": "cce5f429-3bd0-4b40-b7d6-10877049a2ab",
+   "title": "Day 5: Reduced performance smoke (k6 PERF-01/03/04 at small scale)"
+  },
+  "VX-099": {
+   "sequence_id": 80,
+   "id": "3cd202db-4ba2-47fa-923b-f37d250a0b0c",
+   "title": "Release Readiness / Demo Gate"
+  },
+  "D-01": {
+   "sequence_id": 81,
+   "id": "1c4685a9-86d6-4fe8-ad42-5186abddb1d2",
+   "title": "Decision Required: Levy apportionment & rounding rules per jurisdiction"
+  },
+  "D-02": {
+   "sequence_id": 82,
+   "id": "75fe35ca-860a-4310-9ea8-9cc25bb97ae7",
+   "title": "Decision Required: Penalty/interest and early-payment discount rules"
+  },
+  "D-03": {
+   "sequence_id": 83,
+   "id": "0859d5d3-3a50-44b0-adba-a5f99501f31a",
+   "title": "Decision Required: Payment allocation order"
+  },
+  "D-04": {
+   "sequence_id": 84,
+   "id": "a238042d-c2c7-46d1-ad6b-959446f84e25",
+   "title": "Decision Required: Arrears level thresholds, actions and fees"
+  },
+  "D-05": {
+   "sequence_id": 85,
+   "id": "5b474ec6-7648-43b5-82cf-53850a036f1e",
+   "title": "Decision Required: Meeting notice, quorum, proxy and voting threshold rules"
+  },
+  "D-06": {
+   "sequence_id": 86,
+   "id": "738b1576-6d05-4640-a44a-0c886661f3f2",
+   "title": "Decision Required: Trust accounting statutory requirements (AU states/NZ)"
+  },
+  "D-07": {
+   "sequence_id": 87,
+   "id": "eff0e3b5-7ca3-4f03-9cca-56c68f9e68ab",
+   "title": "Decision Required: Bank statement formats and receipt matching keys (Macquarie/NAB)"
+  },
+  "D-08": {
+   "sequence_id": 88,
+   "id": "91425b05-bb0e-4386-92c9-1d1dbec81e39",
+   "title": "Decision Required: Payment provider and payment rails for pay-now"
+  },
+  "D-09": {
+   "sequence_id": 89,
+   "id": "a744fe58-ce93-4215-bae1-1793a4af16ed",
+   "title": "Decision Required: Partner integration protocols (LevyCollect, StrataVote, Conpago/MyVillage)"
+  },
+  "D-10": {
+   "sequence_id": 90,
+   "id": "81722b40-7481-4691-93c3-1543c0203f32",
+   "title": "Decision Required: FM SLA priority matrix and business calendars"
+  },
+  "D-11": {
+   "sequence_id": 91,
+   "id": "394cac3a-ee6d-4210-8cfb-3232852e1066",
+   "title": "Decision Required: Asset lifecycle method and benchmark data"
+  },
+  "D-12": {
+   "sequence_id": 92,
+   "id": "eaf012b5-7bf1-41f6-9ed6-0a32aca35643",
+   "title": "Decision Required: Required supplier compliance document types and minimum cover"
+  },
+  "D-13": {
+   "sequence_id": 93,
+   "id": "d7656620-2d9e-437e-82f9-8aa6d8aa81c8",
+   "title": "Decision Required: PO sign-off on unresolved conflicts (AI status C-01, owner portal C-04, FM apps C-05, voting C-11)"
+  },
+  "D-14": {
+   "sequence_id": 94,
+   "id": "7f3df933-bcde-436f-addd-5ee501e7f488",
+   "title": "Decision Required: Obtain authorized product access / staff UI screenshots"
+  },
+  "D-15": {
+   "sequence_id": 95,
+   "id": "50f8a97a-e5a2-46b1-8095-1ce929efb010",
+   "title": "Decision Required: Approve LLM & embedding providers, data processing terms, and provide API keys for dev/demo"
+  },
+  "D-16": {
+   "sequence_id": 96,
+   "id": "c2f78680-eaae-4407-88d0-83af5ee9835b",
+   "title": "Decision Required: Demo hosting target (VM/cloud account) and DNS"
+  },
+  "FX-01": {
+   "sequence_id": 97,
+   "id": "b24b7368-217a-4a41-a28a-b3ed0efa9604",
+   "title": "Meetings, motions, e-voting, proxies and minutes"
+  },
+  "FX-02": {
+   "sequence_id": 98,
+   "id": "63a20538-546a-4f23-b13e-dccb04ff469e",
+   "title": "Comms campaigns with dynamic audiences and test send"
+  },
+  "FX-03": {
+   "sequence_id": 99,
+   "id": "42a20a0f-2f5f-45e5-b962-4b27d873c3f3",
+   "title": "Community & committee wall with moderation"
+  },
+  "FX-04": {
+   "sequence_id": 100,
+   "id": "66362048-92ba-4848-91f5-567d3899a0fe",
+   "title": "Strata insurance & compliance register with renewal tasks"
+  },
+  "FX-05": {
+   "sequence_id": 101,
+   "id": "6f4261c1-a9e6-4f8d-8cf6-d26a6908db06",
+   "title": "Quote requests, quote comparison and strata work orders (+ escalate to FM)"
+  },
+  "FX-06": {
+   "sequence_id": 102,
+   "id": "740901f3-5668-4f1a-b76e-6190c1a53f4f",
+   "title": "Data import wizard and templates (schemes, lots, owners, assets, opening balances)"
+  },
+  "FX-07": {
+   "sequence_id": 103,
+   "id": "e4208d14-4052-4573-92be-7d43e4ae9947",
+   "title": "FM inspections & compliance schedules with follow-up WOs"
+  },
+  "FX-08": {
+   "sequence_id": 104,
+   "id": "e7c50526-3ca9-4b93-92be-e909ebf435e7",
+   "title": "CRM contact history and dispatch board"
+  },
+  "FX-09": {
+   "sequence_id": 105,
+   "id": "e9cce57a-d076-4712-ba54-17a8bd7b3f43",
+   "title": "Scheduled report distribution and full Strata report set (TB, I&E, BS, levy register, statements)"
+  },
+  "FX-10": {
+   "sequence_id": 106,
+   "id": "3050d939-5221-45de-a909-31648c06ca06",
+   "title": "Full FM analytics and client self-serve reports"
+  },
+  "FX-11": {
+   "sequence_id": 107,
+   "id": "2a8f2d2a-610d-49a0-99e3-00a2055fbce0",
+   "title": "AI email reply drafts (human-in-the-loop)"
+  },
+  "FX-12": {
+   "sequence_id": 108,
+   "id": "b2ef9135-a9bb-4ba6-938b-3c5ccc830828",
+   "title": "AI invoice field extraction with confidence review"
+  },
+  "FX-13": {
+   "sequence_id": 109,
+   "id": "77c6da48-d414-4e34-8bac-bf773f14e214",
+   "title": "Public API clients and webhook subscription management (incl. redelivery, auto-disable)"
+  },
+  "FX-14": {
+   "sequence_id": 110,
+   "id": "89fe90a6-d359-45da-9dde-19cd39241a7b",
+   "title": "Complete OpenAPI for all ~190 catalogued operations and oasdiff gate"
+  },
+  "FX-15": {
+   "sequence_id": 111,
+   "id": "1ea4b480-2476-4d42-8c96-e02b7bf28bbc",
+   "title": "Full performance suite, ZAP DAST, backup/restore rehearsal"
+  },
+  "FX-16": {
+   "sequence_id": 112,
+   "id": "5dd753cb-8691-4130-86b0-da088cee3606",
+   "title": "Observability stack: OTel → Grafana dashboards, alerts and runbooks"
+  },
+  "FX-17": {
+   "sequence_id": 113,
+   "id": "ced5f9da-7aee-4069-b103-8b6dcc3b7194",
+   "title": "Cloud reference deployment (ECS/Helm), release pipeline with signing and SBOM"
+  },
+  "FX-18": {
+   "sequence_id": 114,
+   "id": "d76e2a79-ce4d-4e01-ad9a-c3399e06bfb0",
+   "title": "Full AI evaluation datasets and CI gates; owner-facing AI (BL-13)"
+  },
+  "FX-19": {
+   "sequence_id": 115,
+   "id": "59eb50d7-eaec-4694-998d-603a45ab0679",
+   "title": "Accessibility audit, responsive polish, global search UI, saved views"
+  },
+  "FX-20": {
+   "sequence_id": 116,
+   "id": "c0774e74-95d8-49f1-ae04-74d9b18751ab",
+   "title": "Payment plans self-service, special levies UI, collections full lifecycle"
+  },
+  "FX-22": {
+   "sequence_id": 117,
+   "id": "cf99dd22-60ba-4fe8-bd80-971bb589a47c",
+   "title": "Tasks, notes and timeline UI with configurable automation rules"
+  },
+  "FX-21": {
+   "sequence_id": 118,
+   "id": "3e5ee8c4-8733-4776-b5b0-3dd74419e5a9",
+   "title": "Future backlog umbrella (BL-01..BL-20: native apps, real banks, E-Services, term deposits, M365 channels…)"
+  }
+ }
+}

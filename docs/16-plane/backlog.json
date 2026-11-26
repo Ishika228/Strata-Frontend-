@@ -1,0 +1,4484 @@
+{
+ "project": "Vertex Strata - Vertex FM",
+ "generated_from": "docs/ (121 files) — see PROJECT_MODEL.md",
+ "capacity_hours_per_dev_per_day": 6.5,
+ "cycles": [
+  {
+   "key": "D1",
+   "name": "Day 1 — Foundation",
+   "start": "2026-11-24",
+   "end": "2026-11-24",
+   "goal": "Runnable monorepo; tenant-aware, authenticated, RBAC-guarded API; baseline schema with RLS; web shell login."
+  },
+  {
+   "key": "D2",
+   "name": "Day 2 — Core Domains",
+   "start": "2026-11-25",
+   "end": "2026-11-25",
+   "goal": "Strata register & ledger, FM assets & suppliers, documents, isolation tests, UI kit, mocks."
+  },
+  {
+   "key": "D3",
+   "name": "Day 3 — Product Experience",
+   "start": "2026-11-26",
+   "end": "2026-11-26",
+   "goal": "Levies, payments & bank rec; work orders, SLA, PPM; notifications & approvals; AI gateway; Strata & FM screens."
+  },
+  {
+   "key": "D4",
+   "name": "Day 4 — Integration & Hardening",
+   "start": "2026-11-27",
+   "end": "2026-11-27",
+   "goal": "Arrears, invoices, aged debtors, client approvals, Ops Centre, lifecycle, RAG, portal, security hardening, E2E, demo env."
+  },
+  {
+   "key": "D5",
+   "name": "Day 5 — Validation & Demo",
+   "start": "2026-11-30",
+   "end": "2026-11-30",
+   "goal": "Validation, regression, gap closure, Release Readiness / Demo Gate."
+  }
+ ],
+ "modules": [
+  {
+   "key": "M01",
+   "name": "01 · Foundation & Platform",
+   "description": "Monorepo, local stack, API core, outbox, scheduler, audit writer. Docs: 05-architecture, 13-devops, 15-build/REPOSITORY_STRUCTURE."
+  },
+  {
+   "key": "M02",
+   "name": "02 · Identity, Tenancy & Access",
+   "description": "Tenants, users, Keycloak/OIDC, SSO, RBAC, tenant isolation. Docs: 04-shared-platform (RBAC, TENANCY, IDENTITY_AND_AUTH)."
+  },
+  {
+   "key": "M03",
+   "name": "03 · Strata",
+   "description": "Scheme register, ledger, budgets & levies, payments & bank rec, arrears, invoices & approvals, meetings, comms, owner portal. Docs: 03-strata, WF-03..14, WF-27."
+  },
+  {
+   "key": "M04",
+   "name": "04 · FM",
+   "description": "Properties, assets, lifecycle, PPM, service requests, work orders, SLA, workforce, suppliers & compliance, client approvals. Docs: 03-fm, WF-15..22."
+  },
+  {
+   "key": "M05",
+   "name": "05 · Workflow, Documents & Notifications",
+   "description": "Documents, notifications, approvals engine, tasks, search. Docs: 04-shared-platform/COMMON_SERVICES."
+  },
+  {
+   "key": "M06",
+   "name": "06 · AI & Intelligence",
+   "description": "AI gateway, tools, RAG, guardrails, evaluation. Docs: 09-ai."
+  },
+  {
+   "key": "M07",
+   "name": "07 · Integrations",
+   "description": "Bank, payments, collections, resident-app, email/SMS adapters and mocks. Docs: 10-integrations."
+  },
+  {
+   "key": "M08",
+   "name": "08 · Reporting & Analytics",
+   "description": "Aged debtors, dashboards, KPIs, FM analytics. Docs: 11-reporting."
+  },
+  {
+   "key": "M09",
+   "name": "09 · Frontend & UX",
+   "description": "App shell, UI kit, staff screens, owner portal & field PWAs. Docs: 08-ux."
+  },
+  {
+   "key": "M10",
+   "name": "10 · Security & Compliance",
+   "description": "Hardening, RLS verification, negative tests, secrets, AI security. Docs: 05-architecture/SECURITY_ARCHITECTURE, 12-testing/SECURITY_TESTS."
+  },
+  {
+   "key": "M11",
+   "name": "11 · Testing, Validation & Demo",
+   "description": "E2E, validation runs, Day 5 demo and release gate. Docs: 12-testing, 15-build (UAT, DEMO, ACCEPTANCE)."
+  },
+  {
+   "key": "M12",
+   "name": "12 · DevOps & Deployment",
+   "description": "CI/CD, environments, config, secrets, migrations, deployment, observability. Docs: 13-devops."
+  }
+ ],
+ "labels": {
+  "domain": [
+   "STRATA",
+   "FM",
+   "PLATFORM",
+   "AI",
+   "FRONTEND",
+   "INTEGRATION",
+   "REPORTING",
+   "DEVOPS",
+   "SECURITY",
+   "QA"
+  ],
+  "priority": [
+   "P0",
+   "P1",
+   "P2",
+   "P3"
+  ],
+  "type": [
+   "FEATURE",
+   "TECHNICAL",
+   "SECURITY",
+   "TEST",
+   "DOCUMENTATION",
+   "DECISION",
+   "BUG",
+   "BLOCKED / UNKNOWN"
+  ],
+  "evidence": [
+   "CONFIRMED",
+   "OBSERVED",
+   "INFERRED",
+   "PROPOSED",
+   "UNKNOWN"
+  ],
+  "plan": [
+   "POST-DAY-5",
+   "DEV1",
+   "DEV2",
+   "DEV3",
+   "DEV4",
+   "EPIC"
+  ]
+ },
+ "lanes": {
+  "DEV1": "Platform / Backend / Security + AI backend",
+  "DEV2": "Strata domain + baseline schema",
+  "DEV3": "FM domain + shared suppliers/compliance + async infrastructure",
+  "DEV4": "Repo/CI, Frontend, PWAs, Mocks, E2E, Demo environment",
+  "PO/SME": "Product owner / subject-matter experts (decisions)"
+ },
+ "epics": [
+  {
+   "id": "EP-01",
+   "title": "EPIC: Platform Foundation",
+   "module": "M01",
+   "labels": [
+    "PLATFORM"
+   ],
+   "evidence": "PROPOSED",
+   "summary": "Runnable monorepo, API core, outbox, scheduler, audit. Docs: 05-architecture/SYSTEM_ARCHITECTURE, ADR-001..016, 15-build/IMPLEMENTATION_GUIDE."
+  },
+  {
+   "id": "EP-02",
+   "title": "EPIC: Identity, Tenancy & RBAC",
+   "module": "M02",
+   "labels": [
+    "PLATFORM",
+    "SECURITY"
+   ],
+   "evidence": "PROPOSED",
+   "summary": "F-SH-01..03. SSO capability CONFIRMED (EV-006); tenancy INFERRED (EV-015)."
+  },
+  {
+   "id": "EP-03",
+   "title": "EPIC: Strata — Scheme Register & Provisioning",
+   "module": "M03",
+   "labels": [
+    "STRATA"
+   ],
+   "evidence": "CONFIRMED",
+   "summary": "F-ST-01. EV-029, EV-032, EV-056. WF-03."
+  },
+  {
+   "id": "EP-04",
+   "title": "EPIC: Strata — Trust Ledger, Budgets & Levies",
+   "module": "M03",
+   "labels": [
+    "STRATA"
+   ],
+   "evidence": "CONFIRMED",
+   "summary": "F-ST-02, F-ST-03, F-ST-07. EV-020, 021, 038, 043, 044. WF-04, WF-05."
+  },
+  {
+   "id": "EP-05",
+   "title": "EPIC: Strata — Payments & Bank Reconciliation",
+   "module": "M03",
+   "labels": [
+    "STRATA"
+   ],
+   "evidence": "CONFIRMED",
+   "summary": "F-ST-04, F-ST-05. EV-042, 050, 051. WF-06, WF-07."
+  },
+  {
+   "id": "EP-06",
+   "title": "EPIC: Strata — Arrears & Debt Recovery",
+   "module": "M03",
+   "labels": [
+    "STRATA"
+   ],
+   "evidence": "CONFIRMED",
+   "summary": "F-ST-06. EV-024..026, EV-039. WF-08."
+  },
+  {
+   "id": "EP-07",
+   "title": "EPIC: Strata — Supplier Invoices, Procurement & Approvals",
+   "module": "M03",
+   "labels": [
+    "STRATA"
+   ],
+   "evidence": "OBSERVED",
+   "summary": "F-ST-08, F-ST-09. EV-040 (observed), 042, 044, 052, 053. WF-09, WF-10."
+  },
+  {
+   "id": "EP-08",
+   "title": "EPIC: Strata — Meetings, Voting, Comms, Wall & Insurance",
+   "module": "M03",
+   "labels": [
+    "STRATA"
+   ],
+   "evidence": "CONFIRMED",
+   "summary": "F-ST-10, 11, 13, 14. EV-045..047, 036, 054, 055. WF-11, 12, 27. Largely POST-DAY-5."
+  },
+  {
+   "id": "EP-09",
+   "title": "EPIC: Strata — Owner Portal (PWA)",
+   "module": "M03",
+   "labels": [
+    "STRATA",
+    "FRONTEND"
+   ],
+   "evidence": "OBSERVED",
+   "summary": "F-ST-12. EV-032..040. WF-13. SCR-151..158."
+  },
+  {
+   "id": "EP-10",
+   "title": "EPIC: FM — Properties, Assets & Lifecycle",
+   "module": "M04",
+   "labels": [
+    "FM"
+   ],
+   "evidence": "CONFIRMED",
+   "summary": "F-FM-01..03. EV-072, 073, 088, 091, 093. WF-15, WF-22."
+  },
+  {
+   "id": "EP-11",
+   "title": "EPIC: FM — Planned Maintenance & 52-week Planner",
+   "module": "M04",
+   "labels": [
+    "FM"
+   ],
+   "evidence": "CONFIRMED",
+   "summary": "F-FM-04, F-FM-11. EV-075, 076, 092. WF-16."
+  },
+  {
+   "id": "EP-12",
+   "title": "EPIC: FM — Service Requests, Work Orders & SLA",
+   "module": "M04",
+   "labels": [
+    "FM"
+   ],
+   "evidence": "CONFIRMED",
+   "summary": "F-FM-05..07, F-FM-10, F-FM-12. EV-071, 083..085, 090, 098. WF-17..19, WF-21."
+  },
+  {
+   "id": "EP-13",
+   "title": "EPIC: FM — Workforce & Technician Mobile",
+   "module": "M04",
+   "labels": [
+    "FM",
+    "FRONTEND"
+   ],
+   "evidence": "CONFIRMED",
+   "summary": "F-FM-08. EV-074, 081, 082. WF-18."
+  },
+  {
+   "id": "EP-14",
+   "title": "EPIC: Suppliers & Contractor Compliance (shared)",
+   "module": "M04",
+   "labels": [
+    "FM",
+    "STRATA"
+   ],
+   "evidence": "CONFIRMED",
+   "summary": "F-FM-09. EV-053, 077, 078. WF-20. BR-FM-07, BR-SUP-01."
+  },
+  {
+   "id": "EP-15",
+   "title": "EPIC: Shared Workflow — Documents, Notifications, Approvals, Tasks, Search",
+   "module": "M05",
+   "labels": [
+    "PLATFORM"
+   ],
+   "evidence": "CONFIRMED",
+   "summary": "F-SH-04..08. EV-012..014, 022, 037, 040, 090, 092."
+  },
+  {
+   "id": "EP-16",
+   "title": "EPIC: AI Assistant & RAG",
+   "module": "M06",
+   "labels": [
+    "AI"
+   ],
+   "evidence": "PROPOSED",
+   "summary": "F-AI-01..06. Urbanise AI status CONFLICTED (C-01); POC design PROPOSED (09-ai)."
+  },
+  {
+   "id": "EP-17",
+   "title": "EPIC: Integrations & Mock Providers",
+   "module": "M07",
+   "labels": [
+    "INTEGRATION"
+   ],
+   "evidence": "CONFIRMED",
+   "summary": "F-IN-01..07. Capabilities CONFIRMED; protocols UNKNOWN; all mocks (10-integrations/MOCK_INTEGRATIONS)."
+  },
+  {
+   "id": "EP-18",
+   "title": "EPIC: Reporting & Dashboards",
+   "module": "M08",
+   "labels": [
+    "REPORTING"
+   ],
+   "evidence": "OBSERVED",
+   "summary": "F-ST-15, F-FM-12, F-FM-13. RPT-ST-01 OBSERVED (EV-028)."
+  },
+  {
+   "id": "EP-19",
+   "title": "EPIC: Frontend Shell & Staff UX",
+   "module": "M09",
+   "labels": [
+    "FRONTEND"
+   ],
+   "evidence": "PROPOSED",
+   "summary": "08-ux. Staff UI of Urbanise UNKNOWN; all layouts PROPOSED."
+  },
+  {
+   "id": "EP-20",
+   "title": "EPIC: Security Hardening & Verification",
+   "module": "M10",
+   "labels": [
+    "SECURITY"
+   ],
+   "evidence": "PROPOSED",
+   "summary": "SECURITY_ARCHITECTURE controls, SEC/RBAC-N/TEN/DOC/AISEC tests."
+  },
+  {
+   "id": "EP-21",
+   "title": "EPIC: Testing & Quality",
+   "module": "M11",
+   "labels": [
+    "QA"
+   ],
+   "evidence": "PROPOSED",
+   "summary": "12-testing strategy; tests embedded in every engineering item's AC; cross-module E2E here."
+  },
+  {
+   "id": "EP-22",
+   "title": "EPIC: DevOps & Environments",
+   "module": "M12",
+   "labels": [
+    "DEVOPS"
+   ],
+   "evidence": "PROPOSED",
+   "summary": "13-devops: CI, compose, demo environment, migrations, observability."
+  },
+  {
+   "id": "EP-23",
+   "title": "EPIC: Day 5 Validation, Demo & Release Gate",
+   "module": "M11",
+   "labels": [
+    "QA"
+   ],
+   "evidence": "PROPOSED",
+   "summary": "Validation runs, gap closure, Release Readiness / Demo Gate. 15-build/ACCEPTANCE_CHECKLIST, DEMO_SCRIPT."
+  },
+  {
+   "id": "EP-24",
+   "title": "EPIC: Decisions Required & Unknowns",
+   "module": null,
+   "labels": [
+    "DECISION"
+   ],
+   "evidence": "UNKNOWN",
+   "summary": "Items that cannot be implemented confidently from evidence. 00-discovery UNKNOWN_INFORMATION, CONFLICTING_INFORMATION, RESEARCH_GAPS."
+  }
+ ],
+ "items": [
+  {
+   "id": "VX-001",
+   "title": "Bootstrap monorepo, docker-compose stack and CI baseline",
+   "epic": "EP-22",
+   "module": "M12",
+   "lane": "DEV4",
+   "cycle": "D1",
+   "priority": "P0",
+   "est_h": 4,
+   "labels": [
+    "DEVOPS",
+    "TECHNICAL"
+   ],
+   "evidence": "PROPOSED",
+   "state": "Todo",
+   "depends_on": [],
+   "description": "Create the pnpm monorepo per REPOSITORY_STRUCTURE (apps/api, apps/web, apps/mocks, packages/{ui,contracts,domain-kit}, seed, e2e). docker-compose with Postgres 16 + pgvector/pg_trgm/ltree/citext, Redis 7, MinIO, Keycloak (realm import), Mailpit, ClamAV. GitHub Actions ci.yml: install, lint, typecheck, unit, gitleaks. `.env.example` with dummy values only. This is the first item on the critical path: every other item depends on it. **Deliver in two pushes:** push 1 within the first 90 minutes of Day 1 (workspace skeleton, empty NestJS and Vite apps, compose services up) unblocks DEV1/DEV2/DEV3; push 2 (CI workflow, lint and test wiring) lands by end of day.",
+   "sources": [
+    "15-build/REPOSITORY_STRUCTURE.md",
+    "13-devops/ENVIRONMENTS.md",
+    "13-devops/CI_CD.md",
+    "13-devops/CONFIGURATION.md",
+    "13-devops/SECRETS.md",
+    "05-architecture/SYSTEM_ARCHITECTURE.md (Tech stack)"
+   ],
+   "trace": {
+    "req": [
+     "NFR-14",
+     "NFR-15"
+    ],
+    "tests": [
+     "CI green"
+    ],
+    "demo": []
+   },
+   "acceptance": [
+    "Given a clean checkout, when `docker compose up -d && pnpm install && pnpm dev` runs, then api, web, Postgres, Redis, MinIO, Keycloak and Mailpit are healthy within 3 minutes.",
+    "Given a PR, when CI runs, then lint, typecheck, unit tests and gitleaks execute and block merge on failure.",
+    "No real secret exists in the repo (gitleaks clean)."
+   ],
+   "risks": [
+    "Toolchain friction on Windows dev machines — provide devcontainer or WSL note."
+   ],
+   "unknowns": []
+  },
+  {
+   "id": "VX-002",
+   "title": "Apply reference schema baseline with RLS, ledger triggers and grants",
+   "epic": "EP-01",
+   "module": "M01",
+   "lane": "DEV2",
+   "cycle": "D1",
+   "priority": "P0",
+   "est_h": 4,
+   "labels": [
+    "PLATFORM",
+    "TECHNICAL",
+    "SECURITY"
+   ],
+   "evidence": "PROPOSED",
+   "state": "Todo",
+   "depends_on": [
+    "VX-001"
+   ],
+   "description": "Turn docs/06-database/SCHEMA.sql into migration 0001 (node-pg-migrate): all schemas (platform, common, strata, fm, ai), RLS loop (ENABLE + FORCE + tenant_isolation policy on every tenant_id table), balanced-journal constraint trigger and period-lock trigger from MIGRATIONS.md, REVOKE UPDATE/DELETE on audit and ledger tables for app_user, separate migrator and app_user roles (no BYPASSRLS). Domain owners may add follow-up migrations; this one is the shared baseline. Urbanise's schema is UNKNOWN (U-01) — this is an independent design.",
+   "sources": [
+    "06-database/SCHEMA.sql",
+    "06-database/DOMAIN_MODEL.md",
+    "06-database/DATA_GOVERNANCE.md",
+    "13-devops/MIGRATIONS.md",
+    "04-shared-platform/TENANCY.md",
+    "05-architecture/ARCHITECTURE_DECISIONS.md (ADR-002, ADR-003, ADR-004)"
+   ],
+   "trace": {
+    "req": [
+     "FR-SH-02",
+     "NFR-06",
+     "NFR-09",
+     "NFR-10"
+    ],
+    "br": [
+     "BR-ST-12"
+    ],
+    "tests": [
+     "TEN-05",
+     "TEN-12",
+     "FIN-03",
+     "FIN-09",
+     "SEC-12"
+    ],
+    "demo": []
+   },
+   "acceptance": [
+    "Given a connection as app_user without `app.tenant_id` set, when any tenant table is queried, then 0 rows are returned (TEN-05).",
+    "Given tenant A context, when inserting a row with tenant B's id, then RLS WITH CHECK rejects it (TEN-12).",
+    "Given an unbalanced journal entry, when the transaction commits, then it fails with UNBALANCED_ENTRY (FIN-03).",
+    "Given a closed period, when a journal is inserted for that month, then it fails with PERIOD_CLOSED (FIN-09).",
+    "app_user cannot UPDATE/DELETE audit_events, journal_entries or ledger_lines (SEC-12)."
+   ],
+   "risks": [
+    "RLS misconfiguration silently leaks data — covered by TEN tests in VX-007."
+   ],
+   "unknowns": []
+  },
+  {
+   "id": "VX-003",
+   "title": "Implement API core: tenant context, Problem errors, cursor pagination, idempotency, request logging",
+   "epic": "EP-01",
+   "module": "M01",
+   "lane": "DEV1",
+   "cycle": "D1",
+   "priority": "P0",
+   "est_h": 2.5,
+   "labels": [
+    "PLATFORM",
+    "TECHNICAL"
+   ],
+   "evidence": "PROPOSED",
+   "state": "Todo",
+   "depends_on": [
+    "VX-001"
+   ],
+   "description": "NestJS on Fastify core module: TenantContext (from token `tid`) and a transaction helper that runs `SET LOCAL app.tenant_id`; ScopedRepository base; RFC 9457 Problem filter with error codes; HMAC-signed keyset cursor pagination; Idempotency-Key interceptor backed by platform.idempotency_keys; optimistic locking (If-Match); Pino JSON logging with redaction and request/trace IDs; /healthz and /readyz.",
+   "sources": [
+    "05-architecture/SYSTEM_ARCHITECTURE.md (Request lifecycle)",
+    "07-api/ERROR_MODEL.md",
+    "07-api/PAGINATION.md",
+    "07-api/FILTERING.md",
+    "07-api/IDEMPOTENCY.md",
+    "13-devops/LOGGING.md",
+    "15-build/IMPLEMENTATION_GUIDE.md"
+   ],
+   "trace": {
+    "req": [
+     "NFR-11",
+     "NFR-14"
+    ],
+    "tests": [
+     "API-ERR-01",
+     "API-PAGE-01",
+     "API-PAGE-02",
+     "API-IDEM-01",
+     "API-IDEM-02",
+     "API-IDEM-03",
+     "API-LOCK-01",
+     "SEC-14"
+    ],
+    "demo": []
+   },
+   "acceptance": [
+    "Given the same Idempotency-Key and body twice, then one write occurs and the replay returns the original response with `Idempotent-Replayed: true`.",
+    "Given the same key with a different body, then 409 IDEMPOTENCY_KEY_REUSED.",
+    "Given a tampered cursor, then 400 INVALID_CURSOR.",
+    "Every error response is application/problem+json with code and traceId and no stack trace.",
+    "Logs never contain Authorization headers, passwords, tokens or bank numbers (SEC-14)."
+   ],
+   "risks": [],
+   "unknowns": []
+  },
+  {
+   "id": "VX-004",
+   "title": "Implement authentication: Keycloak realm, JWT guard, server-side role resolution, /me",
+   "epic": "EP-02",
+   "module": "M02",
+   "lane": "DEV1",
+   "cycle": "D1",
+   "priority": "P0",
+   "est_h": 2.5,
+   "labels": [
+    "PLATFORM",
+    "SECURITY",
+    "FEATURE"
+   ],
+   "evidence": "PROPOSED",
+   "state": "Todo",
+   "depends_on": [
+    "VX-001"
+   ],
+   "description": "Integrates with VX-002 (memberships/role_assignments tables) at merge on Day 1 afternoon; development starts in parallel. Keycloak realm export (vertex-web PKCE client, vertex-api bearer-only, TOTP required for staff), seeded synthetic test users from SEED_DATA. API AuthGuard validates JWT via JWKS (iss, aud, exp), resolves membership for `tid`, loads role assignments server-side (60 s cache — ADR-016). GET /me and POST /me/tenant-switch. SSO with Entra ID exists in Urbanise (EV-006, CONFIRMED capability); the protocol is UNKNOWN, so the POC uses OIDC brokering with a second Keycloak realm acting as the corporate IdP for the demo.",
+   "sources": [
+    "04-shared-platform/IDENTITY_AND_AUTH.md",
+    "07-api/AUTHENTICATION.md",
+    "15-build/SEED_DATA.md (Users)",
+    "00-discovery/EVIDENCE_REGISTER.md (EV-006)"
+   ],
+   "trace": {
+    "req": [
+     "FR-SH-03",
+     "FR-SH-04",
+     "FR-IN-07"
+    ],
+    "us": [
+     "US-02"
+    ],
+    "wf": [
+     "WF-02"
+    ],
+    "scr": [
+     "SCR-001"
+    ],
+    "tests": [
+     "API-AUTH-01",
+     "API-AUTH-02",
+     "API-AUTH-03",
+     "SEC-05",
+     "SEC-06",
+     "FT-SH-02",
+     "FT-SH-03",
+     "INT-T-16",
+     "RBAC-N14"
+    ],
+    "demo": [
+     "Demo 1"
+    ]
+   },
+   "acceptance": [
+    "Given no token, then 401 Problem.",
+    "Given a token whose `tid` is not an active membership of the user, then 401.",
+    "Given a JWT with alg:none or a wrong key, then 401 (SEC-06).",
+    "Given a revoked role assignment, then access is denied within 60 s (RBAC-N14).",
+    "Given the demo SSO realm, when a staff user logs in through it, then a session is created in the correct tenant (FT-SH-03)."
+   ],
+   "risks": [
+    "Keycloak config drift between environments — realm is exported to git."
+   ],
+   "unknowns": [
+    "Real Entra ID tenant not available for POC (mock IdP realm used)."
+   ]
+  },
+  {
+   "id": "VX-005",
+   "title": "Implement RBAC permission catalog, @Permission guard and route-coverage test",
+   "epic": "EP-02",
+   "module": "M02",
+   "lane": "DEV1",
+   "cycle": "D1",
+   "priority": "P0",
+   "est_h": 2,
+   "labels": [
+    "PLATFORM",
+    "SECURITY"
+   ],
+   "evidence": "PROPOSED",
+   "state": "Todo",
+   "depends_on": [
+    "VX-004"
+   ],
+   "description": "Static permission catalog (`module.resource.action`) and 13 system roles from the RBAC matrix; PermissionGuard reading @Permission metadata; `can(user, permission, resource)` with scope types (tenant, scheme, lot, region, property, supplier, client); CI test enumerating all routes that fails if a route has neither @Permission nor @Public. Domain teams use the catalog from Day 2.",
+   "sources": [
+    "04-shared-platform/RBAC.md",
+    "07-api/AUTHORIZATION.md",
+    "01-product/PERSONAS.md"
+   ],
+   "trace": {
+    "req": [
+     "FR-SH-05"
+    ],
+    "us": [
+     "US-03"
+    ],
+    "tests": [
+     "API-PERM-01",
+     "RBAC-N08",
+     "RBAC-N09",
+     "FT-SH-04"
+    ],
+    "demo": []
+   },
+   "acceptance": [
+    "Given any registered route without @Permission or @Public, then the route-coverage test fails (API-PERM-01).",
+    "Given strata_manager, when calling a platform.tenant.manage route, then 403 (RBAC-N08).",
+    "Given an auditor, when calling any write endpoint, then 403 (RBAC-N09)."
+   ],
+   "risks": [],
+   "unknowns": []
+  },
+  {
+   "id": "VX-006",
+   "title": "Implement audit writer (hash chain), transactional outbox, BullMQ relay and Clock-based scheduler",
+   "epic": "EP-01",
+   "module": "M01",
+   "lane": "DEV3",
+   "cycle": "D1",
+   "priority": "P0",
+   "est_h": 4,
+   "labels": [
+    "PLATFORM",
+    "TECHNICAL"
+   ],
+   "evidence": "PROPOSED",
+   "state": "Todo",
+   "depends_on": [
+    "VX-002"
+   ],
+   "description": "AuditService writing append-only events with per-tenant sha256 hash chain inside the business transaction; outbox insert helper; relay worker publishing unpublished outbox rows to BullMQ queues; idempotent consumer base using platform.processed_events; repeatable-job scheduler with injectable Clock (needed for levy, arrears, PPM, SLA jobs and for deterministic tests). Audit trail is a CONFIRMED capability (EV-013); this implementation is PROPOSED.",
+   "sources": [
+    "04-shared-platform/COMMON_SERVICES.md (Audit; Scheduler & outbox)",
+    "05-architecture/EVENTS.md",
+    "05-architecture/ARCHITECTURE_DECISIONS.md (ADR-005)",
+    "12-testing/FAILURE_RECOVERY_TESTS.md"
+   ],
+   "trace": {
+    "req": [
+     "FR-SH-09",
+     "NFR-09"
+    ],
+    "us": [
+     "US-45"
+    ],
+    "tests": [
+     "FT-SH-07",
+     "FAILREC-01",
+     "FAILREC-04",
+     "FAILREC-12"
+    ],
+    "demo": [
+     "Demo 23"
+    ]
+   },
+   "acceptance": [
+    "Given a state change, then an audit event and an outbox event are written in the same transaction (rollback removes both).",
+    "Given the relay crashes after publish but before marking, when it restarts, then consumers process the event exactly once (FAILREC-04).",
+    "Given the Clock is advanced in a test, then scheduled jobs fire deterministically.",
+    "The audit hash chain verifies for a seeded tenant."
+   ],
+   "risks": [],
+   "unknowns": []
+  },
+  {
+   "id": "VX-020",
+   "title": "Build Strata money & calculation library with property tests (apportionment, CRN, ageing, allocation, penalty)",
+   "epic": "EP-04",
+   "module": "M03",
+   "lane": "DEV2",
+   "cycle": "D1",
+   "priority": "P0",
+   "est_h": 3,
+   "labels": [
+    "STRATA",
+    "FEATURE",
+    "TEST"
+   ],
+   "evidence": "PROPOSED",
+   "state": "Todo",
+   "depends_on": [
+    "VX-001"
+   ],
+   "description": "Pure functions in packages/domain-kit and strata/domain: apportionLevy (cents, entitlement-weighted, remainder rules), CRN with Luhn check digit, ageCharges (1–30/31–60/61–90/91+ from due date — OBSERVED EV-028), allocatePayment (oldest due first, penalty last), penalty (simple interest, configurable). The capability that levies are budget-driven is CONFIRMED (EV-020), but the formulas are UNKNOWN (U-20, U-22). These are PROPOSED, configurable defaults pending D-01..D-03.",
+   "sources": [
+    "03-strata/LEVY_ENGINE.md",
+    "03-strata/ARREARS_AND_DEBT_RECOVERY.md (Ageing)",
+    "02-requirements/BUSINESS_RULES.md (BR-ST-03, 05, 06, 07, 09)",
+    "12-testing/FINANCIAL_INTEGRITY_TESTS.md"
+   ],
+   "trace": {
+    "req": [
+     "FR-ST-05",
+     "FR-ST-08",
+     "NFR-10"
+    ],
+    "br": [
+     "BR-ST-03",
+     "BR-ST-05",
+     "BR-ST-06",
+     "BR-ST-07",
+     "BR-ST-09"
+    ],
+    "tests": [
+     "FIN-01",
+     "FIN-02",
+     "FIN-06",
+     "FIN-07",
+     "FT-ST-03",
+     "FT-ST-04"
+    ],
+    "demo": [
+     "Demo 3"
+    ]
+   },
+   "acceptance": [
+    "For random budgets (1 c – $10M), 1–2,000 lots and random entitlements, the sum of schedule items per fund equals the levy target exactly (FIN-01).",
+    "Worked example from LEVY_ENGINE ($10,000; 10/20/30/40; quarterly) yields 25,000/50,000/75,000/100,000 c (FT-ST-03).",
+    "Allocation never exceeds outstanding; any remainder becomes credit (FIN-02).",
+    "Bucket totals equal total overdue (FIN-06)."
+   ],
+   "risks": [
+    "Jurisdiction rules differ (⚖) — defaults must stay configurable."
+   ],
+   "unknowns": [
+    "D-01 apportionment/rounding",
+    "D-02 penalty/discount",
+    "D-03 allocation order"
+   ]
+  },
+  {
+   "id": "VX-040",
+   "title": "Build FM calculation library: business-time SLA, RRULE occurrences, lifecycle formula, WO state table",
+   "epic": "EP-12",
+   "module": "M04",
+   "lane": "DEV3",
+   "cycle": "D1",
+   "priority": "P0",
+   "est_h": 2.5,
+   "labels": [
+    "FM",
+    "FEATURE",
+    "TEST"
+   ],
+   "evidence": "PROPOSED",
+   "state": "Todo",
+   "depends_on": [
+    "VX-001"
+   ],
+   "description": "Pure, unit-tested functions: addBusinessMinutes(start, minutes, calendar) with holidays and DST (Australia/Sydney); occurrence generator from iCal RRULE in tenant timezone (≤ daily); lifecycle remaining-life with condition factors and cost escalation; declarative WorkOrder transition table with guards (SM-17). SLAs are a CONFIRMED capability (EV-098) but their definitions are UNKNOWN (U-26); the lifecycle method is UNKNOWN (U-27). Both are PROPOSED defaults.",
+   "sources": [
+    "03-fm/WORK_MANAGEMENT.md",
+    "03-fm/ASSET_LIFECYCLE.md",
+    "05-architecture/STATE_MACHINES.md (SM-17, SM-19)",
+    "02-requirements/BUSINESS_RULES.md (BR-FM-01..05, BR-FM-12)",
+    "15-build/IMPLEMENTATION_GUIDE.md (Business time, RRULE)"
+   ],
+   "trace": {
+    "req": [
+     "FR-FM-03",
+     "FR-FM-04",
+     "FR-FM-09"
+    ],
+    "br": [
+     "BR-FM-01",
+     "BR-FM-02",
+     "BR-FM-03",
+     "BR-FM-04",
+     "BR-FM-12"
+    ],
+    "tests": [
+     "FT-FM-09",
+     "FT-FM-10",
+     "FT-FM-03"
+    ],
+    "demo": []
+   },
+   "acceptance": [
+    "Given P3 created Friday 16:30 with a Mon–Fri 08–17 calendar, then the response due time is Monday 16:30.",
+    "DST transition tests pass for Australia/Sydney.",
+    "Given monthly RRULE and lead 7 days, then occurrences and generation dates are correct for 52 weeks.",
+    "An illegal WO transition throws INVALID_STATE_TRANSITION."
+   ],
+   "risks": [],
+   "unknowns": [
+    "D-10 SLA matrix",
+    "D-11 lifecycle method"
+   ]
+  },
+  {
+   "id": "VX-060",
+   "title": "Implement web app shell with OIDC login, role-aware navigation and generated API client",
+   "epic": "EP-19",
+   "module": "M09",
+   "lane": "DEV4",
+   "cycle": "D1",
+   "priority": "P0",
+   "est_h": 3,
+   "labels": [
+    "FRONTEND",
+    "FEATURE"
+   ],
+   "evidence": "PROPOSED",
+   "state": "Todo",
+   "depends_on": [
+    "VX-001",
+    "VX-004"
+   ],
+   "description": "React + Vite + TanStack Router/Query + Tailwind + Radix. OIDC PKCE login against Keycloak; AppShell (sidebar, top bar, tenant switcher, notifications bell placeholder); menus driven by /me permissions and licensed products; route areas /app, /portal, /field, /fm-portal, /pay; API client and zod types generated from packages/contracts (OPENAPI.yaml). Staff UI of Urbanise is UNKNOWN — layouts are PROPOSED.",
+   "sources": [
+    "08-ux/INFORMATION_ARCHITECTURE.md",
+    "08-ux/NAVIGATION.md",
+    "08-ux/COMPONENTS.md (AppShell)",
+    "07-api/OPENAPI.yaml"
+   ],
+   "trace": {
+    "req": [
+     "FR-SH-01"
+    ],
+    "scr": [
+     "SCR-001",
+     "SCR-002"
+    ],
+    "tests": [
+     "E2E-SH-01"
+    ],
+    "demo": [
+     "Demo 1"
+    ]
+   },
+   "acceptance": [
+    "Given a staff user, when logging in, then the role-appropriate menu renders, and Strata/FM sections hide when the tenant does not license them.",
+    "Given an expired session, then the user is redirected to login and returned to the original deep link.",
+    "The API client compiles from OPENAPI.yaml with no hand-written request types."
+   ],
+   "risks": [],
+   "unknowns": []
+  },
+  {
+   "id": "VX-007",
+   "title": "Implement RBAC scope predicates and tenant-isolation / RBAC negative test suites",
+   "epic": "EP-02",
+   "module": "M10",
+   "lane": "DEV1",
+   "cycle": "D2",
+   "priority": "P0",
+   "est_h": 3,
+   "labels": [
+    "SECURITY",
+    "TEST"
+   ],
+   "evidence": "PROPOSED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-005",
+    "VX-002"
+   ],
+   "description": "scopeFilter(user, permission) SQL fragments for list endpoints (scheme, lot via ownership, property, region, supplier, client). Out-of-scope by-id returns 404. Generated test that hits every GET-by-id route with another tenant's id. Two seeded tenants (T1, T2 with look-alike names) exercise isolation.",
+   "sources": [
+    "04-shared-platform/RBAC.md (Model, Negative tests)",
+    "04-shared-platform/TENANCY.md",
+    "12-testing/SECURITY_TESTS.md (TEN, RBAC-N)",
+    "15-build/SEED_DATA.md (Tenants)"
+   ],
+   "trace": {
+    "req": [
+     "FR-SH-02",
+     "FR-SH-05",
+     "NFR-06"
+    ],
+    "tests": [
+     "TEN-01",
+     "TEN-02",
+     "TEN-05",
+     "TEN-06",
+     "TEN-09",
+     "RBAC-N01",
+     "RBAC-N02",
+     "RBAC-N04",
+     "RBAC-N07"
+    ],
+    "demo": [
+     "Demo 23"
+    ]
+   },
+   "acceptance": [
+    "Given tenant B ids, when tenant A calls any GET-by-id route, then 404 (TEN-01, generated over all routes).",
+    "List endpoints never include other-tenant rows (TEN-02).",
+    "An owner requesting another lot's ledger in the same scheme gets 404 (RBAC-N01).",
+    "A technician requesting another technician's WO gets 404 (RBAC-N04)."
+   ],
+   "risks": [
+    "Scope logic per resource is easy to miss — suite runs per route."
+   ],
+   "unknowns": []
+  },
+  {
+   "id": "VX-008",
+   "title": "Implement document service: presigned upload, AV scan, type validation, visibility/ACL, signed download",
+   "epic": "EP-15",
+   "module": "M05",
+   "lane": "DEV1",
+   "cycle": "D2",
+   "priority": "P1",
+   "est_h": 3.5,
+   "labels": [
+    "PLATFORM",
+    "SECURITY",
+    "FEATURE"
+   ],
+   "evidence": "CONFIRMED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-003",
+    "VX-005"
+   ],
+   "description": "POST /documents (presigned PUT to quarantine bucket) → ClamAV scan worker → magic-byte allow-list, 25 MB cap, sha256 check → move to clean bucket; entity links; visibility levels (staff, committee, owners, lot_owner, contractor, client) per BR-SH-03; 5-minute signed download only after authorization; emits document.scanned for RAG indexing. Document management is a CONFIRMED capability (EV-014, EV-037).",
+   "sources": [
+    "04-shared-platform/COMMON_SERVICES.md (Documents)",
+    "05-architecture/SECURITY_ARCHITECTURE.md (Uploads)",
+    "07-api/API_CATALOG.md (Platform documents)",
+    "09-ai/DOCUMENT_RAG.md (visibility)"
+   ],
+   "trace": {
+    "req": [
+     "FR-SH-06"
+    ],
+    "br": [
+     "BR-SH-03"
+    ],
+    "scr": [
+     "SCR-005",
+     "SCR-154"
+    ],
+    "tests": [
+     "FT-SH-05",
+     "DOC-01",
+     "DOC-02",
+     "DOC-03",
+     "DOC-04",
+     "DOC-05",
+     "DOC-06",
+     "SEC-10",
+     "SEC-11",
+     "TEN-04"
+    ],
+    "demo": [
+     "Demo 11",
+     "Demo 14",
+     "Demo 17"
+    ]
+   },
+   "acceptance": [
+    "An EICAR upload is marked infected and is never downloadable (SEC-10).",
+    "A mime-spoofed or polyglot file is rejected (SEC-11).",
+    "An owner downloads an owners-visibility by-law (200) but gets 404 for committee-only minutes (DOC-01/02).",
+    "A download while scan is pending returns 409 (DOC-05)."
+   ],
+   "risks": [],
+   "unknowns": []
+  },
+  {
+   "id": "VX-021",
+   "title": "Implement Strata scheme register and provisioning (schemes, buildings, lots, contacts, ownerships)",
+   "epic": "EP-03",
+   "module": "M03",
+   "lane": "DEV2",
+   "cycle": "D2",
+   "priority": "P0",
+   "est_h": 3.5,
+   "labels": [
+    "STRATA",
+    "FEATURE"
+   ],
+   "evidence": "CONFIRMED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-003",
+    "VX-005",
+    "VX-006"
+   ],
+   "description": "APIs for schemes, buildings, lots (entitlement, CRN), contacts, ownerships (effective dates, transfer), occupancies. Scheme creation provisions: Admin + Capital Works funds (BR-ST-01, OBSERVED EV-038), chart of accounts template, trust bank account, and portal site record (CONFIRMED EV-032 auto-provisioned portal). Includes Harbour View and Garden Terrace demo seed for T1 and the look-alike scheme for T2.",
+   "sources": [
+    "03-strata/STRATA_CAPABILITY_MATRIX.md",
+    "01-product/WORKFLOW_CATALOG.md (WF-03)",
+    "03-strata/TRUST_ACCOUNTING.md (Chart of accounts)",
+    "07-api/API_CATALOG.md (Strata register)",
+    "07-api/OPENAPI.yaml (/strata/schemes, /lots, /ownerships)",
+    "15-build/SEED_DATA.md (Strata)"
+   ],
+   "trace": {
+    "req": [
+     "FR-ST-01",
+     "FR-ST-02",
+     "FR-ST-03"
+    ],
+    "us": [
+     "US-05",
+     "US-06"
+    ],
+    "wf": [
+     "WF-03"
+    ],
+    "br": [
+     "BR-ST-01",
+     "BR-ST-20"
+    ],
+    "scr": [
+     "SCR-102",
+     "SCR-103",
+     "SCR-104",
+     "SCR-105"
+    ],
+    "tests": [
+     "FT-ST-01",
+     "FT-ST-02"
+    ],
+    "demo": [
+     "Demo 2"
+    ]
+   },
+   "acceptance": [
+    "Given a new scheme, then exactly one admin and one capital works fund, the chart of accounts, a trust account and a portal site exist.",
+    "A duplicate registration number per jurisdiction returns 409; a duplicate lot number per scheme returns 409.",
+    "Given an ownership transfer, then the previous ownership ends the day before and the strata roll reflects the new owner.",
+    "The seed loads T1 (Harbour View 12 lots, Garden Terrace 6 lots) and T2."
+   ],
+   "risks": [],
+   "unknowns": []
+  },
+  {
+   "id": "VX-022",
+   "title": "Implement trust ledger posting service, period close and trial balance",
+   "epic": "EP-04",
+   "module": "M03",
+   "lane": "DEV2",
+   "cycle": "D2",
+   "priority": "P0",
+   "est_h": 3,
+   "labels": [
+    "STRATA",
+    "FEATURE"
+   ],
+   "evidence": "CONFIRMED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-002",
+    "VX-021"
+   ],
+   "description": "LedgerService.post(entry) with standard postings (levy, penalty, sundry, receipt, supplier invoice, payment, bank fee), reversals referencing the original, lot and supplier sub-ledgers, monthly periods with close guard, trial balance query, and GET /strata/lots/{id}/ledger with running balance. Trust accounting is CONFIRMED as a capability (EV-043), but statutory rules are UNKNOWN (G-05, D-06). This design is PROPOSED.",
+   "sources": [
+    "03-strata/TRUST_ACCOUNTING.md",
+    "05-architecture/STATE_MACHINES.md (SM-28)",
+    "02-requirements/BUSINESS_RULES.md (BR-ST-12)",
+    "07-api/OPENAPI.yaml (/strata/lots/{id}/ledger)"
+   ],
+   "trace": {
+    "req": [
+     "FR-ST-15"
+    ],
+    "br": [
+     "BR-ST-12"
+    ],
+    "scr": [
+     "SCR-104",
+     "SCR-120"
+    ],
+    "tests": [
+     "FT-ST-16",
+     "FIN-03",
+     "FIN-04",
+     "FIN-05",
+     "FIN-08",
+     "FIN-09"
+    ],
+    "demo": [
+     "Demo 5",
+     "Demo 6"
+    ]
+   },
+   "acceptance": [
+    "After any random sequence of postings, the trial balance sums to zero (FIN-04).",
+    "A reversal restores balances exactly (FIN-08).",
+    "The lot ledger shows levy, penalty and receipt lines with a correct running balance (matches OBSERVED EV-039 structure)."
+   ],
+   "risks": [
+    "Statutory trust rules unvalidated (⚖)."
+   ],
+   "unknowns": [
+    "D-06 trust accounting rules"
+   ]
+  },
+  {
+   "id": "VX-041",
+   "title": "Implement FM properties, location tree, asset types and asset register with demo seed",
+   "epic": "EP-10",
+   "module": "M04",
+   "lane": "DEV3",
+   "cycle": "D2",
+   "priority": "P0",
+   "est_h": 3.5,
+   "labels": [
+    "FM",
+    "FEATURE"
+   ],
+   "evidence": "CONFIRMED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-003",
+    "VX-005",
+    "VX-006"
+   ],
+   "description": "APIs for regions, clients, properties (flags such as child_safe and aged_care), ltree locations, asset types (illustrative default lives and costs), and assets (warranty, condition, criticality, replacement cost, GPS, photos via documents). under_warranty flag (EV-091) and asset history endpoint. FM seed: Acme Care, 3 properties, ~60 locations, 220 assets, 2 technicians, SLA policies.",
+   "sources": [
+    "03-fm/FM_CAPABILITY_MATRIX.md",
+    "03-fm/ASSET_LIFECYCLE.md (Asset)",
+    "01-product/WORKFLOW_CATALOG.md (WF-15)",
+    "07-api/OPENAPI.yaml (/fm/assets)",
+    "15-build/SEED_DATA.md (FM)"
+   ],
+   "trace": {
+    "req": [
+     "FR-FM-01",
+     "FR-FM-02"
+    ],
+    "us": [
+     "US-27"
+    ],
+    "wf": [
+     "WF-15"
+    ],
+    "br": [
+     "BR-FM-06"
+    ],
+    "scr": [
+     "SCR-202",
+     "SCR-203",
+     "SCR-204",
+     "SCR-205",
+     "SCR-253"
+    ],
+    "tests": [
+     "FT-FM-01",
+     "FT-FM-02"
+    ],
+    "demo": [
+     "Demo 16"
+    ]
+   },
+   "acceptance": [
+    "A location whose parent belongs to another property is rejected (LOCATION_PROPERTY_MISMATCH).",
+    "An asset with future warranty expiry reports underWarranty=true.",
+    "Asset list filters by property, type, warranty and condition with cursor pagination.",
+    "The seed loads FM demo data for T1."
+   ],
+   "risks": [],
+   "unknowns": []
+  },
+  {
+   "id": "VX-042",
+   "title": "Implement shared suppliers, compliance records, status computation and assignment gate",
+   "epic": "EP-14",
+   "module": "M04",
+   "lane": "DEV3",
+   "cycle": "D2",
+   "priority": "P0",
+   "est_h": 3,
+   "labels": [
+    "FM",
+    "STRATA",
+    "FEATURE",
+    "SECURITY"
+   ],
+   "evidence": "CONFIRMED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-003",
+    "VX-005",
+    "VX-008"
+   ],
+   "description": "Supplier register (bank details encrypted, last4 only, change requires step-up/dual control — thin in POC), compliance types (seeded: public liability, workers comp, trade licence, WWC/safeguarding), compliance records with verify/reject, status computation per BR-SUP-01 (compliant, expiring ≤ 30 days, non_compliant), and an `isAssignable(supplier, property, date)` gate used by WO assignment (BR-FM-07, EV-078 safeguarding before site attendance). Compliance types are UNKNOWN (U-28) → PROPOSED seed.",
+   "sources": [
+    "03-fm/SUPPLIERS_AND_COMPLIANCE.md",
+    "01-product/WORKFLOW_CATALOG.md (WF-20)",
+    "02-requirements/BUSINESS_RULES.md (BR-FM-07, BR-SUP-01, BR-SUP-02)",
+    "05-architecture/SECURITY_ARCHITECTURE.md (bank details)"
+   ],
+   "trace": {
+    "req": [
+     "FR-FM-12"
+    ],
+    "us": [
+     "US-32",
+     "US-35"
+    ],
+    "wf": [
+     "WF-20"
+    ],
+    "br": [
+     "BR-FM-07",
+     "BR-SUP-01"
+    ],
+    "scr": [
+     "SCR-113",
+     "SCR-214"
+    ],
+    "tests": [
+     "FT-FM-13",
+     "FT-FM-14",
+     "SEC-08",
+     "SEC-21"
+    ],
+    "demo": [
+     "Demo 16"
+    ]
+   },
+   "acceptance": [
+    "A supplier with expired insurance cannot be assigned (422 SUPPLIER_NON_COMPLIANT) (FT-FM-13).",
+    "At a child_safe property, a contractor without a verified WWC record is blocked, while the same contractor is allowed elsewhere (FT-FM-14).",
+    "Bank account numbers are ciphertext in the DB and appear only as last4 in the API (SEC-21)."
+   ],
+   "risks": [],
+   "unknowns": [
+    "D-12 compliance document types"
+   ]
+  },
+  {
+   "id": "VX-061",
+   "title": "Build UI kit: DataTable, FilterBar, forms, money components, status badges, UX states",
+   "epic": "EP-19",
+   "module": "M09",
+   "lane": "DEV4",
+   "cycle": "D2",
+   "priority": "P0",
+   "est_h": 3,
+   "labels": [
+    "FRONTEND",
+    "TECHNICAL"
+   ],
+   "evidence": "PROPOSED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-060"
+   ],
+   "description": "packages/ui: DataTable (server cursor, sort whitelist, filter chips, row actions), EntityHeader, StatusBadge, MoneyText/MoneyInput (cents), LedgerTable, SLAClock, ApprovalCard, DocumentUploader, PhotoCapture, Skeleton/Empty/Error/Permission states, ConfirmDialog with typed confirmation, form wrapper (react-hook-form + zod mapping server `errors[].path`).",
+   "sources": [
+    "08-ux/COMPONENTS.md",
+    "08-ux/TABLES.md",
+    "08-ux/FORMS.md",
+    "08-ux/UX_STATES.md"
+   ],
+   "trace": {
+    "req": [
+     "NFR-12"
+    ],
+    "tests": [
+     "UI-A11Y"
+    ],
+    "demo": []
+   },
+   "acceptance": [
+    "DataTable pages through 120 rows via cursor with no duplicates.",
+    "Server 422 errors map onto the right fields.",
+    "axe reports 0 serious issues on the Storybook stories."
+   ],
+   "risks": [],
+   "unknowns": []
+  },
+  {
+   "id": "VX-062",
+   "title": "Build mock providers: payments, bank, collections, resident app, SMS, LLM; wire Mailpit",
+   "epic": "EP-17",
+   "module": "M07",
+   "lane": "DEV4",
+   "cycle": "D2",
+   "priority": "P0",
+   "est_h": 3.5,
+   "labels": [
+    "INTEGRATION",
+    "FEATURE"
+   ],
+   "evidence": "CONFIRMED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-001"
+   ],
+   "description": "apps/mocks (Fastify, port 4010): mock-payments (checkout session + hosted Pay/Decline page + HMAC webhooks), mock-bank (CSV/camt.053 statement generator from Vertex pay-ins with noise; payables endpoint), mock-collections (auto-progress referral status), mock-resident-app (UI to submit a request via client credentials; webhook receiver timeline), mock-sms, mock-llm (scripted responses for CI). The integrations are CONFIRMED capabilities (Macquarie/NAB EV-023/049..052, LevyCollect EV-026, Conpago/MyVillage EV-086/087), but their protocols are UNKNOWN, so everything here is a mock (ADR-012).",
+   "sources": [
+    "10-integrations/MOCK_INTEGRATIONS.md",
+    "10-integrations/INTEGRATION_CATALOG.md",
+    "10-integrations/DATA_MAPPING.md",
+    "10-integrations/AUTHENTICATION.md"
+   ],
+   "trace": {
+    "req": [
+     "FR-IN-01",
+     "FR-IN-02",
+     "FR-IN-03",
+     "FR-IN-05",
+     "FR-IN-06"
+    ],
+    "tests": [
+     "INT-T-01",
+     "INT-T-05",
+     "INT-T-06",
+     "INT-T-07",
+     "INT-T-11",
+     "INT-T-15"
+    ],
+    "demo": [
+     "Demo 5",
+     "Demo 6",
+     "Demo 7",
+     "Demo 15",
+     "Demo 18"
+    ]
+   },
+   "acceptance": [
+    "mock-payments emits signed webhooks that verify with the shared secret; a bad signature is rejected by Vertex (INT-T-07).",
+    "mock-bank produces a statement with 20 matchable, 3 suggested and 2 unknown lines from seed data.",
+    "mock-resident-app can submit a request and display Vertex status webhooks."
+   ],
+   "risks": [
+    "Mocks hide real-world complexity (risk R-09)."
+   ],
+   "unknowns": [
+    "D-07 bank formats",
+    "D-08 payment rails",
+    "D-09 partner protocols"
+   ]
+  },
+  {
+   "id": "VX-009",
+   "title": "Implement notification dispatcher (email, in-app SSE, SMS mock) with templates, contact preferences and minimal task API",
+   "epic": "EP-15",
+   "module": "M05",
+   "lane": "DEV1",
+   "cycle": "D3",
+   "priority": "P1",
+   "est_h": 2.5,
+   "labels": [
+    "PLATFORM",
+    "FEATURE"
+   ],
+   "evidence": "CONFIRMED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-006",
+    "VX-062"
+   ],
+   "description": "Notification templates (Handlebars-safe subset), dispatcher worker that resolves ContactPreference channel order with fallback, providers (SMTP→Mailpit, mock-sms, in-app via SSE), retries (3×), statutory notices bypass opt-out (BR-SH-04), and an in-app notification list API. Owner preferred-method communication is CONFIRMED (EV-022), as are assignee notifications (EV-092). Includes a minimal tasks API (platform.tasks: create, assign, complete) used by automation rules such as the arrears L2 call task (EV-012). Notes, timeline and the tasks UI are in FX-22.",
+   "sources": [
+    "04-shared-platform/COMMON_SERVICES.md (Notifications)",
+    "02-requirements/BUSINESS_RULES.md (BR-SH-04)",
+    "12-testing/NOTIFICATION_AND_WEBHOOK_TESTS.md",
+    "10-integrations/RETRY_STRATEGY.md"
+   ],
+   "trace": {
+    "req": [
+     "FR-SH-07",
+     "FR-SH-08",
+     "FR-IN-06",
+     "FR-SH-11"
+    ],
+    "br": [
+     "BR-SH-04"
+    ],
+    "scr": [
+     "SCR-006"
+    ],
+    "tests": [
+     "NOT-01",
+     "NOT-02",
+     "NOT-03",
+     "NOT-05",
+     "NOT-06",
+     "NOT-10",
+     "FT-SH-09"
+    ],
+    "demo": [
+     "Demo 4",
+     "Demo 16"
+    ]
+   },
+   "acceptance": [
+    "A contact preferring SMS gets SMS, and email is the fallback when SMS fails (NOT-02).",
+    "A statutory notice is sent even when the contact opted out of marketing (NOT-03).",
+    "In-app unread count updates within 2 s (NOT-10)."
+   ],
+   "risks": [],
+   "unknowns": [
+    "Channels beyond email are UNKNOWN for Urbanise (U-32)."
+   ]
+  },
+  {
+   "id": "VX-010",
+   "title": "Implement shared approvals engine (requests, routing by amount/scope, decisions, expiry)",
+   "epic": "EP-15",
+   "module": "M05",
+   "lane": "DEV1",
+   "cycle": "D3",
+   "priority": "P0",
+   "est_h": 1.0,
+   "labels": [
+    "PLATFORM",
+    "FEATURE"
+   ],
+   "evidence": "OBSERVED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-005",
+    "VX-006"
+   ],
+   "description": "common.approval_requests with subject types (supplier_invoice, quote, variation, budget), approver scope (role + scope + limit), POST /approvals/{id}/decision, GET /approvals?mine, approval-limit enforcement (403 APPROVAL_LIMIT_EXCEEDED), 7-day expiry job, and approval.requested/decided events. Committee invoice approval is OBSERVED (EV-040); client variation approvals are CONFIRMED (EV-090).",
+   "sources": [
+    "05-architecture/STATE_MACHINES.md (SM-10)",
+    "03-strata/PROCUREMENT_AND_INVOICES.md (Approval routing)",
+    "03-fm/WORK_MANAGEMENT.md (Client approvals)",
+    "07-api/OPENAPI.yaml (/approvals/{id}/decision)"
+   ],
+   "trace": {
+    "req": [
+     "FR-ST-16",
+     "FR-ST-24",
+     "FR-FM-13"
+    ],
+    "br": [
+     "BR-ST-14",
+     "BR-FM-10"
+    ],
+    "tests": [
+     "API-STATE-02",
+     "RBAC-N06",
+     "RBAC-N16"
+    ],
+    "demo": [
+     "Demo 9",
+     "Demo 19"
+    ]
+   },
+   "acceptance": [
+    "Approving an already-decided request returns 409 (API-STATE-02).",
+    "An accountant approving above their limit gets 403 APPROVAL_LIMIT_EXCEEDED (RBAC-N06).",
+    "A committee member sees only their scheme's approvals (RBAC-N16)."
+   ],
+   "risks": [],
+   "unknowns": []
+  },
+  {
+   "id": "VX-066",
+   "title": "Implement AI gateway with Strata & FM read tools, action proposals and audit",
+   "epic": "EP-16",
+   "module": "M06",
+   "lane": "DEV1",
+   "cycle": "D3",
+   "priority": "P1",
+   "est_h": 3,
+   "labels": [
+    "AI",
+    "SECURITY",
+    "FEATURE"
+   ],
+   "evidence": "PROPOSED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-005",
+    "VX-021",
+    "VX-041",
+    "D-15"
+   ],
+   "description": "SSE endpoint POST /ai/conversations/{id}/messages; budget/rate check; intent classification (fast model); Claude tool-use loop (max 6 iterations) over the tool registry. Tools only appear if the user holds the permission, and handlers call domain services as the user (BR-AI-01). Demo-path tools: strata_get_scheme_summary, strata_list_arrears, strata_get_lot_ledger, fm_list_work_orders, fm_sla_at_risk, fm_get_asset, propose_task. Includes action proposals with confirm and 15-minute expiry, persisted messages/tool calls/citations, and audit with actor ai on_behalf_of user. Urbanise's AI model and status are UNKNOWN/CONFLICTED (EV-118, C-01). This design is independent and PROPOSED.",
+   "sources": [
+    "09-ai/AI_ARCHITECTURE.md",
+    "09-ai/AI_TOOL_CATALOG.md",
+    "09-ai/AI_GUARDRAILS.md",
+    "09-ai/AI_SECURITY.md",
+    "13-devops/CONFIGURATION.md (AI_*)"
+   ],
+   "trace": {
+    "req": [
+     "FR-AI-01",
+     "FR-AI-02",
+     "FR-AI-03",
+     "FR-AI-07"
+    ],
+    "br": [
+     "BR-AI-01",
+     "BR-AI-02",
+     "BR-AI-04"
+    ],
+    "us": [
+     "US-39",
+     "US-40"
+    ],
+    "wf": [
+     "WF-23"
+    ],
+    "scr": [
+     "SCR-301"
+    ],
+    "tests": [
+     "AIT-01",
+     "AIT-03",
+     "AIT-04",
+     "AIT-09",
+     "AIT-10",
+     "AIT-11",
+     "AIT-12",
+     "AIT-19",
+     "AIT-20",
+     "AIT-21",
+     "AIT-24"
+    ],
+    "demo": [
+     "Demo 14",
+     "Demo 22"
+    ]
+   },
+   "acceptance": [
+    "Asked for level-2 lots in Harbour View, the assistant lists lots 3 and 7 with exact balances and citations (AIT-01).",
+    "A manager scoped to scheme A asking about scheme B gets no B data (AIT-03); same-name scheme in T2 never appears (AIT-04).",
+    "A task is created only after Confirm, and the audit shows actor=ai on_behalf_of=user (AIT-09, AIT-24).",
+    "During an LLM outage the assistant shows unavailable and the rest of the app works (AIT-20)."
+   ],
+   "risks": [
+    "LLM cost/availability (R-08)",
+    "Prompt injection (R-06)"
+   ],
+   "unknowns": [
+    "D-15 LLM provider approval and API key"
+   ]
+  },
+  {
+   "id": "VX-023",
+   "title": "Implement budgets, levy schedule generation and automatic levy runs with notices and pay links",
+   "epic": "EP-04",
+   "module": "M03",
+   "lane": "DEV2",
+   "cycle": "D3",
+   "priority": "P0",
+   "est_h": 3.5,
+   "labels": [
+    "STRATA",
+    "FEATURE"
+   ],
+   "evidence": "CONFIRMED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-020",
+    "VX-022",
+    "VX-062",
+    "VX-009"
+   ],
+   "description": "Budget lines by fund/account with states draft → proposed → approved (SM-01); levy preview endpoint; generation of the schedule from the approved budget; daily levy-run job at due − lead_days plus a manual run (Idempotency-Key); charges posted to the ledger; a notice per lot with CRN and a pay link from mock-payments; notice PDF rendered by the worker (Playwright) and stored as a document; notification to owners. Budget-driven automatic issuance is CONFIRMED (EV-020/021), pay-now links are CONFIRMED (EV-050), and the formula is PROPOSED (VX-020). Also POST /strata/charges for sundry charges to lots or non-owner debtors (OBSERVED 'Sundry' debtor type, EV-030), needed for the Aged Debtors Sundry group.",
+   "sources": [
+    "03-strata/LEVY_ENGINE.md",
+    "01-product/WORKFLOW_CATALOG.md (WF-04, WF-05)",
+    "05-architecture/STATE_MACHINES.md (SM-01, SM-02, SM-03)",
+    "07-api/OPENAPI.yaml (/strata/budgets/*, /levy-runs)"
+   ],
+   "trace": {
+    "req": [
+     "FR-ST-04",
+     "FR-ST-05",
+     "FR-ST-06",
+     "FR-ST-07"
+    ],
+    "us": [
+     "US-07",
+     "US-08"
+    ],
+    "wf": [
+     "WF-04",
+     "WF-05"
+    ],
+    "br": [
+     "BR-ST-02",
+     "BR-ST-03",
+     "BR-ST-04"
+    ],
+    "scr": [
+     "SCR-106",
+     "SCR-107"
+    ],
+    "tests": [
+     "FT-ST-03",
+     "FT-ST-05",
+     "PERF-03",
+     "FT-ST-06"
+    ],
+    "demo": [
+     "Demo 3",
+     "Demo 4"
+    ]
+   },
+   "acceptance": [
+    "Only an approved budget can generate a schedule (BR-ST-02).",
+    "When the Clock reaches due − 30 days, each lot gets exactly one notice (PDF + email + pay link), and a re-run creates nothing (FT-ST-05).",
+    "Levy charges post DR 1200 / CR 4000 per fund, and the trial balance stays at zero.",
+    "A 1,000-lot run completes in under 30 s (PERF-03, may be validated on Day 5)."
+   ],
+   "risks": [],
+   "unknowns": [
+    "D-01",
+    "D-02 (discount)"
+   ]
+  },
+  {
+   "id": "VX-024",
+   "title": "Implement payments (pay-now webhook, manual receipt, allocation) and bank statement import with auto-match and reconciliation lock",
+   "epic": "EP-05",
+   "module": "M03",
+   "lane": "DEV2",
+   "cycle": "D3",
+   "priority": "P0",
+   "est_h": 3.5,
+   "labels": [
+    "STRATA",
+    "INTEGRATION",
+    "FEATURE"
+   ],
+   "evidence": "CONFIRMED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-020",
+    "VX-022",
+    "VX-062"
+   ],
+   "description": "Payment webhook (HMAC, idempotent on provider ref) → payment, allocation, receipt notification, credit for overpayment; manual quick receipt; statement import (CSV + camt.053) into bank_transactions with gap/duplicate checks; auto-match rules (provider ref → CRN + amount → amount + date window = suggested); manual match/exclude; reconciliation summary and lock. Automated reconciliation and auto-matching to owner/lot are CONFIRMED (EV-042, EV-051); the matching algorithm is UNKNOWN (U-25) → PROPOSED.",
+   "sources": [
+    "01-product/WORKFLOW_CATALOG.md (WF-06, WF-07)",
+    "03-strata/TRUST_ACCOUNTING.md (Bank reconciliation)",
+    "10-integrations/DATA_MAPPING.md",
+    "10-integrations/ERROR_HANDLING.md",
+    "07-api/OPENAPI.yaml (/strata/payments, /bank-*)"
+   ],
+   "trace": {
+    "req": [
+     "FR-ST-08",
+     "FR-ST-09",
+     "FR-ST-10",
+     "FR-IN-01",
+     "FR-IN-02"
+    ],
+    "us": [
+     "US-09",
+     "US-10",
+     "US-11"
+    ],
+    "wf": [
+     "WF-06",
+     "WF-07"
+    ],
+    "br": [
+     "BR-ST-05",
+     "BR-ST-06"
+    ],
+    "scr": [
+     "SCR-108",
+     "SCR-109",
+     "SCR-152"
+    ],
+    "tests": [
+     "FT-ST-07",
+     "FT-ST-08",
+     "FT-ST-10",
+     "FT-ST-11",
+     "INT-T-01",
+     "INT-T-02",
+     "INT-T-03",
+     "INT-T-05",
+     "INT-T-06",
+     "INT-T-08",
+     "FAILREC-05",
+     "SEC-07",
+     "SEC-18"
+    ],
+    "demo": [
+     "Demo 5",
+     "Demo 6"
+    ]
+   },
+   "acceptance": [
+    "A duplicate webhook creates a single payment (INT-T-06, FAILREC-05).",
+    "A $50 overpayment becomes credit and auto-applies to the next levy (FT-ST-08).",
+    "Seeded statement: ≥ 18 of 20 lines auto-matched, 1 suggested, 1 unmatched (FT-ST-10).",
+    "A reconciliation locks only when the difference is 0, and posting to that period is then rejected (FT-ST-11).",
+    "A pay-link token for lot A cannot pay lot B's charges (SEC-18)."
+   ],
+   "risks": [
+    "Bank matching accuracy (R-11)."
+   ],
+   "unknowns": [
+    "D-03",
+    "D-07",
+    "D-08"
+   ]
+  },
+  {
+   "id": "VX-043",
+   "title": "Implement service requests, triage and FM work order lifecycle with assignment, evidence and SLA engine",
+   "epic": "EP-12",
+   "module": "M04",
+   "lane": "DEV3",
+   "cycle": "D3",
+   "priority": "P0",
+   "est_h": 4.5,
+   "labels": [
+    "FM",
+    "FEATURE"
+   ],
+   "evidence": "CONFIRMED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-040",
+    "VX-041",
+    "VX-042",
+    "VX-009",
+    "VX-062"
+   ],
+   "description": "Service requests (portal, staff, API from mock resident app with idempotent externalId) → triage (priority, category, asset, convert) → WorkOrder (SM-17 guards: assignment gate, check-in, checklist, evidence rule, NTE → awaiting_approval) → assignment (technician/supplier) → transitions endpoint with clientEventId → evidence photos via documents → time entries. SLA engine: due times from policy + calendar, 5-minute at-risk/breach job, pause on hold. Outbound status webhooks to the resident app (fm.workorder.*). Triage, assignment, photo evidence and real-time status back are CONFIRMED (EV-085, EV-086).",
+   "sources": [
+    "03-fm/WORK_MANAGEMENT.md",
+    "01-product/WORKFLOW_CATALOG.md (WF-17, WF-18, WF-19, WF-26)",
+    "05-architecture/STATE_MACHINES.md (SM-16, SM-17, SM-18)",
+    "07-api/OPENAPI.yaml (/fm/service-requests, /fm/work-orders/*, /integrations/resident-apps)",
+    "07-api/WEBHOOKS.md",
+    "10-integrations/DATA_MAPPING.md (WO status → resident app)"
+   ],
+   "trace": {
+    "req": [
+     "FR-FM-06",
+     "FR-FM-07",
+     "FR-FM-08",
+     "FR-FM-09",
+     "FR-IN-05"
+    ],
+    "us": [
+     "US-30",
+     "US-31",
+     "US-32",
+     "US-34",
+     "US-44"
+    ],
+    "wf": [
+     "WF-17",
+     "WF-18",
+     "WF-19",
+     "WF-26"
+    ],
+    "br": [
+     "BR-FM-01",
+     "BR-FM-02",
+     "BR-FM-03",
+     "BR-FM-07",
+     "BR-FM-08",
+     "BR-FM-09"
+    ],
+    "scr": [
+     "SCR-209",
+     "SCR-210",
+     "SCR-211",
+     "SCR-261"
+    ],
+    "tests": [
+     "FT-FM-06",
+     "FT-FM-07",
+     "FT-FM-08",
+     "FT-FM-09",
+     "FT-FM-10",
+     "API-STATE-01",
+     "INT-T-11",
+     "INT-T-12",
+     "INT-T-13",
+     "INT-T-14",
+     "WH-02"
+    ],
+    "demo": [
+     "Demo 15",
+     "Demo 16",
+     "Demo 17",
+     "Demo 18"
+    ]
+   },
+   "acceptance": [
+    "A resident-app request with the same externalId twice returns the existing request (INT-T-12).",
+    "Triage P2 sets SLA due times per calendar, and the warranty flag shows when the asset is under warranty (FT-FM-07).",
+    "new → completed directly returns 409 (API-STATE-01); completion without a photo in an evidence-required category returns 422 EVIDENCE_REQUIRED.",
+    "Clock at 80% / 100% produces at_risk / breached events and notifications (FT-FM-09); on_hold time extends due times (FT-FM-10).",
+    "On completion, mock-resident-app receives a signed webhook with status, completed_at and signed photo URL (INT-T-14)."
+   ],
+   "risks": [
+    "Largest FM item; split assignment/SLA if behind at Day 3 midday."
+   ],
+   "unknowns": [
+    "D-10 SLA matrix"
+   ]
+  },
+  {
+   "id": "VX-044",
+   "title": "Implement PPM maintenance plans, occurrence generation and 52-week planner API",
+   "epic": "EP-11",
+   "module": "M04",
+   "lane": "DEV3",
+   "cycle": "D3",
+   "priority": "P1",
+   "est_h": 2,
+   "labels": [
+    "FM",
+    "FEATURE"
+   ],
+   "evidence": "CONFIRMED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-040",
+    "VX-041",
+    "VX-043"
+   ],
+   "description": "Maintenance plans (RRULE, lead days, duration, checklist, default assignee, statutory flag); nightly job that materialises 52 weeks of occurrences and creates planned WOs at due − lead (skip_if_open); assignee notification (EV-092); GET /fm/planner (weekly buckets, workload minutes by trade). Planned work against assets/locations and the 52-week planner are CONFIRMED (EV-075).",
+   "sources": [
+    "03-fm/WORK_MANAGEMENT.md (Planned maintenance)",
+    "01-product/WORKFLOW_CATALOG.md (WF-16)",
+    "02-requirements/BUSINESS_RULES.md (BR-FM-04, BR-FM-05)",
+    "07-api/OPENAPI.yaml (/fm/planner)"
+   ],
+   "trace": {
+    "req": [
+     "FR-FM-04",
+     "FR-FM-05"
+    ],
+    "us": [
+     "US-29"
+    ],
+    "wf": [
+     "WF-16"
+    ],
+    "br": [
+     "BR-FM-04",
+     "BR-FM-05"
+    ],
+    "scr": [
+     "SCR-207",
+     "SCR-208"
+    ],
+    "tests": [
+     "FT-FM-04",
+     "FT-FM-05",
+     "NOT-05",
+     "E2E-FM-02"
+    ],
+    "demo": [
+     "Demo 20"
+    ]
+   },
+   "acceptance": [
+    "A monthly plan with lead 7 creates exactly one WO at due − 7, even when the job runs twice (FT-FM-04).",
+    "The planner returns 52 weekly columns with hour totals (FT-FM-05).",
+    "The assigned technician receives a notification (NOT-05)."
+   ],
+   "risks": [],
+   "unknowns": []
+  },
+  {
+   "id": "VX-063",
+   "title": "Build Strata staff screens for the demo path (dashboard, schemes, lot ledger, budget/levies, receipts, bank rec, arrears, invoices)",
+   "epic": "EP-19",
+   "module": "M09",
+   "lane": "DEV4",
+   "cycle": "D3",
+   "priority": "P0",
+   "est_h": 3.5,
+   "labels": [
+    "FRONTEND",
+    "STRATA",
+    "FEATURE"
+   ],
+   "evidence": "PROPOSED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-061",
+    "VX-021",
+    "VX-022"
+   ],
+   "description": "SCR-101 (KPI tiles; charts wired once VX-070 lands), SCR-102/103/104 (scheme detail tabs: overview, lots, funds, ledger), SCR-106 budget grid + levy preview modal, SCR-107 levy runs, SCR-108 quick receipt, SCR-109 two-pane matcher + lock, SCR-110 arrears console, SCR-111/112 invoice inbox + approval. Screens are built against the API contract and can use mock data until VX-023/024/025/026 merge (Day 3–4). Staff UI is UNKNOWN for Urbanise (G-02), so these layouts are PROPOSED.",
+   "sources": [
+    "08-ux/SCREEN_INVENTORY.md (SCR-101..112)",
+    "08-ux/USER_FLOWS.md (UF-01..07)",
+    "08-ux/TABLES.md",
+    "08-ux/DASHBOARDS.md"
+   ],
+   "trace": {
+    "req": [
+     "FR-ST-01",
+     "FR-ST-04",
+     "FR-ST-06",
+     "FR-ST-09",
+     "FR-ST-10",
+     "FR-ST-12",
+     "FR-ST-16",
+     "FR-ST-29"
+    ],
+    "scr": [
+     "SCR-101",
+     "SCR-102",
+     "SCR-103",
+     "SCR-104",
+     "SCR-106",
+     "SCR-107",
+     "SCR-108",
+     "SCR-109",
+     "SCR-110",
+     "SCR-111",
+     "SCR-112"
+    ],
+    "tests": [
+     "E2E-ST-01",
+     "E2E-ST-02",
+     "E2E-ST-03",
+     "E2E-ST-04",
+     "E2E-ST-05"
+    ],
+    "demo": [
+     "Demo 1",
+     "Demo 2",
+     "Demo 3",
+     "Demo 4",
+     "Demo 6",
+     "Demo 7",
+     "Demo 8",
+     "Demo 10"
+    ]
+   },
+   "acceptance": [
+    "UF-02 (budget → levy preview → approve) completes in the UI.",
+    "UF-05 bank rec: upload → auto-match summary → resolve → lock, with a typed confirmation.",
+    "Every screen shows loading, empty, error and permission states."
+   ],
+   "risks": [
+    "UI depends on several backend items. Contract-first mocking mitigates."
+   ],
+   "unknowns": []
+  },
+  {
+   "id": "VX-064",
+   "title": "Build FM staff screens and technician PWA for the demo path (Ops Centre, triage, WO detail, planner, job execution offline)",
+   "epic": "EP-19",
+   "module": "M09",
+   "lane": "DEV4",
+   "cycle": "D3",
+   "priority": "P0",
+   "est_h": 3.5,
+   "labels": [
+    "FRONTEND",
+    "FM",
+    "FEATURE"
+   ],
+   "evidence": "PROPOSED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-061",
+    "VX-041",
+    "VX-043"
+   ],
+   "description": "SCR-201 Ops Centre widgets (live after VX-046), SCR-209 triage split view, SCR-210/211 WO list/detail with SLAClock, assignment dialog showing compliance gate errors, SCR-208 planner heatmap, SCR-204/205 asset register/detail. Field PWA SCR-251/252: job list, accept, check-in (GPS), checklist, photo capture (≤ 2 MB), complete; Workbox + IndexedDB offline queue syncing via /fm/me/sync with clientEventId. The Workforce app is CONFIRMED (EV-081). The PWA in place of native apps is PROPOSED (ADR-008, C-05).",
+   "sources": [
+    "08-ux/SCREEN_INVENTORY.md (SCR-201..212, SCR-251..253)",
+    "08-ux/USER_FLOWS.md (UF-10, UF-11)",
+    "03-fm/OPS_CENTRE_AND_PORTAL.md",
+    "15-build/IMPLEMENTATION_GUIDE.md (Offline PWA)"
+   ],
+   "trace": {
+    "req": [
+     "FR-FM-05",
+     "FR-FM-07",
+     "FR-FM-08",
+     "FR-FM-10",
+     "FR-FM-15"
+    ],
+    "scr": [
+     "SCR-201",
+     "SCR-204",
+     "SCR-205",
+     "SCR-208",
+     "SCR-209",
+     "SCR-210",
+     "SCR-211",
+     "SCR-251",
+     "SCR-252"
+    ],
+    "tests": [
+     "E2E-FM-01",
+     "E2E-FM-05",
+     "E2E-FM-06",
+     "UI-RESP",
+     "FT-FM-11"
+    ],
+    "demo": [
+     "Demo 16",
+     "Demo 17",
+     "Demo 20"
+    ]
+   },
+   "acceptance": [
+    "A technician completes a job offline, and after reconnecting the events sync exactly once (E2E-FM-05).",
+    "Assigning a non-compliant contractor shows the SUPPLIER_NON_COMPLIANT reason (E2E-FM-06).",
+    "The field PWA has no horizontal scroll at 375 px (UI-RESP)."
+   ],
+   "risks": [
+    "Offline sync complexity (R-12). Fall back to an online-only demo if needed."
+   ],
+   "unknowns": [
+    "C-05 FM app split"
+   ]
+  },
+  {
+   "id": "VX-011",
+   "title": "Implement global search index and /search endpoint (scope-filtered)",
+   "epic": "EP-15",
+   "module": "M05",
+   "lane": "DEV1",
+   "cycle": null,
+   "priority": "P2",
+   "est_h": 2,
+   "labels": [
+    "PLATFORM",
+    "FEATURE",
+    "POST-DAY-5"
+   ],
+   "evidence": "PROPOSED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-006",
+    "VX-007"
+   ],
+   "description": "Outbox consumer that upserts platform.search_index with scope_keys, plus GET /search with the permission scope filter applied before ranking. Moved to POST-DAY-5 for capacity reasons; take it on Day 4/5 only if DEV1 has slack. The ⌘K search in demo step 2 is optional.",
+   "sources": [
+    "04-shared-platform/COMMON_SERVICES.md (Search)",
+    "07-api/OPENAPI.yaml (/search)"
+   ],
+   "trace": {
+    "req": [
+     "FR-SH-10"
+    ],
+    "us": [
+     "US-46"
+    ],
+    "scr": [
+     "SCR-007"
+    ],
+    "tests": [
+     "FT-SH-08",
+     "TEN-03"
+    ],
+    "demo": [
+     "Demo 2 (optional)"
+    ]
+   },
+   "acceptance": [
+    "A search for another tenant's unique scheme name returns 0 hits (TEN-03).",
+    "Results contain only in-scope entities."
+   ],
+   "risks": [],
+   "unknowns": []
+  },
+  {
+   "id": "VX-068",
+   "title": "Implement document RAG: chunking, embeddings, scope-filtered hybrid retrieval and citation validator",
+   "epic": "EP-16",
+   "module": "M06",
+   "lane": "DEV1",
+   "cycle": "D4",
+   "priority": "P1",
+   "est_h": 3,
+   "labels": [
+    "AI",
+    "SECURITY",
+    "FEATURE"
+   ],
+   "evidence": "PROPOSED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-008",
+    "VX-066",
+    "D-15"
+   ],
+   "description": "Indexer on document.scanned for RAG kinds (by-laws, minutes, insurance): extract text with pages (OCR fallback optional), heading-aware 800-token chunks, 1024-d embeddings, ai.document_chunks with scope_keys and visibility. Retrieval filters tenant, scope and visibility in SQL before vector + BM25 ranking with RRF top-8. Includes the search_documents tool, citation validator (cited ids ⊆ retrieved), untrusted-content delimiters, and chunk removal when a document is deleted. Source-backed answers are CONFIRMED for the partner AI (EV-114). The RAG design is PROPOSED.",
+   "sources": [
+    "09-ai/RAG_ARCHITECTURE.md",
+    "09-ai/DOCUMENT_RAG.md",
+    "09-ai/AI_GUARDRAILS.md",
+    "09-ai/AI_SECURITY.md",
+    "06-database/SCHEMA.sql (ai.document_chunks)"
+   ],
+   "trace": {
+    "req": [
+     "FR-AI-04"
+    ],
+    "br": [
+     "BR-AI-03"
+    ],
+    "us": [
+     "US-41"
+    ],
+    "tests": [
+     "AIT-05",
+     "AIT-06",
+     "AIT-07",
+     "AIT-08",
+     "AIT-22",
+     "AIT-25",
+     "DOC-07",
+     "DOC-08",
+     "TEN-07"
+    ],
+    "demo": [
+     "Demo 14"
+    ]
+   },
+   "acceptance": [
+    "\"Are pets allowed?\" returns an answer citing by-laws p.7 (AIT-05).",
+    "Committee-only minutes are never retrieved for users without visibility (AIT-06); same text in T2 is never retrieved (TEN-07).",
+    "Injected instructions inside minutes are not followed (AIT-08).",
+    "A deleted document's chunks are gone within 10 min (DOC-07)."
+   ],
+   "risks": [
+    "Prompt injection (R-06); embedding provider availability."
+   ],
+   "unknowns": [
+    "D-15"
+   ]
+  },
+  {
+   "id": "VX-012",
+   "title": "Apply security hardening: headers/CSP, rate limits, CI SAST & dependency scans, audit verifier and invariants job",
+   "epic": "EP-20",
+   "module": "M10",
+   "lane": "DEV1",
+   "cycle": "D4",
+   "priority": "P0",
+   "est_h": 3.5,
+   "labels": [
+    "SECURITY",
+    "DEVOPS",
+    "TEST"
+   ],
+   "evidence": "PROPOSED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-003",
+    "VX-006",
+    "VX-022"
+   ],
+   "description": "Security headers and CSP on web and API; Redis token-bucket rate limits (per user, IP, pay link); body size limits; Semgrep, OSV and Trivy in CI; nightly audit hash-chain verifier; invariants job INV-01..05 with a metric; final route-permission audit; secrets review (only in env / secret manager).",
+   "sources": [
+    "05-architecture/SECURITY_ARCHITECTURE.md",
+    "13-devops/DEVSECOPS.md",
+    "06-database/DATA_GOVERNANCE.md (INV-01..05)",
+    "12-testing/SECURITY_TESTS.md"
+   ],
+   "trace": {
+    "req": [
+     "NFR-06",
+     "NFR-07",
+     "NFR-09",
+     "NFR-10"
+    ],
+    "tests": [
+     "SEC-01",
+     "SEC-02",
+     "SEC-04",
+     "SEC-13",
+     "SEC-15",
+     "SEC-17",
+     "API-RL-01",
+     "INV-01",
+     "INV-02",
+     "INV-03",
+     "INV-04",
+     "INV-05"
+    ],
+    "demo": [
+     "Demo 23"
+    ]
+   },
+   "acceptance": [
+    "CSP, HSTS, X-Content-Type-Options and frame-ancestors are present (SEC-15).",
+    "200 requests in 10 s trigger 429 with Retry-After (API-RL-01).",
+    "SQLi and XSS payloads are neutralised (SEC-01/02); mass-assignment fields are rejected (SEC-04).",
+    "INV-01..05 pass on the seeded data."
+   ],
+   "risks": [],
+   "unknowns": []
+  },
+  {
+   "id": "VX-025",
+   "title": "Implement arrears engine: levels L1–L3, notices, penalties, hold, debt referral to mock collections",
+   "epic": "EP-06",
+   "module": "M03",
+   "lane": "DEV2",
+   "cycle": "D4",
+   "priority": "P0",
+   "est_h": 2.5,
+   "labels": [
+    "STRATA",
+    "FEATURE"
+   ],
+   "evidence": "CONFIRMED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-020",
+    "VX-023",
+    "VX-024",
+    "VX-009",
+    "VX-062"
+   ],
+   "description": "Arrears policy per scheme (defaults 14/35/60 days), nightly job computing buckets and levels, level-change notices and tasks, monthly penalty charges, hold/release (dispute or plan), manager-approved referral to mock collections with status webhooks. Multi-level automated arrears and the LevyCollect handoff are CONFIRMED (EV-024, EV-026); the Debtor Level field is OBSERVED (EV-025); thresholds are UNKNOWN (U-21) → configurable PROPOSED defaults pending D-04.",
+   "sources": [
+    "03-strata/ARREARS_AND_DEBT_RECOVERY.md",
+    "01-product/WORKFLOW_CATALOG.md (WF-08)",
+    "05-architecture/STATE_MACHINES.md (SM-07, SM-08)",
+    "02-requirements/BUSINESS_RULES.md (BR-ST-07..11)"
+   ],
+   "trace": {
+    "req": [
+     "FR-ST-11",
+     "FR-ST-12",
+     "FR-ST-13",
+     "FR-ST-14",
+     "FR-IN-03"
+    ],
+    "us": [
+     "US-12",
+     "US-13"
+    ],
+    "wf": [
+     "WF-08"
+    ],
+    "br": [
+     "BR-ST-08",
+     "BR-ST-09",
+     "BR-ST-11"
+    ],
+    "scr": [
+     "SCR-110"
+    ],
+    "tests": [
+     "FT-ST-12",
+     "FT-ST-13",
+     "FT-ST-14",
+     "FT-ST-15",
+     "INT-T-09",
+     "FIN-07"
+    ],
+    "demo": [
+     "Demo 7"
+    ]
+   },
+   "acceptance": [
+    "At 14, 35 and 60 days overdue a lot reaches L1, L2 and L3, each with a notice (FT-ST-12).",
+    "The monthly penalty equals principal × rate × days / 365, rounded half-up (FT-ST-13).",
+    "A lot on hold receives no escalation or penalty (FT-ST-15).",
+    "Referring an L3 case sends it to mock collections, and status webhooks update the referral (FT-ST-14)."
+   ],
+   "risks": [
+    "Wrong thresholds per jurisdiction (⚖)."
+   ],
+   "unknowns": [
+    "D-02",
+    "D-04"
+   ]
+  },
+  {
+   "id": "VX-026",
+   "title": "Implement supplier invoices with approval routing (staff/committee) and payment batches to mock bank",
+   "epic": "EP-07",
+   "module": "M03",
+   "lane": "DEV2",
+   "cycle": "D4",
+   "priority": "P1",
+   "est_h": 2.5,
+   "labels": [
+    "STRATA",
+    "FEATURE"
+   ],
+   "evidence": "OBSERVED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-010",
+    "VX-022",
+    "VX-042",
+    "VX-062"
+   ],
+   "description": "Invoice capture (upload PDF + manual coding: supplier, scheme, invoice no., dates, amount, GST, fund, account), duplicate check, budget-remaining calculation, approval routing (> $1,000 manager, > $5,000 committee), and ledger posting on approval. Payment batch of approved invoices from compliant suppliers only goes to the mock bank payables endpoint, with per-item status. AI extraction is POST-DAY-5. Committee approval with budget remaining is OBSERVED (EV-040); payables from the platform are CONFIRMED (EV-052).",
+   "sources": [
+    "03-strata/PROCUREMENT_AND_INVOICES.md",
+    "01-product/WORKFLOW_CATALOG.md (WF-09)",
+    "02-requirements/BUSINESS_RULES.md (BR-ST-13..16)",
+    "07-api/OPENAPI.yaml (/strata/supplier-invoices, /payment-batches)"
+   ],
+   "trace": {
+    "req": [
+     "FR-ST-16",
+     "FR-ST-17",
+     "FR-ST-24"
+    ],
+    "us": [
+     "US-14",
+     "US-15",
+     "US-16"
+    ],
+    "wf": [
+     "WF-09"
+    ],
+    "br": [
+     "BR-ST-13",
+     "BR-ST-14",
+     "BR-ST-15",
+     "BR-ST-16"
+    ],
+    "scr": [
+     "SCR-111",
+     "SCR-112",
+     "SCR-156"
+    ],
+    "tests": [
+     "FT-ST-17",
+     "FT-ST-18",
+     "FT-ST-19",
+     "FT-ST-20",
+     "INT-T-04"
+    ],
+    "demo": [
+     "Demo 8",
+     "Demo 9",
+     "Demo 10"
+    ]
+   },
+   "acceptance": [
+    "A $3,000 invoice routes to the manager, and a $6,000 invoice to the committee (FT-ST-17/18).",
+    "A duplicate supplier + invoice number returns 409 (FT-ST-19).",
+    "A batch rejects non-approved invoices or non-compliant suppliers (422).",
+    "When one batch item fails at the mock bank, that invoice returns to approved (INT-T-04)."
+   ],
+   "risks": [],
+   "unknowns": []
+  },
+  {
+   "id": "VX-070",
+   "title": "Implement Aged Debtors report (JSON/PDF) and Strata dashboard KPIs",
+   "epic": "EP-18",
+   "module": "M08",
+   "lane": "DEV2",
+   "cycle": "D4",
+   "priority": "P0",
+   "est_h": 1.5,
+   "labels": [
+    "REPORTING",
+    "STRATA",
+    "FEATURE"
+   ],
+   "evidence": "OBSERVED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-022",
+    "VX-025"
+   ],
+   "description": "reporting.v_lot_ageing view; GET /strata/reports/aged-debtors?format=json|pdf|csv reproducing the OBSERVED structure (EV-028): columns Building/Floor/Lot No., Unit, Name, Type, Debtor Level, 1–30, 31–60, 61–90, 91+ (From Due Date), Total; Levy and Sundry groups with subtotals; grand total; 'gross of GST' note; 'Excludes Unpresented Transactions' flag. The styling is our own, not a copy. Dashboard endpoint for KPI-ST-01/02/03/05/09/10.",
+   "sources": [
+    "11-reporting/REPORT_SPECIFICATION.md (RPT-ST-01)",
+    "11-reporting/KPI_CATALOG.md (KPI-ST-*)",
+    "11-reporting/DATA_SOURCES.md",
+    "00-discovery/EVIDENCE_REGISTER.md (EV-028)"
+   ],
+   "trace": {
+    "req": [
+     "FR-ST-27",
+     "FR-ST-29"
+    ],
+    "us": [
+     "US-26"
+    ],
+    "scr": [
+     "SCR-101",
+     "SCR-118"
+    ],
+    "tests": [
+     "FT-ST-31",
+     "FT-ST-33",
+     "FIN-10",
+     "PERF-07"
+    ],
+    "demo": [
+     "Demo 1",
+     "Demo 11"
+    ]
+   },
+   "acceptance": [
+    "Report totals equal the ledger query for overdue receivables (FIN-10).",
+    "The PDF contains the observed column set, groups and footer (FT-ST-31).",
+    "Dashboard KPI values equal reference SQL (FT-ST-33)."
+   ],
+   "risks": [],
+   "unknowns": []
+  },
+  {
+   "id": "VX-045",
+   "title": "Implement client variation approvals (NTE) and FM customer portal request tracking",
+   "epic": "EP-12",
+   "module": "M04",
+   "lane": "DEV3",
+   "cycle": "D4",
+   "priority": "P1",
+   "est_h": 2,
+   "labels": [
+    "FM",
+    "FEATURE"
+   ],
+   "evidence": "CONFIRMED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-010",
+    "VX-043"
+   ],
+   "description": "WO cost above NTE → awaiting_approval with an ApprovalRequest scoped to the client's properties; on approve the WO resumes and on reject it is cancelled or re-quoted. fm_client APIs (/fm/portal/requests) to raise and track requests with a status timeline. Client approval workflow is CONFIRMED (EV-090); the branded customer portal is CONFIRMED (EV-084, W19).",
+   "sources": [
+    "03-fm/WORK_MANAGEMENT.md (Client approvals)",
+    "03-fm/OPS_CENTRE_AND_PORTAL.md (Customer portal)",
+    "01-product/WORKFLOW_CATALOG.md (WF-21)"
+   ],
+   "trace": {
+    "req": [
+     "FR-FM-06",
+     "FR-FM-13"
+    ],
+    "us": [
+     "US-30",
+     "US-36"
+    ],
+    "wf": [
+     "WF-21"
+    ],
+    "br": [
+     "BR-FM-09",
+     "BR-FM-10"
+    ],
+    "scr": [
+     "SCR-215",
+     "SCR-261"
+    ],
+    "tests": [
+     "FT-FM-15",
+     "E2E-FM-03",
+     "RBAC-N07",
+     "RBAC-N13"
+    ],
+    "demo": [
+     "Demo 19"
+    ]
+   },
+   "acceptance": [
+    "A cost above NTE blocks the WO until the client approves; approval resumes it (FT-FM-15).",
+    "An fm_client cannot see or approve another client's WOs (RBAC-N07, RBAC-N13)."
+   ],
+   "risks": [],
+   "unknowns": []
+  },
+  {
+   "id": "VX-046",
+   "title": "Implement Ops Centre aggregates and basic FM analytics (cost by property, SLA %, supplier performance)",
+   "epic": "EP-18",
+   "module": "M08",
+   "lane": "DEV3",
+   "cycle": "D4",
+   "priority": "P1",
+   "est_h": 2,
+   "labels": [
+    "REPORTING",
+    "FM",
+    "FEATURE"
+   ],
+   "evidence": "CONFIRMED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-043",
+    "VX-044"
+   ],
+   "description": "GET /fm/ops-centre with open WOs by status, at-risk/breached, today planned vs done, unassigned, awaiting approval, and compliance alerts. Materialised views mv_sla and mv_fm_cost with a manual refresh, served by /fm/analytics for cost by property, SLA compliance % and supplier performance. Ops Centre and analytics are CONFIRMED (EV-071, EV-079). The BI stack is UNKNOWN (U-10).",
+   "sources": [
+    "03-fm/OPS_CENTRE_AND_PORTAL.md",
+    "11-reporting/KPI_CATALOG.md (KPI-FM-01, 02, 04, 08, 09, 11)",
+    "11-reporting/DASHBOARD_SPECIFICATION.md (DB-FM-01, DB-FM-02)"
+   ],
+   "trace": {
+    "req": [
+     "FR-FM-15",
+     "FR-FM-16"
+    ],
+    "us": [
+     "US-34",
+     "US-38"
+    ],
+    "scr": [
+     "SCR-201",
+     "SCR-216"
+    ],
+    "tests": [
+     "FT-FM-17",
+     "FT-FM-18",
+     "PERF-06"
+    ],
+    "demo": [
+     "Demo 16",
+     "Demo 21 (basic)"
+    ]
+   },
+   "acceptance": [
+    "Ops Centre widget counts equal direct SQL (FT-FM-17).",
+    "Cost totals equal the sum of WO cost (FT-FM-18)."
+   ],
+   "risks": [],
+   "unknowns": []
+  },
+  {
+   "id": "VX-047",
+   "title": "Implement 10-year asset lifecycle plan generation and CAPEX export",
+   "epic": "EP-10",
+   "module": "M04",
+   "lane": "DEV3",
+   "cycle": "D4",
+   "priority": "P1",
+   "est_h": 2,
+   "labels": [
+    "FM",
+    "FEATURE"
+   ],
+   "evidence": "CONFIRMED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-040",
+    "VX-041"
+   ],
+   "description": "POST /fm/asset-plans (scope, start year, escalation) → generate lines with the lifecycle formula from VX-040 → publish → RPT-FM-03 CAPEX matrix (year × property/category) as JSON/CSV and a simple PDF. 10-year plans are CONFIRMED (EV-072, EV-073); the method and benchmarks are UNKNOWN (U-27), so the seeded defaults are illustrative.",
+   "sources": [
+    "03-fm/ASSET_LIFECYCLE.md",
+    "01-product/WORKFLOW_CATALOG.md (WF-22)",
+    "11-reporting/REPORT_SPECIFICATION.md (RPT-FM-03)"
+   ],
+   "trace": {
+    "req": [
+     "FR-FM-03"
+    ],
+    "us": [
+     "US-28"
+    ],
+    "wf": [
+     "WF-22"
+    ],
+    "br": [
+     "BR-FM-12"
+    ],
+    "scr": [
+     "SCR-206"
+    ],
+    "tests": [
+     "FT-FM-03",
+     "E2E-FM-04"
+    ],
+    "demo": [
+     "Demo 20"
+    ]
+   },
+   "acceptance": [
+    "Plan lines match the formula for seeded assets (FT-FM-03).",
+    "The CAPEX matrix total equals the sum of lines."
+   ],
+   "risks": [
+    "Lifecycle assumptions unvalidated (R-17)."
+   ],
+   "unknowns": [
+    "D-11"
+   ]
+  },
+  {
+   "id": "VX-065",
+   "title": "Build owner portal PWA (home tiles, ledger & pay, requests, documents, committee approvals)",
+   "epic": "EP-09",
+   "module": "M09",
+   "lane": "DEV4",
+   "cycle": "D4",
+   "priority": "P0",
+   "est_h": 2.5,
+   "labels": [
+    "FRONTEND",
+    "STRATA",
+    "FEATURE"
+   ],
+   "evidence": "OBSERVED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-061",
+    "VX-024",
+    "VX-026",
+    "VX-008"
+   ],
+   "description": "/portal PWA: SCR-151 home (owner balance and next due; committee fund tiles Admin cash, Capital works cash, Bank balance, Investments, Scheme arrears, as OBSERVED in EV-038); SCR-152 ledger with penalty lines and pay (EV-039, EV-050); SCR-153 requests; SCR-154 documents; SCR-156 committee invoice approval card with budget remaining (EV-040). Uses tenant branding and no Urbanise trademarks ('Vertex Owner Portal').",
+   "sources": [
+    "03-strata/OWNER_PORTAL_AND_COMMS.md",
+    "08-ux/SCREEN_INVENTORY.md (SCR-151..156)",
+    "07-api/API_CATALOG.md (Owner portal)"
+   ],
+   "trace": {
+    "req": [
+     "FR-ST-23",
+     "FR-ST-24"
+    ],
+    "us": [
+     "US-09",
+     "US-15",
+     "US-22",
+     "US-23",
+     "US-24"
+    ],
+    "wf": [
+     "WF-13"
+    ],
+    "br": [
+     "BR-ST-20"
+    ],
+    "scr": [
+     "SCR-151",
+     "SCR-152",
+     "SCR-153",
+     "SCR-154",
+     "SCR-156"
+    ],
+    "tests": [
+     "FT-ST-27",
+     "FT-ST-28",
+     "E2E-ST-08",
+     "RBAC-N03"
+    ],
+    "demo": [
+     "Demo 5",
+     "Demo 9"
+    ]
+   },
+   "acceptance": [
+    "An owner sees only their own lots; an occupier gets 403 for the scheme summary (RBAC-N03).",
+    "Committee tiles equal the GL balances (FT-ST-28).",
+    "The pay flow returns to the ledger showing the receipt."
+   ],
+   "risks": [],
+   "unknowns": [
+    "C-04 owner portal identity"
+   ]
+  },
+  {
+   "id": "VX-069",
+   "title": "Build AI assistant panel UI (streaming, citations, action proposal confirm)",
+   "epic": "EP-16",
+   "module": "M09",
+   "lane": "DEV4",
+   "cycle": "D4",
+   "priority": "P1",
+   "est_h": 1.5,
+   "labels": [
+    "FRONTEND",
+    "AI",
+    "FEATURE"
+   ],
+   "evidence": "PROPOSED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-060",
+    "VX-066"
+   ],
+   "description": "SCR-301 right drawer (⌘J): SSE token streaming, tool-step indicators, CitationChips that open a record or the document at a page, ActionProposalCard with Confirm/Discard, unavailable and budget-exceeded states, and a markdown renderer with no remote images (AIT-25).",
+   "sources": [
+    "08-ux/SCREEN_INVENTORY.md (SCR-301)",
+    "08-ux/UX_STATES.md (AI streaming)",
+    "09-ai/AI_GUARDRAILS.md (Output guardrails)"
+   ],
+   "trace": {
+    "req": [
+     "FR-AI-01",
+     "FR-AI-04"
+    ],
+    "scr": [
+     "SCR-301"
+    ],
+    "tests": [
+     "E2E-AI-01",
+     "AIT-25"
+    ],
+    "demo": [
+     "Demo 14"
+    ]
+   },
+   "acceptance": [
+    "A proposal executes only after Confirm (E2E-AI-01).",
+    "Remote images in answers are not loaded (AIT-25)."
+   ],
+   "risks": [],
+   "unknowns": []
+  },
+  {
+   "id": "VX-067",
+   "title": "Build cross-module Playwright E2E suite for the Demo Lite path and seed reset",
+   "epic": "EP-21",
+   "module": "M11",
+   "lane": "DEV4",
+   "cycle": "D4",
+   "priority": "P0",
+   "est_h": 1.5,
+   "labels": [
+    "QA",
+    "TEST"
+   ],
+   "evidence": "PROPOSED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-063",
+    "VX-064",
+    "VX-065"
+   ],
+   "description": "Playwright tests against the compose stack: E2E-ST-02 (budget → levy → owner pays), E2E-ST-03 (reconcile), E2E-ST-05 (invoice → committee mobile approval → batch), E2E-FM-01 (resident request → completion), E2E-AI-01, plus axe scans of primary screens. `pnpm seed --reset demo` completes in about 2 min.",
+   "sources": [
+    "12-testing/UI_E2E_TESTS.md",
+    "15-build/DEMO_SCRIPT.md",
+    "16-plane/PROJECT_MODEL.md (Demo Lite)"
+   ],
+   "trace": {
+    "tests": [
+     "E2E-ST-02",
+     "E2E-ST-03",
+     "E2E-ST-05",
+     "E2E-FM-01",
+     "E2E-AI-01",
+     "UI-A11Y"
+    ],
+    "demo": [
+     "Demo Lite all"
+    ]
+   },
+   "acceptance": [
+    "The suite runs headless in CI against a fresh seed and passes.",
+    "axe reports 0 serious/critical issues on demo-path screens."
+   ],
+   "risks": [
+    "Day 4 integration slips compress this item → Day 5 morning buffer."
+   ],
+   "unknowns": []
+  },
+  {
+   "id": "VX-071",
+   "title": "Deploy demo environment (compose on single VM) with seed reset and smoke check",
+   "epic": "EP-22",
+   "module": "M12",
+   "lane": "DEV4",
+   "cycle": "D4",
+   "priority": "P0",
+   "est_h": 1,
+   "labels": [
+    "DEVOPS"
+   ],
+   "evidence": "PROPOSED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-001",
+    "VX-012"
+   ],
+   "description": "Single-VM demo environment (TLS via Caddy) running the compose stack with mocks and Mailpit. Secrets come from the environment (no repo secrets). Includes a migrate + seed demo script and a smoke test (login, list schemes, create WO in sandbox). The cloud reference deployment (ECS/Helm) is POST-DAY-5.",
+   "sources": [
+    "13-devops/DEPLOYMENT.md",
+    "13-devops/ENVIRONMENTS.md (demo)",
+    "13-devops/SECRETS.md",
+    "13-devops/ROLLBACK.md"
+   ],
+   "trace": {
+    "req": [
+     "NFR-05"
+    ],
+    "tests": [
+     "Smoke"
+    ],
+    "demo": [
+     "Day 5 environment"
+    ]
+   },
+   "acceptance": [
+    "The demo URL serves the app over TLS; smoke passes; reset restores the seed in under 5 min.",
+    "Rollback = redeploy previous image tag (documented)."
+   ],
+   "risks": [
+    "No cloud account/VM provisioned (external dependency) → fallback: presenter laptop running compose."
+   ],
+   "unknowns": [
+    "Hosting target not yet chosen (D-16)."
+   ]
+  },
+  {
+   "id": "VX-090",
+   "title": "Day 5: Full system smoke and Demo Lite critical-workflow run",
+   "epic": "EP-23",
+   "module": "M11",
+   "lane": "DEV4",
+   "cycle": "D5",
+   "priority": "P0",
+   "est_h": 2,
+   "labels": [
+    "QA",
+    "TEST"
+   ],
+   "evidence": "PROPOSED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-067",
+    "VX-071"
+   ],
+   "description": "Run the E2E suite and a manual walk-through of every Demo Lite step on the demo environment; log defects as BUG items linked to their source item.",
+   "sources": [
+    "15-build/DEMO_SCRIPT.md",
+    "16-plane/PROJECT_MODEL.md (Demo Lite)"
+   ],
+   "trace": {
+    "tests": [
+     "E2E-*"
+    ],
+    "demo": [
+     "Demo Lite all"
+    ]
+   },
+   "acceptance": [
+    "Every Demo Lite step passes or has a linked BUG item with severity."
+   ],
+   "risks": [],
+   "unknowns": []
+  },
+  {
+   "id": "VX-091",
+   "title": "Day 5: Security validation run (auth, RBAC negatives, tenant isolation, document access, AI authz/injection)",
+   "epic": "EP-23",
+   "module": "M10",
+   "lane": "DEV1",
+   "cycle": "D5",
+   "priority": "P0",
+   "est_h": 2,
+   "labels": [
+    "SECURITY",
+    "TEST"
+   ],
+   "evidence": "PROPOSED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-007",
+    "VX-012",
+    "VX-068"
+   ],
+   "description": "Execute and record results for API-AUTH, RBAC-N01..16 (implemented subset), TEN-01..12 (subset), DOC-01..08, SEC subset and AIT-03/04/06/08/18. Record results in the Release Gate item.",
+   "sources": [
+    "12-testing/SECURITY_TESTS.md",
+    "09-ai/AI_TEST_CASES.md"
+   ],
+   "trace": {
+    "tests": [
+     "TEN-*",
+     "RBAC-N*",
+     "DOC-*",
+     "SEC-*",
+     "AIT-03",
+     "AIT-04",
+     "AIT-06",
+     "AIT-08",
+     "AIT-18"
+    ],
+    "demo": [
+     "Demo 23"
+    ]
+   },
+   "acceptance": [
+    "Zero cross-tenant leaks; zero AI authorization leaks; any failure is a P0 BUG that blocks the gate."
+   ],
+   "risks": [],
+   "unknowns": []
+  },
+  {
+   "id": "VX-092",
+   "title": "Day 5: Strata financial integrity validation (FIN tests, invariants, report totals)",
+   "epic": "EP-23",
+   "module": "M11",
+   "lane": "DEV2",
+   "cycle": "D5",
+   "priority": "P0",
+   "est_h": 2,
+   "labels": [
+    "STRATA",
+    "TEST"
+   ],
+   "evidence": "PROPOSED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-025",
+    "VX-026",
+    "VX-070"
+   ],
+   "description": "Run FIN-01..10 and INV-01..05 on demo data; reconcile Aged Debtors totals and dashboard KPIs against the ledger; dry-run Strata demo steps 1–11.",
+   "sources": [
+    "12-testing/FINANCIAL_INTEGRITY_TESTS.md",
+    "06-database/DATA_GOVERNANCE.md"
+   ],
+   "trace": {
+    "tests": [
+     "FIN-*",
+     "INV-*"
+    ],
+    "demo": [
+     "Demo 1–11"
+    ]
+   },
+   "acceptance": [
+    "All FIN/INV pass; report totals equal ledger."
+   ],
+   "risks": [],
+   "unknowns": []
+  },
+  {
+   "id": "VX-093",
+   "title": "Day 5: FM workflow validation (SLA clock, compliance gate, offline sync, resident-app round trip)",
+   "epic": "EP-23",
+   "module": "M11",
+   "lane": "DEV3",
+   "cycle": "D5",
+   "priority": "P0",
+   "est_h": 2,
+   "labels": [
+    "FM",
+    "TEST"
+   ],
+   "evidence": "PROPOSED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-043",
+    "VX-045",
+    "VX-064"
+   ],
+   "description": "Validate FT-FM-07..15, E2E-FM-01/05/06 and INT-T-11..14 on the demo environment; dry-run FM demo steps 15–20.",
+   "sources": [
+    "12-testing/FUNCTIONAL_TESTS.md",
+    "12-testing/INTEGRATION_TESTS.md"
+   ],
+   "trace": {
+    "tests": [
+     "FT-FM-07..15",
+     "E2E-FM-01",
+     "E2E-FM-05",
+     "E2E-FM-06",
+     "INT-T-11..14"
+    ],
+    "demo": [
+     "Demo 15–20"
+    ]
+   },
+   "acceptance": [
+    "All listed tests pass or have linked BUG items."
+   ],
+   "risks": [],
+   "unknowns": []
+  },
+  {
+   "id": "VX-094",
+   "title": "Day 5: AI evaluation subset run and AI demo rehearsal",
+   "epic": "EP-23",
+   "module": "M06",
+   "lane": "DEV1",
+   "cycle": "D5",
+   "priority": "P1",
+   "est_h": 1.5,
+   "labels": [
+    "AI",
+    "TEST"
+   ],
+   "evidence": "PROPOSED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-066",
+    "VX-068",
+    "VX-069"
+   ],
+   "description": "Run the AIT-01..25 subset implemented plus a reduced EV-STRATA-QA / EV-RAG / EV-AUTHZ / EV-INJECT set (≥ 10 cases each), and record metrics against the AI_EVALUATION gates (POC gates are indicative, given reduced datasets).",
+   "sources": [
+    "09-ai/AI_EVALUATION.md",
+    "09-ai/AI_TEST_CASES.md"
+   ],
+   "trace": {
+    "tests": [
+     "AIT-*"
+    ],
+    "demo": [
+     "Demo 14",
+     "Demo 22"
+    ]
+   },
+   "acceptance": [
+    "Authorization leakage = 0 and injection success = 0; accuracy and groundedness are reported with sample size."
+   ],
+   "risks": [],
+   "unknowns": []
+  },
+  {
+   "id": "VX-095",
+   "title": "Day 5: Regression and gap-closure buffer (P0/P1 bug fixing)",
+   "epic": "EP-23",
+   "module": "M11",
+   "lane": "DEV2",
+   "cycle": "D5",
+   "priority": "P0",
+   "est_h": 4,
+   "labels": [
+    "QA"
+   ],
+   "evidence": "PROPOSED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-090"
+   ],
+   "description": "Shared buffer: every developer reserves the remaining Day 5 hours for BUG items found by VX-090..094. Re-run the E2E suite after fixes.",
+   "sources": [
+    "15-build/UAT_PLAN.md (Defect severity)"
+   ],
+   "trace": {
+    "tests": [
+     "E2E regression"
+    ],
+    "demo": []
+   },
+   "acceptance": [
+    "0 open S1 defects; S2 defects have a documented workaround."
+   ],
+   "risks": [],
+   "unknowns": []
+  },
+  {
+   "id": "VX-096",
+   "title": "Day 5: Traceability and documentation verification (update matrix with Plane IDs and test results)",
+   "epic": "EP-23",
+   "module": "M11",
+   "lane": "DEV3",
+   "cycle": "D5",
+   "priority": "P1",
+   "est_h": 1.5,
+   "labels": [
+    "QA",
+    "DOCUMENTATION"
+   ],
+   "evidence": "PROPOSED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-090"
+   ],
+   "description": "Update docs/14-traceability/TRACEABILITY_MATRIX.md with a Plane item column and pass/fail per test ID. Mark features not built as POST-DAY-5. Record any design change in docs without altering evidence rows.",
+   "sources": [
+    "14-traceability/TRACEABILITY_MATRIX.md",
+    "00-discovery/VALIDATION_REPORT.md"
+   ],
+   "trace": {
+    "tests": [],
+    "demo": []
+   },
+   "acceptance": [
+    "Every Demo Lite feature row shows a Plane ID and test results; no evidence row edited."
+   ],
+   "risks": [],
+   "unknowns": []
+  },
+  {
+   "id": "VX-097",
+   "title": "Day 5: Known-gap review and post-Day-5 backlog grooming",
+   "epic": "EP-23",
+   "module": "M11",
+   "lane": "DEV4",
+   "cycle": "D5",
+   "priority": "P1",
+   "est_h": 1,
+   "labels": [
+    "DOCUMENTATION"
+   ],
+   "evidence": "PROPOSED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-090"
+   ],
+   "description": "Review KNOWN_LIMITATIONS, decision status (D-01..D-16) and POST-DAY-5 items; re-prioritise for the next iteration; capture demo feedback.",
+   "sources": [
+    "15-build/KNOWN_LIMITATIONS.md",
+    "15-build/FUTURE_BACKLOG.md",
+    "00-discovery/RESEARCH_GAPS.md"
+   ],
+   "trace": {
+    "tests": [],
+    "demo": []
+   },
+   "acceptance": [
+    "Each POST-DAY-5 item has priority and next-iteration target; open decisions have an owner and date."
+   ],
+   "risks": [],
+   "unknowns": []
+  },
+  {
+   "id": "VX-098",
+   "title": "Day 5: Reduced performance smoke (k6 PERF-01/03/04 at small scale)",
+   "epic": "EP-23",
+   "module": "M11",
+   "lane": "DEV3",
+   "cycle": "D5",
+   "priority": "P2",
+   "est_h": 1,
+   "labels": [
+    "QA",
+    "TEST"
+   ],
+   "evidence": "PROPOSED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-071"
+   ],
+   "description": "Run small-scale k6 scripts (50 VUs, demo dataset) and report p95s. The full perf dataset and soak are POST-DAY-5.",
+   "sources": [
+    "12-testing/PERFORMANCE_TESTS.md",
+    "02-requirements/NON_FUNCTIONAL_REQUIREMENTS.md"
+   ],
+   "trace": {
+    "tests": [
+     "PERF-01",
+     "PERF-03",
+     "PERF-04"
+    ],
+    "demo": []
+   },
+   "acceptance": [
+    "p95 results recorded; any NFR miss is logged as a POST-DAY-5 item."
+   ],
+   "risks": [],
+   "unknowns": []
+  },
+  {
+   "id": "VX-099",
+   "title": "Release Readiness / Demo Gate",
+   "epic": "EP-23",
+   "module": "M11",
+   "lane": "DEV1",
+   "cycle": "D5",
+   "priority": "P0",
+   "est_h": 1,
+   "labels": [
+    "QA",
+    "DOCUMENTATION"
+   ],
+   "evidence": "PROPOSED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-090",
+    "VX-091",
+    "VX-092",
+    "VX-093",
+    "VX-094",
+    "VX-095",
+    "VX-096"
+   ],
+   "description": "Go/no-go for the Day 5 demo using the POC subset of 15-build/ACCEPTANCE_CHECKLIST. Record what was demonstrated, test evidence, open defects, open decisions and POST-DAY-5 scope. Product owner signs off. Do not mark Done without recorded evidence.",
+   "sources": [
+    "15-build/ACCEPTANCE_CHECKLIST.md",
+    "00-discovery/BUILD_READINESS_REPORT.md",
+    "16-plane/pages/05_BUILD_READINESS.md"
+   ],
+   "trace": {
+    "tests": [
+     "All Day 5 runs"
+    ],
+    "demo": [
+     "Demo Lite"
+    ]
+   },
+   "acceptance": [
+    "The gate record lists pass/fail for: Demo Lite steps, security run, FIN/INV, FM validation, AI eval; 0 S1 defects; PO decision recorded."
+   ],
+   "risks": [],
+   "unknowns": []
+  },
+  {
+   "id": "D-01",
+   "title": "Decision Required: Levy apportionment & rounding rules per jurisdiction",
+   "epic": "EP-24",
+   "module": "M03",
+   "lane": "PO/SME",
+   "cycle": "D1",
+   "priority": "P1",
+   "est_h": 0,
+   "labels": [
+    "DECISION",
+    "STRATA",
+    "BLOCKED / UNKNOWN"
+   ],
+   "evidence": "UNKNOWN",
+   "state": "Todo",
+   "depends_on": [],
+   "description": "Evidence: the levy formula is UNKNOWN (U-20). The POC implements PROPOSED BR-ST-03 (entitlement-based, cents, remainder to last instalment and lowest lot). A strata-accountant SME must confirm or amend this per jurisdiction (QLD/NSW) before UAT. It does not block Day 1–4, because the default is configurable.",
+   "sources": [
+    "00-discovery/UNKNOWN_INFORMATION.md (U-20, U-23)",
+    "02-requirements/BUSINESS_RULES.md (BR-ST-03)",
+    "00-discovery/RESEARCH_GAPS.md (G-04)"
+   ],
+   "trace": {
+    "br": [
+     "BR-ST-03"
+    ],
+    "tests": [
+     "FIN-01"
+    ]
+   },
+   "acceptance": [
+    "SME decision recorded; config defaults updated, or confirmed in writing."
+   ],
+   "risks": [
+    "Wrong legal default (R-01)."
+   ],
+   "unknowns": [
+    "U-20"
+   ]
+  },
+  {
+   "id": "D-02",
+   "title": "Decision Required: Penalty/interest and early-payment discount rules",
+   "epic": "EP-24",
+   "module": "M03",
+   "lane": "PO/SME",
+   "cycle": "D1",
+   "priority": "P1",
+   "est_h": 0,
+   "labels": [
+    "DECISION",
+    "STRATA",
+    "BLOCKED / UNKNOWN"
+   ],
+   "evidence": "UNKNOWN",
+   "state": "Todo",
+   "depends_on": [],
+   "description": "Penalty lines are OBSERVED (EV-039), but rates, grace, day-count and discount rules are UNKNOWN (U-22). The PROPOSED defaults are BR-ST-09/10 (10% p.a. simple, discount off).",
+   "sources": [
+    "00-discovery/UNKNOWN_INFORMATION.md (U-22)",
+    "03-strata/LEVY_ENGINE.md (Discounts & penalties)"
+   ],
+   "trace": {
+    "br": [
+     "BR-ST-09",
+     "BR-ST-10"
+    ]
+   },
+   "acceptance": [
+    "Rates and rules confirmed per jurisdiction."
+   ],
+   "risks": [],
+   "unknowns": [
+    "U-22"
+   ]
+  },
+  {
+   "id": "D-03",
+   "title": "Decision Required: Payment allocation order",
+   "epic": "EP-24",
+   "module": "M03",
+   "lane": "PO/SME",
+   "cycle": "D2",
+   "priority": "P1",
+   "est_h": 0,
+   "labels": [
+    "DECISION",
+    "STRATA",
+    "BLOCKED / UNKNOWN"
+   ],
+   "evidence": "UNKNOWN",
+   "state": "Todo",
+   "depends_on": [],
+   "description": "Allocation order is UNKNOWN. The PROPOSED BR-ST-05 is oldest due first, with penalty last.",
+   "sources": [
+    "02-requirements/BUSINESS_RULES.md (BR-ST-05)",
+    "01-product/WORKFLOW_CATALOG.md (WF-06 Business Rules [U])"
+   ],
+   "trace": {
+    "br": [
+     "BR-ST-05"
+    ]
+   },
+   "acceptance": [
+    "Order confirmed by SME."
+   ],
+   "risks": [],
+   "unknowns": [
+    "U-22"
+   ]
+  },
+  {
+   "id": "D-04",
+   "title": "Decision Required: Arrears level thresholds, actions and fees",
+   "epic": "EP-24",
+   "module": "M03",
+   "lane": "PO/SME",
+   "cycle": "D3",
+   "priority": "P1",
+   "est_h": 0,
+   "labels": [
+    "DECISION",
+    "STRATA",
+    "BLOCKED / UNKNOWN"
+   ],
+   "evidence": "UNKNOWN",
+   "state": "Todo",
+   "depends_on": [],
+   "description": "Levels exist (CONFIRMED EV-024, OBSERVED EV-025), but thresholds are UNKNOWN (U-21). The PROPOSED defaults are 14/35/60 days.",
+   "sources": [
+    "00-discovery/UNKNOWN_INFORMATION.md (U-21)",
+    "03-strata/ARREARS_AND_DEBT_RECOVERY.md"
+   ],
+   "trace": {
+    "br": [
+     "BR-ST-08"
+    ]
+   },
+   "acceptance": [
+    "Thresholds and templates confirmed."
+   ],
+   "risks": [],
+   "unknowns": [
+    "U-21"
+   ]
+  },
+  {
+   "id": "D-05",
+   "title": "Decision Required: Meeting notice, quorum, proxy and voting threshold rules",
+   "epic": "EP-24",
+   "module": "M03",
+   "lane": "PO/SME",
+   "cycle": null,
+   "priority": "P2",
+   "est_h": 0,
+   "labels": [
+    "DECISION",
+    "STRATA",
+    "BLOCKED / UNKNOWN",
+    "POST-DAY-5"
+   ],
+   "evidence": "UNKNOWN",
+   "state": "Backlog",
+   "depends_on": [],
+   "description": "Voting is CONFIRMED (EV-045/046), but its rules are UNKNOWN (U-24), and ownership of voting is CONFLICTED (C-11). The feature itself is POST-DAY-5.",
+   "sources": [
+    "00-discovery/UNKNOWN_INFORMATION.md (U-24)",
+    "00-discovery/CONFLICTING_INFORMATION.md (C-11)",
+    "03-strata/MEETINGS_AND_VOTING.md"
+   ],
+   "trace": {
+    "br": [
+     "BR-ST-18",
+     "BR-ST-19"
+    ]
+   },
+   "acceptance": [
+    "Rules confirmed before the meetings feature starts."
+   ],
+   "risks": [],
+   "unknowns": [
+    "U-24"
+   ]
+  },
+  {
+   "id": "D-06",
+   "title": "Decision Required: Trust accounting statutory requirements (AU states/NZ)",
+   "epic": "EP-24",
+   "module": "M03",
+   "lane": "PO/SME",
+   "cycle": "D2",
+   "priority": "P1",
+   "est_h": 0,
+   "labels": [
+    "DECISION",
+    "STRATA",
+    "BLOCKED / UNKNOWN"
+   ],
+   "evidence": "UNKNOWN",
+   "state": "Todo",
+   "depends_on": [],
+   "description": "Trust accounting is CONFIRMED as integrated (EV-043), but statutory rules are UNKNOWN (G-05). The POC ledger is not a statutory product (KNOWN_LIMITATIONS #4).",
+   "sources": [
+    "00-discovery/RESEARCH_GAPS.md (G-05)",
+    "03-strata/TRUST_ACCOUNTING.md"
+   ],
+   "trace": {
+    "br": [
+     "BR-ST-12"
+    ]
+   },
+   "acceptance": [
+    "SME lists mandatory rules; gaps logged as POST-DAY-5 items."
+   ],
+   "risks": [],
+   "unknowns": [
+    "G-05"
+   ]
+  },
+  {
+   "id": "D-07",
+   "title": "Decision Required: Bank statement formats and receipt matching keys (Macquarie/NAB)",
+   "epic": "EP-24",
+   "module": "M07",
+   "lane": "PO/SME",
+   "cycle": null,
+   "priority": "P2",
+   "est_h": 0,
+   "labels": [
+    "DECISION",
+    "INTEGRATION",
+    "BLOCKED / UNKNOWN"
+   ],
+   "evidence": "UNKNOWN",
+   "state": "Backlog",
+   "depends_on": [],
+   "description": "Bank integrations are CONFIRMED (EV-023, 049..052), but formats are UNKNOWN (U-25, G-07). The POC uses CSV/camt.053 mocks; real integration is blocked on bank developer access.",
+   "sources": [
+    "00-discovery/UNKNOWN_INFORMATION.md (U-25)",
+    "10-integrations/INTEGRATION_CATALOG.md (INT-01)"
+   ],
+   "trace": {},
+   "acceptance": [
+    "Bank developer docs obtained and adapter scope agreed."
+   ],
+   "risks": [
+    "External blocker."
+   ],
+   "unknowns": [
+    "U-25",
+    "G-07"
+   ]
+  },
+  {
+   "id": "D-08",
+   "title": "Decision Required: Payment provider and payment rails for pay-now",
+   "epic": "EP-24",
+   "module": "M07",
+   "lane": "PO/SME",
+   "cycle": null,
+   "priority": "P2",
+   "est_h": 0,
+   "labels": [
+    "DECISION",
+    "INTEGRATION",
+    "BLOCKED / UNKNOWN"
+   ],
+   "evidence": "UNKNOWN",
+   "state": "Backlog",
+   "depends_on": [],
+   "description": "Pay-now is CONFIRMED (EV-050), but the rails are UNKNOWN and the source is CONFLICTED (C-08). The POC uses mock-payments only.",
+   "sources": [
+    "00-discovery/CONFLICTING_INFORMATION.md (C-08)"
+   ],
+   "trace": {},
+   "acceptance": [
+    "Provider chosen for post-POC."
+   ],
+   "risks": [],
+   "unknowns": [
+    "C-08"
+   ]
+  },
+  {
+   "id": "D-09",
+   "title": "Decision Required: Partner integration protocols (LevyCollect, StrataVote, Conpago/MyVillage)",
+   "epic": "EP-24",
+   "module": "M07",
+   "lane": "PO/SME",
+   "cycle": null,
+   "priority": "P2",
+   "est_h": 0,
+   "labels": [
+    "DECISION",
+    "INTEGRATION",
+    "BLOCKED / UNKNOWN"
+   ],
+   "evidence": "UNKNOWN",
+   "state": "Backlog",
+   "depends_on": [],
+   "description": "Partner interfaces are UNKNOWN (G-19), so the POC uses generic adapters with mocks. Partner agreements are required for real integration.",
+   "sources": [
+    "00-discovery/RESEARCH_GAPS.md (G-19)",
+    "10-integrations/INTEGRATION_ARCHITECTURE.md"
+   ],
+   "trace": {},
+   "acceptance": [
+    "Integration partners and access confirmed."
+   ],
+   "risks": [
+    "External blocker."
+   ],
+   "unknowns": [
+    "G-19"
+   ]
+  },
+  {
+   "id": "D-10",
+   "title": "Decision Required: FM SLA priority matrix and business calendars",
+   "epic": "EP-24",
+   "module": "M04",
+   "lane": "PO/SME",
+   "cycle": "D2",
+   "priority": "P1",
+   "est_h": 0,
+   "labels": [
+    "DECISION",
+    "FM",
+    "BLOCKED / UNKNOWN"
+   ],
+   "evidence": "UNKNOWN",
+   "state": "Todo",
+   "depends_on": [],
+   "description": "SLAs are CONFIRMED (EV-098), but their definitions are UNKNOWN (U-26). The PROPOSED BR-FM-01 matrix is P1 1h/4h through P4 5bd/20bd.",
+   "sources": [
+    "00-discovery/UNKNOWN_INFORMATION.md (U-26)",
+    "02-requirements/BUSINESS_RULES.md (BR-FM-01..03)"
+   ],
+   "trace": {
+    "br": [
+     "BR-FM-01"
+    ]
+   },
+   "acceptance": [
+    "FM SME confirms defaults."
+   ],
+   "risks": [],
+   "unknowns": [
+    "U-26"
+   ]
+  },
+  {
+   "id": "D-11",
+   "title": "Decision Required: Asset lifecycle method and benchmark data",
+   "epic": "EP-24",
+   "module": "M04",
+   "lane": "PO/SME",
+   "cycle": null,
+   "priority": "P2",
+   "est_h": 0,
+   "labels": [
+    "DECISION",
+    "FM",
+    "BLOCKED / UNKNOWN"
+   ],
+   "evidence": "UNKNOWN",
+   "state": "Backlog",
+   "depends_on": [],
+   "description": "10-year plans are CONFIRMED (EV-073), but the method and benchmarks are UNKNOWN (U-27). The seeded useful lives are illustrative only.",
+   "sources": [
+    "03-fm/ASSET_LIFECYCLE.md",
+    "00-discovery/UNKNOWN_INFORMATION.md (U-27)"
+   ],
+   "trace": {
+    "br": [
+     "BR-FM-12"
+    ]
+   },
+   "acceptance": [
+    "Benchmark source chosen."
+   ],
+   "risks": [],
+   "unknowns": [
+    "U-27"
+   ]
+  },
+  {
+   "id": "D-12",
+   "title": "Decision Required: Required supplier compliance document types and minimum cover",
+   "epic": "EP-24",
+   "module": "M04",
+   "lane": "PO/SME",
+   "cycle": "D2",
+   "priority": "P2",
+   "est_h": 0,
+   "labels": [
+    "DECISION",
+    "FM",
+    "BLOCKED / UNKNOWN"
+   ],
+   "evidence": "UNKNOWN",
+   "state": "Todo",
+   "depends_on": [],
+   "description": "Licences and insurance are CONFIRMED (EV-077) and safeguarding is CONFIRMED (EV-078), but the full type list is UNKNOWN (U-28).",
+   "sources": [
+    "03-fm/SUPPLIERS_AND_COMPLIANCE.md",
+    "00-discovery/UNKNOWN_INFORMATION.md (U-28)"
+   ],
+   "trace": {
+    "br": [
+     "BR-SUP-02"
+    ]
+   },
+   "acceptance": [
+    "Type list confirmed."
+   ],
+   "risks": [],
+   "unknowns": [
+    "U-28"
+   ]
+  },
+  {
+   "id": "D-13",
+   "title": "Decision Required: PO sign-off on unresolved conflicts (AI status C-01, owner portal C-04, FM apps C-05, voting C-11)",
+   "epic": "EP-24",
+   "module": null,
+   "lane": "PO/SME",
+   "cycle": "D1",
+   "priority": "P1",
+   "est_h": 0,
+   "labels": [
+    "DECISION",
+    "BLOCKED / UNKNOWN"
+   ],
+   "evidence": "UNKNOWN",
+   "state": "Todo",
+   "depends_on": [],
+   "description": "Four conflicts remain UNKNOWN/CONFLICT. The POC choices are: own AI gateway; single Vertex Owner Portal; one PWA with role views; native voting (post-Day-5). The PO confirms these as design choices, which does not change the evidence. This is a condition of BUILD_READINESS_REPORT.",
+   "sources": [
+    "00-discovery/CONFLICTING_INFORMATION.md",
+    "00-discovery/BUILD_READINESS_REPORT.md (Conditions)"
+   ],
+   "trace": {},
+   "acceptance": [
+    "PO sign-off recorded on page 04."
+   ],
+   "risks": [],
+   "unknowns": [
+    "C-01",
+    "C-04",
+    "C-05",
+    "C-11"
+   ]
+  },
+  {
+   "id": "D-14",
+   "title": "Decision Required: Obtain authorized product access / staff UI screenshots",
+   "epic": "EP-24",
+   "module": null,
+   "lane": "PO/SME",
+   "cycle": null,
+   "priority": "P2",
+   "est_h": 0,
+   "labels": [
+    "DECISION",
+    "BLOCKED / UNKNOWN"
+   ],
+   "evidence": "UNKNOWN",
+   "state": "Backlog",
+   "depends_on": [],
+   "description": "There is no Priority-1 evidence (G-02, G-03): the staff UI is UNKNOWN. This raises the Discovery/UX confidence scores but does not block the POC.",
+   "sources": [
+    "00-discovery/RESEARCH_GAPS.md (G-02, G-03)"
+   ],
+   "trace": {},
+   "acceptance": [
+    "Access granted or explicitly declined."
+   ],
+   "risks": [],
+   "unknowns": [
+    "G-02",
+    "G-03"
+   ]
+  },
+  {
+   "id": "D-15",
+   "title": "Decision Required: Approve LLM & embedding providers, data processing terms, and provide API keys for dev/demo",
+   "epic": "EP-24",
+   "module": "M06",
+   "lane": "PO/SME",
+   "cycle": "D1",
+   "priority": "P0",
+   "est_h": 0,
+   "labels": [
+    "DECISION",
+    "AI",
+    "BLOCKED / UNKNOWN"
+   ],
+   "evidence": "UNKNOWN",
+   "state": "Todo",
+   "depends_on": [],
+   "description": "AI features (VX-066, VX-068) need an approved provider (Anthropic Claude is the default per docs), an embedding provider, a no-training / minimal-retention setting, and keys in the secret manager. Without them, AI runs on mock-llm only. Needed by Day 3 morning. This is an external blocker.",
+   "sources": [
+    "09-ai/AI_ARCHITECTURE.md (Configuration)",
+    "09-ai/AI_SECURITY.md",
+    "13-devops/SECRETS.md"
+   ],
+   "trace": {
+    "req": [
+     "FR-AI-07"
+    ]
+   },
+   "acceptance": [
+    "Keys available in dev and demo secret stores; data terms approved."
+   ],
+   "risks": [
+    "AI demo falls back to mock responses."
+   ],
+   "unknowns": []
+  },
+  {
+   "id": "D-16",
+   "title": "Decision Required: Demo hosting target (VM/cloud account) and DNS",
+   "epic": "EP-24",
+   "module": "M12",
+   "lane": "PO/SME",
+   "cycle": "D2",
+   "priority": "P1",
+   "est_h": 0,
+   "labels": [
+    "DECISION",
+    "DEVOPS",
+    "BLOCKED / UNKNOWN"
+   ],
+   "evidence": "UNKNOWN",
+   "state": "Todo",
+   "depends_on": [],
+   "description": "VX-071 needs a VM or cloud account by Day 4. The fallback is running the compose stack on the presenter's laptop.",
+   "sources": [
+    "13-devops/ENVIRONMENTS.md",
+    "13-devops/DEPLOYMENT.md"
+   ],
+   "trace": {},
+   "acceptance": [
+    "Host provisioned and access shared with DEV4."
+   ],
+   "risks": [],
+   "unknowns": []
+  },
+  {
+   "id": "FX-01",
+   "title": "Meetings, motions, e-voting, proxies and minutes",
+   "epic": "EP-08",
+   "module": "M03",
+   "lane": "DEV2",
+   "cycle": null,
+   "priority": "P3",
+   "est_h": 16,
+   "labels": [
+    "STRATA",
+    "FEATURE",
+    "POST-DAY-5"
+   ],
+   "evidence": "CONFIRMED",
+   "state": "Backlog",
+   "depends_on": [
+    "D-05"
+   ],
+   "description": "WF-11, F-ST-10, FR-ST-19..21, SCR-115/116/157, FT-ST-22..25, Demo 12.",
+   "sources": [
+    "03-strata/MEETINGS_AND_VOTING.md"
+   ],
+   "trace": {
+    "req": [
+     "FR-ST-19",
+     "FR-ST-20",
+     "FR-ST-21",
+     "FR-IN-04"
+    ],
+    "tests": [
+     "FT-ST-22",
+     "FT-ST-23",
+     "FT-ST-24",
+     "FT-ST-25",
+     "INT-T-10"
+    ]
+   },
+   "acceptance": [
+    "See FT-ST-22..25."
+   ],
+   "risks": [],
+   "unknowns": [
+    "U-24",
+    "C-11"
+   ]
+  },
+  {
+   "id": "FX-02",
+   "title": "Comms campaigns with dynamic audiences and test send",
+   "epic": "EP-08",
+   "module": "M03",
+   "lane": "DEV2",
+   "cycle": null,
+   "priority": "P3",
+   "est_h": 8,
+   "labels": [
+    "STRATA",
+    "FEATURE",
+    "POST-DAY-5"
+   ],
+   "evidence": "CONFIRMED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-009"
+   ],
+   "description": "WF-12, F-ST-11, FR-ST-22, SCR-117, FT-ST-26, Demo 13.",
+   "sources": [
+    "03-strata/OWNER_PORTAL_AND_COMMS.md"
+   ],
+   "trace": {},
+   "acceptance": [
+    "See FT-ST-26."
+   ],
+   "risks": [],
+   "unknowns": [
+    "U-32"
+   ]
+  },
+  {
+   "id": "FX-03",
+   "title": "Community & committee wall with moderation",
+   "epic": "EP-08",
+   "module": "M03",
+   "lane": "DEV4",
+   "cycle": null,
+   "priority": "P3",
+   "est_h": 6,
+   "labels": [
+    "STRATA",
+    "FEATURE",
+    "POST-DAY-5"
+   ],
+   "evidence": "CONFIRMED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-065"
+   ],
+   "description": "F-ST-13, FR-ST-25, SCR-155, FT-ST-29.",
+   "sources": [
+    "03-strata/OWNER_PORTAL_AND_COMMS.md"
+   ],
+   "trace": {},
+   "acceptance": [
+    "See FT-ST-29."
+   ],
+   "risks": [],
+   "unknowns": [
+    "U-29"
+   ]
+  },
+  {
+   "id": "FX-04",
+   "title": "Strata insurance & compliance register with renewal tasks",
+   "epic": "EP-08",
+   "module": "M03",
+   "lane": "DEV2",
+   "cycle": null,
+   "priority": "P3",
+   "est_h": 6,
+   "labels": [
+    "STRATA",
+    "FEATURE",
+    "POST-DAY-5"
+   ],
+   "evidence": "CONFIRMED",
+   "state": "Backlog",
+   "depends_on": [],
+   "description": "WF-27, F-ST-14, FR-ST-26, SCR-119, FT-ST-30.",
+   "sources": [
+    "01-product/WORKFLOW_CATALOG.md (WF-27)"
+   ],
+   "trace": {},
+   "acceptance": [
+    "See FT-ST-30."
+   ],
+   "risks": [],
+   "unknowns": []
+  },
+  {
+   "id": "FX-05",
+   "title": "Quote requests, quote comparison and strata work orders (+ escalate to FM)",
+   "epic": "EP-07",
+   "module": "M03",
+   "lane": "DEV2",
+   "cycle": null,
+   "priority": "P3",
+   "est_h": 10,
+   "labels": [
+    "STRATA",
+    "FEATURE",
+    "POST-DAY-5"
+   ],
+   "evidence": "CONFIRMED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-042"
+   ],
+   "description": "WF-10, F-ST-09, FR-ST-18, SCR-114, FT-ST-21, Demo 7a.",
+   "sources": [
+    "03-strata/PROCUREMENT_AND_INVOICES.md"
+   ],
+   "trace": {},
+   "acceptance": [
+    "See FT-ST-21."
+   ],
+   "risks": [],
+   "unknowns": []
+  },
+  {
+   "id": "FX-06",
+   "title": "Data import wizard and templates (schemes, lots, owners, assets, opening balances)",
+   "epic": "EP-15",
+   "module": "M05",
+   "lane": "DEV1",
+   "cycle": null,
+   "priority": "P3",
+   "est_h": 12,
+   "labels": [
+    "PLATFORM",
+    "FEATURE",
+    "POST-DAY-5"
+   ],
+   "evidence": "CONFIRMED",
+   "state": "Backlog",
+   "depends_on": [],
+   "description": "WF-01, F-SH-09, FR-SH-12, SCR-008, FT-SH-10. Template columns are UNKNOWN (G-20).",
+   "sources": [
+    "04-shared-platform/COMMON_SERVICES.md (Imports)"
+   ],
+   "trace": {},
+   "acceptance": [
+    "See FT-SH-10."
+   ],
+   "risks": [],
+   "unknowns": [
+    "G-20"
+   ]
+  },
+  {
+   "id": "FX-07",
+   "title": "FM inspections & compliance schedules with follow-up WOs",
+   "epic": "EP-11",
+   "module": "M04",
+   "lane": "DEV3",
+   "cycle": null,
+   "priority": "P3",
+   "est_h": 6,
+   "labels": [
+    "FM",
+    "FEATURE",
+    "POST-DAY-5"
+   ],
+   "evidence": "CONFIRMED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-044"
+   ],
+   "description": "F-FM-11, FR-FM-14, FT-FM-16, Demo 20a.",
+   "sources": [
+    "03-fm/WORK_MANAGEMENT.md (Inspections)"
+   ],
+   "trace": {},
+   "acceptance": [
+    "See FT-FM-16."
+   ],
+   "risks": [],
+   "unknowns": []
+  },
+  {
+   "id": "FX-08",
+   "title": "CRM contact history and dispatch board",
+   "epic": "EP-13",
+   "module": "M04",
+   "lane": "DEV3",
+   "cycle": null,
+   "priority": "P3",
+   "est_h": 10,
+   "labels": [
+    "FM",
+    "FEATURE",
+    "POST-DAY-5"
+   ],
+   "evidence": "CONFIRMED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-043"
+   ],
+   "description": "F-FM-14, FR-FM-11, FR-FM-17, SCR-212, SCR-217, FT-FM-12, FT-FM-19.",
+   "sources": [
+    "03-fm/OPS_CENTRE_AND_PORTAL.md (CRM)"
+   ],
+   "trace": {},
+   "acceptance": [
+    "See FT-FM-12, FT-FM-19."
+   ],
+   "risks": [],
+   "unknowns": []
+  },
+  {
+   "id": "FX-09",
+   "title": "Scheduled report distribution and full Strata report set (TB, I&E, BS, levy register, statements)",
+   "epic": "EP-18",
+   "module": "M08",
+   "lane": "DEV2",
+   "cycle": null,
+   "priority": "P3",
+   "est_h": 14,
+   "labels": [
+    "REPORTING",
+    "POST-DAY-5"
+   ],
+   "evidence": "CONFIRMED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-070"
+   ],
+   "description": "WF-14, FR-ST-28, FR-ST-30, RPT-ST-02..12.",
+   "sources": [
+    "11-reporting/REPORT_SPECIFICATION.md"
+   ],
+   "trace": {},
+   "acceptance": [
+    "See FT-ST-32."
+   ],
+   "risks": [],
+   "unknowns": []
+  },
+  {
+   "id": "FX-10",
+   "title": "Full FM analytics and client self-serve reports",
+   "epic": "EP-18",
+   "module": "M08",
+   "lane": "DEV3",
+   "cycle": null,
+   "priority": "P3",
+   "est_h": 10,
+   "labels": [
+    "REPORTING",
+    "FM",
+    "POST-DAY-5"
+   ],
+   "evidence": "CONFIRMED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-046"
+   ],
+   "description": "DB-FM-02/03, KPI-FM-03/05/06/07/10/12, RPT-FM-01..07.",
+   "sources": [
+    "11-reporting/DASHBOARD_SPECIFICATION.md"
+   ],
+   "trace": {},
+   "acceptance": [],
+   "risks": [],
+   "unknowns": [
+    "U-10"
+   ]
+  },
+  {
+   "id": "FX-11",
+   "title": "AI email reply drafts (human-in-the-loop)",
+   "epic": "EP-16",
+   "module": "M06",
+   "lane": "DEV1",
+   "cycle": null,
+   "priority": "P3",
+   "est_h": 6,
+   "labels": [
+    "AI",
+    "FEATURE",
+    "POST-DAY-5"
+   ],
+   "evidence": "CONFIRMED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-066"
+   ],
+   "description": "WF-24, FR-AI-05, SCR-302, AIT-14/15, Demo 14a.",
+   "sources": [
+    "09-ai/AI_CAPABILITIES.md"
+   ],
+   "trace": {},
+   "acceptance": [
+    "See AIT-14/15."
+   ],
+   "risks": [],
+   "unknowns": []
+  },
+  {
+   "id": "FX-12",
+   "title": "AI invoice field extraction with confidence review",
+   "epic": "EP-16",
+   "module": "M06",
+   "lane": "DEV1",
+   "cycle": null,
+   "priority": "P3",
+   "est_h": 8,
+   "labels": [
+    "AI",
+    "FEATURE",
+    "POST-DAY-5"
+   ],
+   "evidence": "CONFIRMED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-026"
+   ],
+   "description": "WF-25, FR-AI-06, SCR-303, AIT-16/17. Urbanise status: announced (EV-111).",
+   "sources": [
+    "09-ai/AI_CAPABILITIES.md"
+   ],
+   "trace": {},
+   "acceptance": [
+    "See AIT-16/17."
+   ],
+   "risks": [],
+   "unknowns": []
+  },
+  {
+   "id": "FX-13",
+   "title": "Public API clients and webhook subscription management (incl. redelivery, auto-disable)",
+   "epic": "EP-17",
+   "module": "M07",
+   "lane": "DEV1",
+   "cycle": null,
+   "priority": "P3",
+   "est_h": 8,
+   "labels": [
+    "INTEGRATION",
+    "POST-DAY-5"
+   ],
+   "evidence": "CONFIRMED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-043"
+   ],
+   "description": "FR-SH-13, WH-01..07, F-SH-10. The Day 3 resident-app webhook is hard-wired; general management is future work.",
+   "sources": [
+    "07-api/WEBHOOKS.md"
+   ],
+   "trace": {},
+   "acceptance": [
+    "See WH-*."
+   ],
+   "risks": [],
+   "unknowns": []
+  },
+  {
+   "id": "FX-14",
+   "title": "Complete OpenAPI for all ~190 catalogued operations and oasdiff gate",
+   "epic": "EP-21",
+   "module": "M11",
+   "lane": "DEV1",
+   "cycle": null,
+   "priority": "P2",
+   "est_h": 8,
+   "labels": [
+    "DOCUMENTATION",
+    "POST-DAY-5"
+   ],
+   "evidence": "PROPOSED",
+   "state": "Backlog",
+   "depends_on": [],
+   "description": "BUILD_READINESS condition 1. Within Days 1–4 each item extends OPENAPI.yaml for the operations it builds; this item covers the remainder.",
+   "sources": [
+    "07-api/API_CATALOG.md",
+    "00-discovery/BUILD_READINESS_REPORT.md"
+   ],
+   "trace": {},
+   "acceptance": [
+    "Every catalog operation is defined; API-OAS-01 in CI."
+   ],
+   "risks": [
+    "Contract drift (R-19)."
+   ],
+   "unknowns": []
+  },
+  {
+   "id": "FX-15",
+   "title": "Full performance suite, ZAP DAST, backup/restore rehearsal",
+   "epic": "EP-21",
+   "module": "M11",
+   "lane": "DEV3",
+   "cycle": null,
+   "priority": "P3",
+   "est_h": 12,
+   "labels": [
+    "QA",
+    "SECURITY",
+    "POST-DAY-5"
+   ],
+   "evidence": "PROPOSED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-071"
+   ],
+   "description": "PERF-01..10, SEC-16, FAILREC-02..10.",
+   "sources": [
+    "12-testing/PERFORMANCE_TESTS.md",
+    "12-testing/FAILURE_RECOVERY_TESTS.md"
+   ],
+   "trace": {},
+   "acceptance": [],
+   "risks": [],
+   "unknowns": []
+  },
+  {
+   "id": "FX-16",
+   "title": "Observability stack: OTel → Grafana dashboards, alerts and runbooks",
+   "epic": "EP-22",
+   "module": "M12",
+   "lane": "DEV4",
+   "cycle": null,
+   "priority": "P3",
+   "est_h": 10,
+   "labels": [
+    "DEVOPS",
+    "POST-DAY-5"
+   ],
+   "evidence": "PROPOSED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-071"
+   ],
+   "description": "13-devops MONITORING, ALERTING, OPERATIONS.",
+   "sources": [
+    "13-devops/MONITORING.md",
+    "13-devops/ALERTING.md"
+   ],
+   "trace": {},
+   "acceptance": [],
+   "risks": [],
+   "unknowns": []
+  },
+  {
+   "id": "FX-17",
+   "title": "Cloud reference deployment (ECS/Helm), release pipeline with signing and SBOM",
+   "epic": "EP-22",
+   "module": "M12",
+   "lane": "DEV4",
+   "cycle": null,
+   "priority": "P3",
+   "est_h": 14,
+   "labels": [
+    "DEVOPS",
+    "POST-DAY-5"
+   ],
+   "evidence": "PROPOSED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-071"
+   ],
+   "description": "13-devops DEPLOYMENT, CI_CD release.yml, DEVSECOPS signing.",
+   "sources": [
+    "13-devops/DEPLOYMENT.md"
+   ],
+   "trace": {},
+   "acceptance": [],
+   "risks": [],
+   "unknowns": []
+  },
+  {
+   "id": "FX-18",
+   "title": "Full AI evaluation datasets and CI gates; owner-facing AI (BL-13)",
+   "epic": "EP-16",
+   "module": "M06",
+   "lane": "DEV1",
+   "cycle": null,
+   "priority": "P3",
+   "est_h": 12,
+   "labels": [
+    "AI",
+    "QA",
+    "POST-DAY-5"
+   ],
+   "evidence": "PROPOSED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-094"
+   ],
+   "description": "AI_EVALUATION datasets at full size (60/50/60/40/30/25/40).",
+   "sources": [
+    "09-ai/AI_EVALUATION.md"
+   ],
+   "trace": {},
+   "acceptance": [],
+   "risks": [],
+   "unknowns": []
+  },
+  {
+   "id": "FX-19",
+   "title": "Accessibility audit, responsive polish, global search UI, saved views",
+   "epic": "EP-19",
+   "module": "M09",
+   "lane": "DEV4",
+   "cycle": null,
+   "priority": "P3",
+   "est_h": 10,
+   "labels": [
+    "FRONTEND",
+    "POST-DAY-5"
+   ],
+   "evidence": "PROPOSED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-011"
+   ],
+   "description": "NFR-12, UI-A11Y full, SCR-007, UI-HELP.",
+   "sources": [
+    "08-ux/UX_STATES.md",
+    "08-ux/NAVIGATION.md"
+   ],
+   "trace": {
+    "req": [
+     "FR-SH-10",
+     "FR-SH-14",
+     "NFR-12"
+    ],
+    "tests": [
+     "UI-A11Y",
+     "UI-HELP",
+     "FT-SH-08"
+    ]
+   },
+   "acceptance": [],
+   "risks": [],
+   "unknowns": []
+  },
+  {
+   "id": "FX-20",
+   "title": "Payment plans self-service, special levies UI, collections full lifecycle",
+   "epic": "EP-06",
+   "module": "M03",
+   "lane": "DEV2",
+   "cycle": null,
+   "priority": "P3",
+   "est_h": 10,
+   "labels": [
+    "STRATA",
+    "POST-DAY-5"
+   ],
+   "evidence": "PROPOSED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-025"
+   ],
+   "description": "FR-ST-14 (full), BL-16.",
+   "sources": [
+    "15-build/FUTURE_BACKLOG.md"
+   ],
+   "trace": {},
+   "acceptance": [],
+   "risks": [],
+   "unknowns": []
+  },
+  {
+   "id": "FX-22",
+   "title": "Tasks, notes and timeline UI with configurable automation rules",
+   "epic": "EP-15",
+   "module": "M05",
+   "lane": "DEV1",
+   "cycle": null,
+   "priority": "P3",
+   "est_h": 8,
+   "labels": [
+    "PLATFORM",
+    "FEATURE",
+    "POST-DAY-5"
+   ],
+   "evidence": "CONFIRMED",
+   "state": "Backlog",
+   "depends_on": [
+    "VX-009"
+   ],
+   "description": "F-SH-08 complete: SCR-009 tasks, notes and timeline per entity, and the rule catalog (invoice pending > 5 days, insurance expiry, compliance expiring, WO at-risk). Tasks/notes/timeline are CONFIRMED capabilities (EV-012).",
+   "sources": [
+    "04-shared-platform/COMMON_SERVICES.md"
+   ],
+   "trace": {
+    "req": [
+     "FR-SH-11"
+    ],
+    "tests": [
+     "FT-SH-09"
+    ]
+   },
+   "acceptance": [
+    "See FT-SH-09."
+   ],
+   "risks": [],
+   "unknowns": []
+  },
+  {
+   "id": "FX-21",
+   "title": "Future backlog umbrella (BL-01..BL-20: native apps, real banks, E-Services, term deposits, M365 channels…)",
+   "epic": "EP-22",
+   "module": null,
+   "lane": null,
+   "cycle": null,
+   "priority": "P3",
+   "est_h": 0,
+   "labels": [
+    "POST-DAY-5",
+    "DOCUMENTATION"
+   ],
+   "evidence": "CONFIRMED",
+   "state": "Backlog",
+   "depends_on": [],
+   "description": "Tracks 15-build/FUTURE_BACKLOG.md. Split into items when prioritised.",
+   "sources": [
+    "15-build/FUTURE_BACKLOG.md",
+    "15-build/KNOWN_LIMITATIONS.md"
+   ],
+   "trace": {},
+   "acceptance": [],
+   "risks": [],
+   "unknowns": []
+  }
+ ]
+}

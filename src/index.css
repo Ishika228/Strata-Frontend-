@@ -1,0 +1,249 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-navy: #08294A;
+    --color-blue: #0D4775;
+    --color-primary-teal: #00B5A4;
+
+    --color-dark-teal: #008F87;
+    --color-bright-teal: #27C6B8;
+    --color-light-teal: #68E0D6;
+    --color-accent-blue: #1493B8;
+    --color-soft-blue: #B8E9F2;
+    --color-pale-teal: #DDF5F4;
+
+    --color-success: #00A878;
+    --color-warning: #E59A28;
+    --color-error: #E65B51;
+    --color-info: #1493B8;
+
+    --color-card: #FFFFFF;
+    --color-background: #F4F8FC;
+    --color-surface: #EAF3F8;
+
+    --color-heading: #102747;
+    --color-text: #334B68;
+    --color-muted: #71849A;
+
+    /* Theme alias variables */
+    --brand: #00B5A4;
+    --brand-50: #DDF5F4;
+    --brand-100: #B8E9F2;
+    --brand-500: #00B5A4;
+    --brand-600: #008F87;
+    --brand-700: #0D4775;
+    --surface-bg: #F4F8FC;
+    --card-bg: #FFFFFF;
+    --card-border: #E2E8F0;
+  }
+
+  .dark {
+    --color-navy: #08294A;
+    --color-blue: #0D4775;
+    --color-primary-teal: #00B5A4;
+    --brand: #27C6B8;
+    --brand-50: #08294A;
+    --brand-100: #0D4775;
+    --brand-500: #00B5A4;
+    --brand-600: #008F87;
+    --brand-700: #0D4775;
+    --surface-bg: #061527;
+    --card-bg: #08203d;
+    --card-border: #102e52;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-text);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    letter-spacing: -0.011em;
+  }
+
+  .dark body {
+    color: #f1f5f9;
+  }
+}
+
+/* Polished scrollbars */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #334155;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Accessible focus ring */
+*:focus-visible {
+  outline: 2px solid var(--color-primary-teal);
+  outline-offset: 1px;
+}
+
+/* Hide scrollbar utility */
+.no-scrollbar::-webkit-scrollbar,
+.scrollbar-none::-webkit-scrollbar {
+  display: none !important;
+}
+.no-scrollbar,
+.scrollbar-none {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+}
+
+/* Custom curved & inset sidebar scrollbar */
+.sidebar-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+.sidebar-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+.sidebar-scrollbar::-webkit-scrollbar-thumb {
+  background: #00B5A4;
+  border-radius: 9999px;
+  box-shadow: 0 0 6px rgba(0, 181, 164, 0.4);
+}
+.sidebar-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #27C6B8;
+}
+.sidebar-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #00B5A4 transparent;
+}
+
+/* Card hover transitions */
+.transition-card {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Global Table Heading Standardization */
+table thead tr {
+  background-color: #F8FAFC !important;
+  border-bottom: 1px solid #E5EEF5 !important;
+}
+
+table thead tr th {
+  padding: 12px !important;
+  background-color: #F8FAFC !important;
+  border-bottom: 1px solid #E5EEF5 !important;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  color: #102747 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  line-height: 1rem !important;
+  text-align: left !important;
+  white-space: nowrap !important;
+  user-select: none !important;
+  transition: background-color 150ms ease;
+}
+
+table thead tr th:hover {
+  background-color: #F4F8FC !important;
+}
+
+/* Global Table Typography Standardization */
+table tbody tr td {
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  color: #102747 !important;
+}
+
+/* Primary text & numeric wrappers inside table cells (excluding badges, buttons, links, subcontents) */
+table tbody tr td > div:first-child:not([class*="rounded"]):not(.text-\[11px\]):not(.text-\[10px\]):not(.text-\[\#71849A\]):not(.table-subcontent),
+table tbody tr td > span:not([class*="rounded"]):not([class*="badge"]):not(.text-\[11px\]):not(.text-\[10px\]):not(.text-\[\#71849A\]):not(.table-subcontent) {
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  color: #102747 !important;
+}
+
+/* Allow badges, pills, and action buttons inside tables to keep their semantic/button colors */
+table tbody tr td span[class*="rounded"],
+table tbody tr td span[class*="badge"],
+table tbody tr td button,
+table tbody tr td a,
+table tbody tr td input {
+  font-family: inherit;
+}
+
+/* Uniform capsule width per column: matches the widest capsule/text in that column */
+table tbody tr td:has(> span[class*="rounded"]:only-child) {
+  width: 1%;
+  white-space: nowrap;
+}
+
+table tbody tr td > span[class*="rounded"]:only-child {
+  display: inline-flex !important;
+  width: 100% !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+}
+
+/* Remove grey background from any table content and apply primary content typography */
+table tbody tr td [class*="bg-slate-"]:not([class*="h-2"]):not([class*="h-1"]):not(input),
+table tbody tr td [class*="bg-gray-"]:not([class*="h-2"]):not([class*="h-1"]):not(input),
+table tbody tr td [class*="bg-zinc-"]:not([class*="h-2"]):not([class*="h-1"]):not(input),
+table tbody tr td [class*="bg-neutral-"]:not([class*="h-2"]):not([class*="h-1"]):not(input),
+table tbody tr td[class*="bg-slate-"],
+table tbody tr td[class*="bg-gray-"] {
+  background-color: transparent !important;
+  border-color: transparent !important;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  color: #102747 !important;
+}
+
+table tbody tr td > span[class*="bg-slate-"]:only-child,
+table tbody tr td > span[class*="bg-gray-"]:only-child {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  justify-content: flex-start !important;
+  text-align: left !important;
+}
+
+/* Subcontents inside table cells (secondary labels, addresses, subtitle text) */
+table tbody tr td .table-subcontent,
+table tbody tr td .text-\[11px\]:not([class*="rounded"]):not(button):not(a),
+table tbody tr td .text-\[10px\]:not([class*="rounded"]):not(button):not(a),
+table tbody tr td p.text-slate-500:not([class*="rounded"]),
+table tbody tr td p.text-slate-600:not([class*="rounded"]),
+table tbody tr td p.text-slate-700:not([class*="rounded"]),
+table tbody tr td span.text-slate-500:not([class*="rounded"]),
+table tbody tr td span.text-slate-600:not([class*="rounded"]),
+table tbody tr td span.text-slate-700:not([class*="rounded"]),
+table tbody tr td div.text-slate-500:not([class*="rounded"]),
+table tbody tr td div.text-slate-600:not([class*="rounded"]),
+table tbody tr td div.text-slate-700:not([class*="rounded"]),
+table tbody tr td div.text-\[\#71849A\],
+table tbody tr td span.text-\[\#71849A\],
+table tbody tr td span.text-slate-400:not([class*="rounded"]),
+table tbody tr td div.text-slate-400:not([class*="rounded"]),
+table tbody tr td > div + div:not([class*="rounded"]) {
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 400 !important;
+  color: #71849A !important;
+}
+
