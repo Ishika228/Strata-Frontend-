@@ -129,3 +129,5 @@ The application runs at `http://localhost:3000` (or the port allocated by Vite).
 | `⌘K` / `Ctrl+K` | Open Global Command Palette Search across properties, assets, work orders, and contractors |
 | `⌘J` / `Ctrl+J` | Open Vertex FM AI Copilot Drawer with live streaming, citation chips, and proposals |
 | `/` | Focus search filter bar in any DataTable |
+#   S t r a t a - F r o n t e n d -  
+ 
